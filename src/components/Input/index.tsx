@@ -1,10 +1,11 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 
 import Label from '../Label';
 import useCustomID from '@/hooks/useCustomId';
+import { Eye, EyeSlash } from '@/assets';
 
 interface IInputProps {
   icon?: string;
@@ -24,7 +25,10 @@ interface IInputProps {
   clipboardText?: string;
   tooltipDetails?: string;
   inputClassName?: string;
+  hideCharacter?: boolean;
   value?: string | number | any;
+  eyeIconPosition?: 'left' | 'right';
+  type?: React.HTMLInputTypeAttribute;
   onClick?: (event: React.MouseEvent<HTMLInputElement>) => void;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   clearInputClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
@@ -47,6 +51,7 @@ const CInput = ({
   label,
   error,
   paste,
+  type,
   value,
   border,
   onClick,
@@ -56,6 +61,8 @@ const CInput = ({
   autoFocus,
   className,
   copyButton,
+  eyeIconPosition,
+  hideCharacter,
   placeholder,
   handlePaste,
   enterKeyHint,
@@ -64,7 +71,13 @@ const CInput = ({
   handleCopyButton,
   ...props
 }: IInputProps) => {
-  const id = useCustomID('input');
+  const id = useCustomID('Cinput');
+
+  const [showPassword, setShowPassword] = useState(false);
+
+  const toggleShowPassword = () => {
+    if (hideCharacter) setShowPassword(!showPassword);
+  };
 
   return (
     <div className={className}>
@@ -86,32 +99,22 @@ const CInput = ({
           </div>
         )}
 
-        {/* {copyButton && (
+        {hideCharacter && (
           <div
-            className="text-midnightBlue text-sm px-2 py-[6px] rounded-lg absolute bottom-3 right-3.5 cursor-pointer transition hover:bg-[#E6E6EC]"
-            onClick={handleCopyButton}
+            className={`absolute ${error ? '' : ''} top-[15px] ${
+              eyeIconPosition === 'left' ? 'left-3' : 'right-3'
+            } cursor-pointer select-none`}
+            onClick={toggleShowPassword}
           >
-            <Image src={copy} alt="copy" />
+            {showPassword ? <Eye /> : <EyeSlash />}
           </div>
-        )} */}
-
-        {/* {!error && clearInput && (
-          <div className="absolute bottom-3.5 right-3.5">
-            <Image
-              src={clearInputLogo}
-              width={0}
-              height={0}
-              alt="clear"
-              className="cursor-pointer"
-              onClick={clearInputClick}
-            />
-          </div>
-        )} */}
+        )}
 
         <input
-          id={id}
           {...props}
+          id={id}
           value={value}
+          type={hideCharacter ? (showPassword ? 'text' : 'password') : type}
           onClick={onClick}
           disabled={disabled}
           onChange={onChange}
@@ -133,9 +136,9 @@ const CInput = ({
           `}
         />
 
-        <div className="h-[20px] absolute mt-[6px] ml-1">
+        <div className="mt-[2px] ml-1 transition">
           {error && errorMsg && (
-            <span className="text-error text-sm">{errorMsg}</span>
+            <span className="text-red-500 text-sm">{errorMsg}</span>
           )}
         </div>
       </div>
