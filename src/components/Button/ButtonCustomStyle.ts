@@ -14,7 +14,7 @@ const buttonCustomStyles = (
   const VariantStyles =
     variant === 'simple'
       ? 'rounded-[30px] text-center text-base px-6 h-11 flex flex-row justify-center items-center whitespace-nowrap select-none'
-      : 'bg-[#1B59F8] rounded-[16px] w-[329px] h-12 text-white transition text-[18px] text-center flex justify-center items-center select-none';
+      : 'bg-[#1B59F8] rounded-[12px] w-[329px] h-12 text-white transition text-base text-center flex justify-center items-center select-none';
 
   return `${colorStyles} ${VariantStyles}`;
 };

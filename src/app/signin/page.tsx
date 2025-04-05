@@ -1,11 +1,9 @@
-/* eslint-disable react/no-unescaped-entities */
-import { Metadata } from 'next';
-
 import AuthLayout from '@/containers/AuthLayout';
 import SignInForm from './signinForm';
+import { Metadata } from 'next/types';
 
 export const metadata: Metadata = {
-  title: 'Ryvit - Sign in',
+  title: 'Ryvit - Sign In',
 };
 
 const SignIn = () => {
