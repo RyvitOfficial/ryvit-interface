@@ -2,6 +2,7 @@ version: "3.8"
 
 services:
   ryvit-interface:
+    build: .
     image: ryvit-interface:latest
     pull_policy: never
     restart: on-failure
