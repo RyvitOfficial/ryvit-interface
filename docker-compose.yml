@@ -1,0 +1,9 @@
+version: '3'
+
+services:
+  ryvit-interface:
+    image: ryvit-interface:latest
+    pull_policy: never
+    restart: on-failure
+    ports:
+      - '127.0.0.1:3002:3000'
