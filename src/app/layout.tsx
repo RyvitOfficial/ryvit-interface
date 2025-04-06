@@ -8,7 +8,7 @@ import { store } from '@/store';
 import Metadata from '@/constants/metaData';
 import { Toaster } from 'sonner';
 
-export const inter = Inter({
+const inter = Inter({
   subsets: ['latin'],
   weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
   variable: '--font-inter',
