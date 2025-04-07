@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 export interface SignUpFormData {
   name: string;
   email: string;
@@ -17,6 +16,11 @@ export interface ApiResponse<T = any> {
 
 export interface IResponseSignIn {
   token?: string;
+}
+
+export interface AddContractFormData {
+  name: string;
+  contractId: string;
 }
 
 export type SvgProps = {
