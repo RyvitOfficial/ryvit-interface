@@ -25,7 +25,7 @@ export default function RootLayout({
         <meta charSet="UTF-8" />
         <Metadata />
       </head>
-      <body className={`${inter.variable} antialiased h-dvh`}>
+      <body className={`${inter.variable} antialiased h-screen`}>
         <Provider store={store}>
           {children}
           <Toaster position="bottom-center" />

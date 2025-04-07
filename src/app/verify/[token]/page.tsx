@@ -44,7 +44,7 @@ const VerifyEmailPage = ({
     };
 
     verify();
-  }, [token]);
+  }, [router, token]);
 
   const renderIcon = () => {
     if (status === 'loading') {
