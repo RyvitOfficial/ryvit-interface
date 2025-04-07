@@ -31,7 +31,7 @@ const AddContractModal = ({
     if (isOpen) {
       setIsOpen(true);
     }
-  }, [isOpen]);
+  }, [isOpen, setIsOpen]);
 
   const token = useAppSelector((state) => state.user.token);
   const isLogin = useAppSelector((state) => state.user.isLogin);
