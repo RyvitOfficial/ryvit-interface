@@ -1,11 +1,11 @@
 @import 'tailwindcss';
 
 @theme {
-  --color-primary: '#1B59F8';
-  --color-secondary: '#343C6A';
-  --color-primaryLight: 'rgba(27, 89, 248, 0.1)';
-  --color-background: '#F5F7FA';
-  --color-border: '#E9EAEB';
+  --color-primary: #1b59f8;
+  --color-secondary: #343c6a;
+  --color-primaryLight: rgba(27, 89, 248, 0.1);
+  --color-background: #f5f7fa;
+  --color-border: #e9eaeb;
 
   --font-inter: 'Inter', sans-serif;
 }
@@ -13,30 +13,4 @@
 body {
   background-color: #f5f7fa;
   font-family: Inter;
-}
-
-.glow {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  width: 400px;
-  height: 400px;
-  background: radial-gradient(
-    circle,
-    rgba(27, 89, 248, 0.7) 0%,
-    rgba(27, 89, 248, 0) 70%
-  );
-  filter: blur(100px);
-  transform: translate(-50%, -50%);
-  animation: moveGlow 8s infinite alternate ease-in-out;
-  z-index: 0;
-}
-
-@keyframes moveGlow {
-  0% {
-    transform: translate(-50%, -50%) scale(1);
-  }
-  100% {
-    transform: translate(-50%, -45%) scale(1.2);
-  }
 }

@@ -1,24 +1,23 @@
+// tailwind.config.ts
 import type { Config } from 'tailwindcss';
 
 const config: Config = {
   content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './pages/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './src/**/*.{js,ts,jsx,tsx}',
+    './app/**/*.{ts,tsx}',
+    './pages/**/*.{ts,tsx}',
+    './components/**/*.{ts,tsx}',
   ],
   theme: {
     extend: {
       colors: {
-        primary: '#1B59F8',
-        secondary: '#343C6A',
-        primaryLight: 'rgba(27, 89, 248, 0.1)',
-        background: '#F5F7FA',
-        border: '#E9EAEB',
+        primary: 'var(--color-primary)',
+        secondary: 'var(--color-secondary)',
+        primaryLight: 'var(--color-primaryLight)',
+        background: 'var(--color-background)',
+        border: 'var(--color-border)',
       },
-
       fontFamily: {
-        inter: ['var(--font-inter)', 'sans-serif'],
+        inter: ['var(--font-inter)'],
       },
     },
   },
