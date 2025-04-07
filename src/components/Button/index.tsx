@@ -3,9 +3,13 @@ import Image, { StaticImageData } from 'next/image';
 
 import buttonCustomStyles from './ButtonCustomStyle';
 
-export type CButtonSvgLogoType = 'fluxityLogo' | 'withdraw';
 export type CButtonVariantType = 'simple' | 'form';
-export type CButtonColorType = 'blue' | 'darkBlue' | 'white';
+export type CButtonColorType =
+  | 'blue'
+  | 'darkBlue'
+  | 'white'
+  | 'outline'
+  | 'outlineWhiteBlack';
 
 interface ButtonProps {
   color?: CButtonColorType;
@@ -16,7 +20,6 @@ interface ButtonProps {
   className?: string;
   fill?: string;
   logo?: string | StaticImageData;
-  svgLogo?: CButtonSvgLogoType;
   onClick?: () => void;
 }
 
