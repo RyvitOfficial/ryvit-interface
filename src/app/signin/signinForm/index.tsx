@@ -67,7 +67,7 @@ const SignInForm = () => {
       dispatch(login(resultLogin.result.token));
       localStorage.setItem('rememberMe', rememberMe ? 'true' : 'false');
       router.push('/dashboard');
-    } catch (error: any) {
+    } catch {
       Toast({ text: 'Login failed', type: 'error' });
     }
 

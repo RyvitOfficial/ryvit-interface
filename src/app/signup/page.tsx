@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unescaped-entities */
 import { Metadata } from 'next';
 
 import AuthLayout from '@/containers/AuthLayout';

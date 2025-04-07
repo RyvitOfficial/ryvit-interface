@@ -11,13 +11,11 @@ interface IInputProps {
   icon?: string;
   label?: string;
   error?: boolean;
-  paste?: boolean;
   border?: boolean;
   errorMsg?: string;
   disabled?: boolean;
   className?: string;
   autoFocus?: boolean;
-  copyButton?: boolean;
   clearInput?: boolean;
   placeholder?: string;
   tooltipTitle?: string;
@@ -32,10 +30,6 @@ interface IInputProps {
   onClick?: (event: React.MouseEvent<HTMLInputElement>) => void;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   clearInputClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
-  handlePaste?: (event: React.MouseEventHandler<HTMLDivElement>) => void;
-  handleCopyButton?: (
-    event: React.MouseEvent<HTMLImageElement, MouseEvent>,
-  ) => void;
   enterKeyHint?:
     | 'search'
     | 'done'
@@ -50,7 +44,6 @@ const CInput = ({
   icon,
   label,
   error,
-  paste,
   type,
   value,
   border,
@@ -60,15 +53,12 @@ const CInput = ({
   errorMsg,
   autoFocus,
   className,
-  copyButton,
   eyeIconPosition,
   hideCharacter,
   placeholder,
-  handlePaste,
   enterKeyHint,
   iconClassName,
   inputClassName,
-  handleCopyButton,
   ...props
 }: IInputProps) => {
   const id = useCustomID('Cinput');
@@ -87,15 +77,6 @@ const CInput = ({
         {icon && (
           <div className={`${iconClassName} absolute bottom-4 left-3.5`}>
             <Image src={icon} width={22} height={22} alt="inputIcon" />
-          </div>
-        )}
-
-        {paste && (
-          <div
-            className="bg-white text-midnightBlue text-sm px-[14px] py-[6px] rounded-lg absolute bottom-3 right-3.5 cursor-pointer transition hover:bg-[#E6E6EC]"
-            onClick={handlePaste}
-          >
-            <span>Paste</span>
           </div>
         )}
 
