@@ -109,7 +109,7 @@ const CInput = ({
             ${icon ? 'px-12' : 'px-4'}
             ${
               border
-                ? 'border-2 border-[#e5e5e5] focus:border-blue-500'
+                ? 'border-2 border-border focus:border-blue-500'
                 : 'border-transparent'
             }
             ${error && 'border !border-error'}

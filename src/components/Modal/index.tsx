@@ -15,6 +15,7 @@ type ModalProps = {
   className?: string;
   title?: string | React.ReactNode | React.JSX.Element;
   icon?: React.ReactNode;
+  iconClick: () => void;
 };
 
 const Modal = ({
@@ -24,6 +25,7 @@ const Modal = ({
   width,
   icon,
   onClose,
+  iconClick,
   className,
 }: ModalProps) => {
   const modalRef = useRef<HTMLDivElement | null>(null);
@@ -70,7 +72,7 @@ const Modal = ({
                 )}
                 <p className="text-xl font-medium">{title}</p>
               </div>
-              <div onClick={onClose} className="cursor-pointer">
+              <div onClick={iconClick} className="cursor-pointer">
                 <Close fill="#c9c9c9" />
               </div>
             </header>

@@ -34,7 +34,6 @@ const AddContractModal = ({
   }, [isOpen, setIsOpen]);
 
   const token = useAppSelector((state) => state.user.token);
-  const isLogin = useAppSelector((state) => state.user.isLogin);
 
   const isValidateContractAddress = StrKey.isValidContract(
     contractAddress.toUpperCase(),
@@ -53,10 +52,10 @@ const AddContractModal = ({
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (isLogin) {
+    if (token) {
       const addContractPromise = AddContract(
         { name: contractName, contractId: contractAddress },
-        token!,
+        token,
       );
 
       Toast({
@@ -73,10 +72,24 @@ const AddContractModal = ({
     onClose();
   };
 
+  const handleCancelClick = () => {
+    setContractName('');
+    setContractAddress('');
+
+    onClose();
+  };
+
+  const handleIconClick = () => {
+    setContractName('');
+    setContractAddress('');
+
+    onClose();
+  };
   return (
     <Modal
       isOpen={isOpen}
       onClose={onClose}
+      iconClick={handleIconClick}
       title="Add Contract"
       icon={<FileAdd fill="#414651" />}
     >
@@ -108,6 +121,7 @@ const AddContractModal = ({
             variant="simple"
             color="outlineWhiteBlack"
             className="!w-[40%]"
+            onClick={handleCancelClick}
           />
           <Button
             content="Confirm"

@@ -1,8 +1,14 @@
 'use client';
 
 import user, { login } from '@/reducers/user';
-
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
+
+function getCookie(name: string): string | null {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop()?.split(';').shift() || null;
+  return null;
+}
 
 const rootReducer = combineReducers({
   user,
@@ -17,16 +23,17 @@ export const store = configureStore({
 });
 
 if (typeof window !== 'undefined') {
-  const rememberMe = localStorage.getItem('rememberMe');
-  if (rememberMe && rememberMe === 'true') {
-    const token = localStorage.getItem('token');
+  const rememberMe = getCookie('rememberMe');
+  const token = getCookie('token');
+  if (token) {
+    store.dispatch(login(token));
+  }
+  if (rememberMe === 'true') {
     if (token) {
       store.dispatch(login(token));
-    } else {
-      localStorage.removeItem('token');
     }
   } else {
-    localStorage.removeItem('rememberMe');
+    document.cookie = 'rememberMe=; path=/; max-age=0';
   }
 }
 

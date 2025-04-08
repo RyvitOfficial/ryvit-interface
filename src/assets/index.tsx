@@ -4,6 +4,7 @@ export { default as Close } from './Close';
 export { default as Home } from './Home';
 export { default as Check } from './Check';
 export { default as FileAdd } from './FileAdd';
+export { default as Crypto } from './Crypto';
 export { default as Wallet } from './Wallet';
 export { default as Setting } from './Setting';
 export { default as EyeSlash } from './EyeSlash';

@@ -1,8 +1,12 @@
 'use client';
 
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { usePathname, useRouter } from 'next/navigation';
+import { RootState } from '@/store';
+
 import Aside from '@/components/Aside';
 import Header from '@/components/Header';
-import { usePathname } from 'next/navigation';
 
 const titleMap: Record<string, string> = {
   '/dashboard': 'Dashboard',
@@ -18,7 +22,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
+  const router = useRouter();
   const title = titleMap[pathname];
+  const isLogin = useSelector((state: RootState) => state.user.isLogin);
+
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+    if (!isLogin) {
+      router.push('/signin');
+    }
+  }, [isLogin, router]);
+
+  if (!isMounted) return null;
+
+  if (!isLogin) return null;
 
   return (
     <div className="bg-background w-full h-full flex justify-center items-center">
@@ -27,7 +46,6 @@ export default function RootLayout({
 
         <section className="flex flex-col w-full">
           <Header title={title} />
-
           <article>{children}</article>
         </section>
       </div>

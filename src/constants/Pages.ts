@@ -6,4 +6,5 @@ export enum Pages {
   FORGET = '/forget-password',
   RESET = '/forget-password/reset',
   VERIFY = '/verify',
+  RYVIT_MAIN = 'https://panel.ryvit.app/',
 }
