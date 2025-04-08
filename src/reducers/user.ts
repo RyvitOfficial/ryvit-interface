@@ -12,6 +12,19 @@ const initialState: AuthState = {
   user: null,
 };
 
+function setCookie(name: string, value: string, days?: number) {
+  let cookie = `${name}=${value}; path=/;`;
+  if (days) {
+    const maxAge = days * 24 * 60 * 60;
+    cookie += ` max-age=${maxAge};`;
+  }
+  document.cookie = cookie;
+}
+
+function removeCookie(name: string) {
+  document.cookie = `${name}=; path=/; max-age=0;`;
+}
+
 const user = createSlice({
   name: 'user',
   initialState,
@@ -19,13 +32,14 @@ const user = createSlice({
     login: (state, action: PayloadAction<string>) => {
       state.isLogin = true;
       state.token = action.payload;
-      localStorage.setItem('token', action.payload);
+      setCookie('token', action.payload, 30);
     },
 
     logout: (state) => {
       state.isLogin = false;
       state.token = null;
-      localStorage.removeItem('token');
+      removeCookie('token');
+      removeCookie('rememberMe');
     },
   },
 });

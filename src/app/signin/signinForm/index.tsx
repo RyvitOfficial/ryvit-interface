@@ -65,7 +65,13 @@ const SignInForm = () => {
       }
 
       dispatch(login(resultLogin.result.token));
-      localStorage.setItem('rememberMe', rememberMe ? 'true' : 'false');
+      if (rememberMe) {
+        document.cookie = `rememberMe=true; path=/; max-age=${
+          30 * 24 * 60 * 60
+        }`;
+      } else {
+        document.cookie = `rememberMe=false; path=/;`;
+      }
       router.push('/dashboard');
     } catch {
       Toast({ text: 'Login failed', type: 'error' });
