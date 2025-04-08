@@ -24,7 +24,15 @@ const ManageContract = ({ id }: ManageContractProps) => {
 
     data();
   }, [id, token]);
-  return <div>{details?.liveLedger}</div>;
+
+  return (
+    <section>
+      <article>
+        <div>card</div>
+        <div>overview</div>
+      </article>
+    </section>
+  );
 };
 
 export default ManageContract;
