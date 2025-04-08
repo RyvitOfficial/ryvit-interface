@@ -1,7 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { StrKey } from '@stellar/stellar-sdk';
+import dynamic from 'next/dynamic';
+
 import { useAppSelector } from '@/hooks/useRedux';
 
 import Modal from '@/components/Modal';
@@ -12,6 +13,10 @@ import Toast from '@/components/Toasts';
 import { AddContract } from '@/api/addContract';
 
 import { FileAdd } from '@/assets';
+
+const ValidateContract = dynamic(() => import('@/utils/ValidateContract'), {
+  ssr: false,
+});
 
 interface AddContractModalProps {
   isOpen: boolean;
@@ -26,18 +31,15 @@ const AddContractModal = ({
 }: AddContractModalProps) => {
   const [contractName, setContractName] = useState('');
   const [contractAddress, setContractAddress] = useState('');
+  const [isValidAddress, setIsValidAddress] = useState(false);
+
+  const token = useAppSelector((state) => state.user.token);
 
   useEffect(() => {
     if (isOpen) {
       setIsOpen(true);
     }
   }, [isOpen, setIsOpen]);
-
-  const token = useAppSelector((state) => state.user.token);
-
-  const isValidateContractAddress = StrKey.isValidContract(
-    contractAddress.toUpperCase(),
-  );
 
   const handleContractAddressChange = (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -52,7 +54,7 @@ const AddContractModal = ({
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (token) {
+    if (token && isValidAddress) {
       const addContractPromise = AddContract(
         { name: contractName, contractId: contractAddress },
         token,
@@ -75,16 +77,15 @@ const AddContractModal = ({
   const handleCancelClick = () => {
     setContractName('');
     setContractAddress('');
-
     onClose();
   };
 
   const handleIconClick = () => {
     setContractName('');
     setContractAddress('');
-
     onClose();
   };
+
   return (
     <Modal
       isOpen={isOpen}
@@ -109,9 +110,15 @@ const AddContractModal = ({
           label="Contract Address"
           border
           value={contractAddress}
-          error={!isValidateContractAddress && contractAddress !== ''}
-          errorMsg="The address is invalid"
           onChange={handleContractAddressChange}
+          error={!isValidAddress && contractAddress !== ''}
+          errorMsg="The address is invalid"
+        />
+
+        {/* Dynamically validate contract address */}
+        <ValidateContract
+          contractAddress={contractAddress}
+          onValidationResult={setIsValidAddress}
         />
 
         <div className="flex items-center justify-center w-full space-x-2 mt-6">

@@ -1,3 +1,5 @@
+'use client';
+
 import { rpc, Horizon } from '@stellar/stellar-sdk';
 
 import { NetworkType } from '@/types';
