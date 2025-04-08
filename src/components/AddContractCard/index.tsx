@@ -15,7 +15,7 @@ const AddContractCard = ({ addContractOnClick }: AddContractCard) => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: 'easeOut' }}
-        className="bg-gradient-to-r from-blue-500 to-blue-700 text-white rounded-2xl p-6 md:p-8 shadow-xl mt-4 w-full"
+        className="bg-gradient-to-r from-blue-500 to-blue-700 text-white rounded-2xl p-6 md:p-8 mt-4 w-full"
       >
         <p className="mb-6 text-base md:text-lg leading-relaxed">
           By adding your contract IDs, you will be able to manage TTL, extend
