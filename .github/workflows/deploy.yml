@@ -1,0 +1,26 @@
+name: Deploy to Server
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+
+    steps:
+      - name: Go to project directory
+        run: cd /home/worker/ryvit/front/ryvit-interface
+
+      - name: Pull latest changes
+        run: git pull origin master
+        working-directory: /home/worker/ryvit/front/ryvit-interface
+
+      - name: Docker Compose Down
+        run: docker-compose down
+        working-directory: /home/worker/ryvit/front/ryvit-interface
+
+      - name: Docker Compose Up (with build)
+        run: docker-compose up --build -d
+        working-directory: /home/worker/ryvit/front/ryvit-interface
