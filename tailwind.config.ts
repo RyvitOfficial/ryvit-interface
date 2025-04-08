@@ -1,27 +1,26 @@
-// tailwind.config.ts
-import type { Config } from 'tailwindcss';
-
-const config: Config = {
+/** @type {import('tailwindcss').Config} */
+module.exports = {
   content: [
     './app/**/*.{ts,tsx}',
     './pages/**/*.{ts,tsx}',
     './components/**/*.{ts,tsx}',
+    './src/**/*.{ts,tsx}',
   ],
   theme: {
     extend: {
       colors: {
-        primary: 'var(--color-primary)',
-        secondary: 'var(--color-secondary)',
-        primaryLight: 'var(--color-primaryLight)',
-        background: 'var(--color-background)',
-        border: 'var(--color-border)',
+        primary: '#1b59f8',
+        secondary: '#343c6a',
+        primaryLight: 'rgba(27, 89, 248, 0.1)',
+        background: '#f5f7fa',
+        border: '#e9eaeb',
+        grayText: '#232323',
+        lightGrayText: '#718ebf',
       },
       fontFamily: {
-        inter: ['var(--font-inter)'],
+        inter: ['Inter', 'sans-serif'],
       },
     },
   },
   plugins: [],
 };
-
-export default config;

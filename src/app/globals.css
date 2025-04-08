@@ -1,14 +1,6 @@
-@import 'tailwindcss';
-
-@theme {
-  --color-primary: #1b59f8;
-  --color-secondary: #343c6a;
-  --color-primaryLight: rgba(27, 89, 248, 0.1);
-  --color-background: #f5f7fa;
-  --color-border: #e9eaeb;
-
-  --font-inter: 'Inter', sans-serif;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 body {
   background-color: #f5f7fa;
