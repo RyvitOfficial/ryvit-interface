@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 
 import Button from '../Button';
+import Card from '../Card';
 
 interface AddContractCard {
   addContractOnClick: () => void;
@@ -10,7 +11,7 @@ interface AddContractCard {
 
 const AddContractCard = ({ addContractOnClick }: AddContractCard) => {
   return (
-    <div className="w-full">
+    <Card className="w-full" bgColor="transparent" borderColor="transparent">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -30,7 +31,7 @@ const AddContractCard = ({ addContractOnClick }: AddContractCard) => {
           onClick={addContractOnClick}
         />
       </motion.div>
-    </div>
+    </Card>
   );
 };
 

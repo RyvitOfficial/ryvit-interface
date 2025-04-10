@@ -100,9 +100,13 @@ const AddContractModal = ({
           label="Contract Name"
           border
           value={contractName}
+          maxLength={20}
           onChange={handleContractNameChange}
-          error={contractName !== '' && contractName.length < 3}
-          errorMsg="Contract name must be at least 3 characters"
+          error={
+            contractName !== '' &&
+            (contractName.length < 3 || contractName.length > 20)
+          }
+          errorMsg="Contract name must be between 3 and 20 characters"
         />
 
         <CInput
@@ -115,7 +119,6 @@ const AddContractModal = ({
           errorMsg="The address is invalid"
         />
 
-        {/* Dynamically validate contract address */}
         <ValidateContract
           contractAddress={contractAddress}
           onValidationResult={setIsValidAddress}
