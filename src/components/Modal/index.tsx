@@ -1,9 +1,8 @@
 'use client';
 
-import React, { useRef, useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 import cn from 'classnames';
-
-import useOutsideClickHandler from '@/hooks/useOutsideClickHandler';
 
 import { Close } from '@/assets';
 
@@ -13,9 +12,9 @@ type ModalProps = {
   onClose: () => void;
   children?: React.ReactNode;
   className?: string;
-  title?: string | React.ReactNode | React.JSX.Element;
+  title?: string | React.ReactNode;
   icon?: React.ReactNode;
-  iconClick: () => void;
+  iconClick?: () => void;
 };
 
 const Modal = ({
@@ -28,60 +27,73 @@ const Modal = ({
   iconClick,
   className,
 }: ModalProps) => {
-  const modalRef = useRef<HTMLDivElement | null>(null);
   const backdropRef = useRef<HTMLDivElement | null>(null);
 
-  useOutsideClickHandler(isOpen, onClose, modalRef);
-
   useEffect(() => {
-    if (backdropRef.current) {
-      backdropRef.current.style.opacity = isOpen ? '1' : '0';
-      backdropRef.current.style.pointerEvents = isOpen ? 'auto' : 'none';
+    if (typeof window !== 'undefined') {
+      document.body.style.overflow = isOpen ? 'hidden' : '';
     }
+    return () => {
+      document.body.style.overflow = '';
+    };
   }, [isOpen]);
 
   return (
-    <div
-      ref={backdropRef}
-      className={cn(
-        'fixed inset-0 z-50 flex items-center justify-center transition-opacity duration-500 ease-in-out',
-        isOpen
-          ? 'bg-black/45 backdrop-blur-[2px]'
-          : 'bg-black/0 pointer-events-none',
-      )}
-    >
-      <div
-        ref={modalRef}
-        className={cn(
-          className,
-          `fixed ${
-            width ? `w-[${width}]` : 'w-[482px] mobile:w-[calc(100%-32px)]'
-          } transform transition-all duration-500 ease-in-out ${
-            isOpen ? 'scale-100 opacity-100' : 'scale-75 opacity-0'
-          } top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 !z-[9999] rounded-[10px] shadow-2xl bg-white h-auto`,
-        )}
-      >
-        <div className="flex flex-col w-full h-full px-6 py-4 gap-4">
-          {title && (
-            <header className="flex justify-between items-center select-none py-4">
-              <div className="flex items-center space-x-2">
-                {icon && (
-                  <div className="w-[40px] h-[40px] border border-border rounded-[13px] flex justify-center items-center">
-                    {icon}
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          ref={backdropRef}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.2 }}
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/45 backdrop-blur-[2px]"
+          onClick={(e) => {
+            if (e.target === backdropRef.current) {
+              onClose();
+            }
+          }}
+        >
+          <motion.div
+            initial={{ scale: 0.75, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.75, opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            style={{ width: width ?? '482px' }}
+            className={cn(
+              'mobile:w-[calc(100%-32px)] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 !z-[9999] rounded-[10px] shadow-2xl bg-white',
+              className,
+            )}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex flex-col w-full h-full px-6 py-4 gap-4">
+              {title && (
+                <header className="flex justify-between items-center select-none py-4">
+                  <div className="flex items-center space-x-2">
+                    {icon && (
+                      <div className="w-[40px] h-[40px] border border-border rounded-[13px] flex justify-center items-center">
+                        {icon}
+                      </div>
+                    )}
+                    <p className="text-xl font-medium">{title}</p>
                   </div>
-                )}
-                <p className="text-xl font-medium">{title}</p>
-              </div>
-              <div onClick={iconClick} className="cursor-pointer">
-                <Close fill="#c9c9c9" />
-              </div>
-            </header>
-          )}
-          {children}
-        </div>
-      </div>
-    </div>
+                  <div
+                    onClick={iconClick ?? onClose}
+                    className="cursor-pointer"
+                  >
+                    <Close fill="#c9c9c9" />
+                  </div>
+                </header>
+              )}
+              {children}
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 };
+
+Modal.displayName = 'Modal';
 
 export default Modal;

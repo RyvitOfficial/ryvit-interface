@@ -18,6 +18,12 @@ const navItems = [
 const Aside = () => {
   const pathname = usePathname();
 
+  const activeHref = [...navItems]
+    .sort((a, b) => b.href.length - a.href.length)
+    .find(
+      ({ href }) => pathname === href || pathname.startsWith(href + '/'),
+    )?.href;
+
   return (
     <div className="bg-white rounded-[13px] border-2 border-[#E9EAEB] w-1/5 h-full">
       <div className="w-full flex items-center justify-center py-8">
@@ -30,8 +36,7 @@ const Aside = () => {
       </div>
       <nav className="flex flex-col space-y-2 px-5 mt-3">
         {navItems.map(({ name, href, icon }) => {
-          const isActive = pathname === href;
-
+          const isActive = href === activeHref;
           return (
             <Link
               key={name}

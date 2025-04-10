@@ -25,13 +25,20 @@ export interface AddContractFormData {
   contractId: string;
 }
 
+export interface ISettings {
+  plan: number;
+  autoExtend: boolean;
+  limit: number;
+}
+
 export interface IGetContractResponse {
   _id: string;
   name: string;
   address: string;
-  datakeys: IDataKey;
+  datakeys: IDataKey[];
   liveLedger: number;
   network: 'testnet' | 'mainnet';
+  settings: ISettings;
 }
 
 export interface IFunctionValue {
@@ -48,7 +55,8 @@ export interface IValue {
   rangeValue?: { min: number; max: number };
 }
 
-export interface IDataKey extends Document {
+export interface IDataKey {
+  _id: string;
   name: string;
   type: string;
   value: IValue;
@@ -56,6 +64,7 @@ export interface IDataKey extends Document {
   network: 'testnet' | 'mainnet';
   contract: string;
   valuesType: 'range' | 'list' | 'function' | 'none';
+  values?: string[] | number[];
 }
 
 export type SvgProps = {

@@ -32,28 +32,28 @@ const Header = ({ title }: HeaderProps) => {
   const changedDigits = getChangedDigits(previousLedger, lastLedger);
 
   return (
-    <header className="w-full bg-white rounded-[13px] border-2 border-border flex items-center justify-between h-[100px] px-8">
+    <header className="w-full bg-white rounded-[13px] border-2 border-border flex items-center justify-between h-[80px] px-8">
       <span className="text-2xl text-[#343C6A] font-[600]">{title}</span>
       <section className="flex items-center space-x-4">
         <div className="Ledger flex justify-center items-center space-x-2 border border-border rounded-xl pl-4 overflow-hidden">
           <div className="flex items-center space-x-2">
-            <div className="bg-green-600 h-[10px] w-[10px] rounded-full animate-pulse"></div>
-            <span className="text-gray-700 text-[14px] font-medium">
+            <div className="bg-green-500 h-[9px] w-[9px] rounded-full animate-pulse"></div>
+            <span className="text-secondary/70 text-[14px] font-medium">
               Last Ledger
             </span>
           </div>
 
-          <div className="bg-[#E9EFFF] px-3 py-2 h-full">
+          <div className="bg-[#E9EFFF] flex justify-center py-2 h-full min-w-[80px]">
             <span className="text-[13px] text-primary">
               {lastLedger.split('').map((digit, index) => (
                 <motion.span
                   key={index}
                   initial={{ opacity: 1 }}
-                  animate={{ opacity: changedDigits.includes(index) ? 0 : 1 }}
+                  animate={{ opacity: changedDigits.includes(index) ? 0.7 : 1 }}
                   transition={{
-                    duration: 0.01,
+                    duration: 1,
                     type: 'tween',
-                    ease: 'easeInOut',
+                    ease: 'linear',
                   }}
                   className={
                     changedDigits.includes(index)

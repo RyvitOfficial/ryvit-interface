@@ -1,7 +1,9 @@
 'use client';
 
-import user, { login } from '@/reducers/user';
+import user, { login, logout } from '@/reducers/user';
+import lastLedger from '@/reducers/lastLedger';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { GetTokenIsValid } from './api/getUser';
 
 function getCookie(name: string): string | null {
   const value = `; ${document.cookie}`;
@@ -12,6 +14,7 @@ function getCookie(name: string): string | null {
 
 const rootReducer = combineReducers({
   user,
+  lastLedger,
 });
 
 export const store = configureStore({
@@ -25,12 +28,22 @@ export const store = configureStore({
 if (typeof window !== 'undefined') {
   const rememberMe = getCookie('rememberMe');
   const token = getCookie('token');
+
   if (token) {
     store.dispatch(login(token));
+
+    GetTokenIsValid(token).then((res) => {
+      return res ? store.dispatch(login(token)) : store.dispatch(logout());
+    });
   }
+
   if (rememberMe === 'true') {
     if (token) {
       store.dispatch(login(token));
+
+      GetTokenIsValid(token).then((res) => {
+        return res ? store.dispatch(login(token)) : store.dispatch(logout());
+      });
     }
   } else {
     document.cookie = 'rememberMe=; path=/; max-age=0';
