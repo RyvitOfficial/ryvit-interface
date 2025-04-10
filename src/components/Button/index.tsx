@@ -9,7 +9,9 @@ export type CButtonColorType =
   | 'darkBlue'
   | 'white'
   | 'outline'
-  | 'outlineWhiteBlack';
+  | 'outlineWhiteBlack'
+  | 'discard'
+  | 'red';
 
 interface ButtonProps {
   color?: CButtonColorType;
@@ -37,7 +39,7 @@ const Button = ({
   return (
     <button
       type={type}
-      className={`${buttonCustomStyles(variant, color)} ${className}`}
+      className={`${buttonCustomStyles(variant, color, disabled)} ${className}`}
       disabled={disabled}
       {...props}
       onClick={onClick}
