@@ -4,7 +4,9 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 
 import Label from '../Label';
+
 import useCustomID from '@/hooks/useCustomId';
+
 import { Eye, EyeSlash } from '@/assets';
 
 interface IInputProps {
@@ -15,6 +17,7 @@ interface IInputProps {
   errorMsg?: string;
   disabled?: boolean;
   className?: string;
+  maxLength?: number;
   autoFocus?: boolean;
   clearInput?: boolean;
   placeholder?: string;
@@ -52,6 +55,7 @@ const CInput = ({
   onChange,
   errorMsg,
   autoFocus,
+  maxLength,
   className,
   eyeIconPosition,
   hideCharacter,
@@ -100,6 +104,7 @@ const CInput = ({
           disabled={disabled}
           onChange={onChange}
           autoFocus={autoFocus}
+          maxLength={maxLength}
           placeholder={placeholder}
           enterKeyHint={enterKeyHint}
           autoComplete="off"
