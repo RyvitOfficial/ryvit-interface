@@ -7,6 +7,7 @@ export { default as FileAdd } from './FileAdd';
 export { default as Crypto } from './Crypto';
 export { default as List } from './List';
 export { default as Range } from './Range';
+export { default as Loading } from './Loading';
 export { default as Function } from './Function';
 export { default as Wallet } from './Wallet';
 export { default as Setting } from './Setting';

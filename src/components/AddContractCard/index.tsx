@@ -25,7 +25,7 @@ const AddContractCard = ({ addContractOnClick }: AddContractCard) => {
         </p>
         <Button
           type="button"
-          variant="simple"
+          rounded="sm"
           color="outline"
           content="Add Contract"
           onClick={addContractOnClick}

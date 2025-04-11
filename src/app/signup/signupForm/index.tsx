@@ -100,7 +100,7 @@ const SignUpForm = () => {
 
           <div className="flex justify-center mt-4">
             <Button
-              variant="form"
+              rounded="xl"
               color="blue"
               type="submit"
               content={loading ? 'Signing Up...' : 'Sign Up'}
