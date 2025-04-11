@@ -13,11 +13,13 @@ import { IDataKey } from '@/types';
 interface DataKeysTableProps {
   dataKeys: IDataKey[];
   onSelectionChange?: (selected: { id: string; name: string }[]) => void;
+  clearTrigger: number;
 }
 
 export const DataKeysTable = ({
   dataKeys,
   onSelectionChange,
+  clearTrigger,
 }: DataKeysTableProps) => {
   const [selected, setSelected] = useState<string[]>([]);
 
@@ -34,6 +36,10 @@ export const DataKeysTable = ({
     }
   }, [selected]);
 
+  useEffect(() => {
+    setSelected([]);
+  }, [clearTrigger]);
+
   const toggleSelection = (id: string) => {
     setSelected((prev) =>
       prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id],
@@ -46,9 +52,9 @@ export const DataKeysTable = ({
   };
 
   return (
-    <div className="p-5 bg-white rounded-[13px] border-2 border-border h-full">
+    <div className="p-5 bg-white rounded-[13px] border-2 border-border h-[100%] overflow-y-auto">
       <h2 className="text-lg font-semibold text-secondary mb-4">DataKeys</h2>
-      <div className="border border-border rounded-xl">
+      <div className="border border-border rounded-xl ">
         <div className="grid grid-cols-[80px_2fr_1fr_1fr_1fr_1fr] items-center text-sm font-medium text-[#272833] border-b py-3 px-4 bg-[#f7f7f7]">
           <div>
             <Checkbox

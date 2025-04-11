@@ -128,7 +128,7 @@ const AddContractModal = ({
           <Button
             content="Cancel"
             type="button"
-            variant="simple"
+            rounded="xl"
             color="outlineWhiteBlack"
             className="!w-[40%]"
             onClick={handleCancelClick}
@@ -136,7 +136,7 @@ const AddContractModal = ({
           <Button
             content="Confirm"
             type="submit"
-            variant="form"
+            rounded="xl"
             color="blue"
             className="!w-[60%]"
           />

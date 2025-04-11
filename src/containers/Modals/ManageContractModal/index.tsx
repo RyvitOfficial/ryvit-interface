@@ -152,9 +152,9 @@ const ManageContractModal = ({
               Permanently delete this contract.
             </p>
           </div>
-          <div className="">
+          <div>
             <Button
-              variant="simple"
+              rounded="xl"
               color="red"
               content="Delete"
               className="!w-[200px]"
@@ -165,7 +165,7 @@ const ManageContractModal = ({
         <div className="flex space-x-4 w-full pt-4">
           <Button
             type="button"
-            variant="simple"
+            rounded="xl"
             color="discard"
             content="Discard Changes"
             className="w-[40%]"
@@ -174,7 +174,7 @@ const ManageContractModal = ({
 
           <Button
             type="submit"
-            variant="simple"
+            rounded="xl"
             color="blue"
             content="Save Changes"
             className="w-[60%]"

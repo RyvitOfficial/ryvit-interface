@@ -39,11 +39,11 @@ const ManageContractCard = ({
       style={{
         background: 'linear-gradient(to right, #1B59F8 0%, #194BCB 93%)',
       }}
-      className="rounded-2xl !py-10 md:p-8 !px-14 w-full !h-full"
+      className="rounded-2xl py-10 desktop:px-14 w-full !h-full xl:px-14 tablet:px-4 tablet:py-4 overflow-hidden"
     >
       <section className="h-full flex flex-col justify-between">
         <div className="flex justify-start items-center">
-          <div className="mr-4 h-full">
+          <div className="mr-4 h-full tablet:hidden mobile:hidden">
             <Image
               src="/images/crypto.png"
               alt="crypto"
@@ -55,37 +55,43 @@ const ManageContractCard = ({
             <h3 className="text-3xl font-[600] leading-relaxed tracking-wide">
               {details.name}
             </h3>
-            <p className="font-extralight text-lg leading-1">
+            <p className="font-extralight desktop:text-lg tablet:text-md leading-1 break-all">
               {details.address}
             </p>
           </div>
         </div>
 
-        <div className="flex space-x-6">
-          <Button
-            type="button"
-            variant="simple"
-            color="darkBlue"
-            content="Extend / Restore"
-            onClick={ExtendOnClick}
-            className="w-[35%]"
-            disabled={exntedDisabled}
-          />
+        <div className="flex justify-center items-center gap-6 tablet:gap-2 tablet:flex-wrap w-full">
+          <div className="w-[35%] tablet:w-full">
+            <Button
+              type="button"
+              rounded="sm"
+              color="darkBlue"
+              content="Extend / Restore"
+              onClick={ExtendOnClick}
+              className="!w-full tablet:!h-10 tablet:!w-full tablet:my-2"
+              disabled={exntedDisabled}
+            />
+          </div>
 
-          <Button
-            type="button"
-            variant="simple"
-            color="white"
-            content="Manage"
-            onClick={ManageOnClick}
-          />
-          <Button
-            type="button"
-            variant="simple"
-            color="white"
-            content="Add DataKey"
-            onClick={AddDataKeyOnClick}
-          />
+          <div className="flex  gap-6 w-[65%] tablet:w-full">
+            <Button
+              type="button"
+              rounded="sm"
+              color="white"
+              content="Manage"
+              onClick={ManageOnClick}
+              className="tablet:!w-full tablet:!h-10"
+            />
+            <Button
+              type="button"
+              rounded="sm"
+              color="white"
+              content="Add DataKey"
+              onClick={AddDataKeyOnClick}
+              className="tablet:!w-full tablet:!h-10"
+            />
+          </div>
         </div>
       </section>
 
