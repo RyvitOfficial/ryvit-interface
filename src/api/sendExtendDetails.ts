@@ -1,11 +1,14 @@
 import request from '@/utils/request';
 
-interface IInformExtendApi {
-  dataKeys: string[];
+import { ITransactionDetails } from '@/types';
+
+interface ISendTransactionDetails {
+  transactions: ITransactionDetails[];
+  successes: string[];
 }
 
-export const InformExtendApi = async (
-  formData: IInformExtendApi,
+export const SendTransactionDetails = async (
+  formData: ISendTransactionDetails,
   token: string,
   id: string,
 ) => {
@@ -13,7 +16,7 @@ export const InformExtendApi = async (
     const { data } = await request(
       `${process.env.NEXT_PUBLIC_RYVIT_API}/contracts/extend/${id}`,
       {
-        method: 'POST',
+        method: 'PUT',
         body: formData,
         headers: { authorization: `Bearer ${token}` },
       },
