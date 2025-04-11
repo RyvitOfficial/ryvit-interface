@@ -1,6 +1,6 @@
 'use client';
 
-import user, { login, logout } from '@/reducers/user';
+import user, { login, logout, setUserInfo } from '@/reducers/user';
 import lastLedger from '@/reducers/lastLedger';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { GetTokenIsValid } from './api/getUser';
@@ -33,7 +33,12 @@ if (typeof window !== 'undefined') {
     store.dispatch(login(token));
 
     GetTokenIsValid(token).then((res) => {
-      return res ? store.dispatch(login(token)) : store.dispatch(logout());
+      if (res) {
+        store.dispatch(setUserInfo(res));
+        store.dispatch(login(token));
+      } else {
+        store.dispatch(logout());
+      }
     });
   }
 
@@ -42,7 +47,12 @@ if (typeof window !== 'undefined') {
       store.dispatch(login(token));
 
       GetTokenIsValid(token).then((res) => {
-        return res ? store.dispatch(login(token)) : store.dispatch(logout());
+        if (res) {
+          store.dispatch(setUserInfo(res));
+          store.dispatch(login(token));
+        } else {
+          store.dispatch(logout());
+        }
       });
     }
   } else {

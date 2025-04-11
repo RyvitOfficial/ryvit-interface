@@ -21,6 +21,20 @@ module.exports = {
         inter: ['Inter', 'sans-serif'],
       },
     },
+    screens: {
+      mobile: { max: '640px' },
+      tablet: { min: '640px', max: '1023px' },
+      desktop: { min: '1024px' },
+      desktopMax: { max: '1536px' },
+      bigScreen: { min: '1550px' },
+
+      lg: { min: '1024px', max: '1279px' },
+      xl: { min: '1280px', max: '1535px' },
+      xxl: { min: '1536px' },
+
+      tall: { raw: '(min-height: 933px)' },
+      short: { raw: '(max-height: 716px)' },
+    },
   },
   plugins: [],
 };
