@@ -8,6 +8,7 @@ import { RootState } from '@/store';
 import Aside from '@/components/Aside';
 import Header from '@/components/Header';
 import resolveTitle from '@/utils/resolveTitle';
+import { Providers } from './providers';
 
 const titleMap: Record<string, string> = {
   '/dashboard': 'Dashboard',
@@ -42,17 +43,21 @@ export default function RootLayout({
   if (!isLogin) return null;
 
   return (
-    <div className="bg-background w-full h-full flex justify-center items-center">
-      <div className="flex justify-center items-start space-x-4 h-[95vh] w-[97%] !m-auto">
-        <Aside />
-
-        <section className="w-full">
-          <div>
-            <Header title={title} />
+    <Providers>
+      <div className="bg-background w-full h-full flex justify-center items-center">
+        <div className="flex justify-center items-start space-x-4 h-[95vh] w-[97%] !m-auto">
+          <div className="h-[100%] w-1/5">
+            <Aside />
           </div>
-          <article className="">{children}</article>
-        </section>
+
+          <section className="w-full h-full">
+            <div className="w-full">
+              <Header title={title} />
+            </div>
+            <article className="w-full">{children}</article>
+          </section>
+        </div>
       </div>
-    </div>
+    </Providers>
   );
 }

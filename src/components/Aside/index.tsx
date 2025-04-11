@@ -1,22 +1,21 @@
 'use client';
 
 import Image from 'next/image';
-
-import { usePathname } from 'next/navigation';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { useBlux } from '@bluxcc/react';
 
-import { Activity, File, Home, Setting, Wallet } from '@/assets';
+import Button from '../Button';
 
-const navItems = [
-  { name: 'Dashboard', href: '/dashboard', icon: <Home /> },
-  { name: 'Contracts', href: '/dashboard/contracts', icon: <File /> },
-  { name: 'Activities', href: '/dashboard/activities', icon: <Activity /> },
-  { name: 'Wallet', href: '/dashboard/wallet', icon: <Wallet /> },
-  { name: 'Settings', href: '/dashboard/settings', icon: <Setting /> },
-];
+import shortenAddress from '@/utils/shortenAddress';
+
+import { navItems } from '@/constants/options';
+import { Wallet } from '@/assets';
 
 const Aside = () => {
   const pathname = usePathname();
+
+  const { isAuthenticated, profile, user, login, isReady } = useBlux();
 
   const activeHref = [...navItems]
     .sort((a, b) => b.href.length - a.href.length)
@@ -24,35 +23,80 @@ const Aside = () => {
       ({ href }) => pathname === href || pathname.startsWith(href + '/'),
     )?.href;
 
+  const userAddress = user.wallet
+    ? user.wallet.address
+      ? user.wallet.address
+      : ''
+    : '';
+
+  const handleConnect = async () => {
+    login();
+
+    if (userAddress) {
+      return;
+    }
+  };
+
+  const handleOpenProfile = () => {
+    profile();
+  };
+
   return (
-    <div className="bg-white rounded-[13px] border-2 border-[#E9EAEB] w-1/5 h-full">
-      <div className="w-full flex items-center justify-center py-8">
-        <Image
-          src="/images/logoType.png"
-          alt="logoType"
-          width={130}
-          height={130}
-        />
+    <div className="bg-white rounded-[13px] border-2 border-[#E9EAEB] w-full h-full flex flex-col justify-between">
+      <div>
+        <div className="w-full flex items-center justify-center mb-6 mt-4">
+          <Image
+            src="/images/logoType.png"
+            alt="logoType"
+            width={130}
+            height={130}
+          />
+        </div>
+        <nav className="flex flex-col space-y-2 px-5 mt-3 tablet:px-1">
+          {navItems.map(({ name, href, icon }) => {
+            const isActive = href === activeHref;
+            return (
+              <Link
+                key={name}
+                href={href}
+                className={`flex items-center space-x-3 px-4 py-[14px] rounded-xl transition-colors ${
+                  isActive
+                    ? 'bg-primary/15 text-primary font-[600]'
+                    : 'text-gray-500 hover:bg-gray-100'
+                }`}
+              >
+                <span>{icon}</span>
+                <span>{name}</span>
+              </Link>
+            );
+          })}
+        </nav>
       </div>
-      <nav className="flex flex-col space-y-2 px-5 mt-3">
-        {navItems.map(({ name, href, icon }) => {
-          const isActive = href === activeHref;
-          return (
-            <Link
-              key={name}
-              href={href}
-              className={`flex items-center space-x-3 px-4 py-[14px] rounded-xl transition-colors ${
-                isActive
-                  ? 'bg-primary/15 text-primary font-[600]'
-                  : 'text-gray-500 hover:bg-gray-100'
-              }`}
-            >
-              <span>{icon}</span>
-              <span>{name}</span>
-            </Link>
-          );
-        })}
-      </nav>
+
+      <div className="p-5 w-full">
+        {!isAuthenticated ? (
+          <Button
+            rounded="xl"
+            color="blue"
+            onClick={handleConnect}
+            disabled={!isReady}
+            className="w-full justify-between items-center"
+          >
+            <p>Connect</p>
+            <Wallet />
+          </Button>
+        ) : (
+          <Button
+            rounded="xl"
+            color="outlineWhiteBlack"
+            className="w-full justify-between items-center"
+            onClick={handleOpenProfile}
+          >
+            <p>{shortenAddress(userAddress, 5)}</p>
+            <Wallet />
+          </Button>
+        )}
+      </div>
     </div>
   );
 };

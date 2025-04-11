@@ -3,8 +3,12 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
+import UserMenu from '@/containers/UserMenu';
+
 import { getChangedDigits } from '@/utils/getChangerNumber';
 import { getLatestLedger } from '@/utils/getLatestLedger';
+
+import { useAppSelector } from '@/hooks/useRedux';
 
 interface HeaderProps {
   title: string;
@@ -13,6 +17,7 @@ interface HeaderProps {
 const Header = ({ title }: HeaderProps) => {
   const [lastLedger, setLastLedger] = useState<string>('0');
   const [previousLedger, setPreviousLedger] = useState<string>('324233');
+  const user = useAppSelector((state) => state.user.details);
 
   useEffect(() => {
     const data = () => {
@@ -68,9 +73,13 @@ const Header = ({ title }: HeaderProps) => {
           </div>
         </div>
 
-        <div className="w-10 h-10 rounded-full bg-primary/26 flex justify-center items-center">
-          <p className="text-primary text-base">D</p>
-        </div>
+        <UserMenu>
+          <div className="w-10 h-10 rounded-full bg-primary/20 flex justify-center items-center">
+            <p className="text-primary text-base">
+              {user?.name[0].toUpperCase()}
+            </p>
+          </div>
+        </UserMenu>
       </section>
     </header>
   );
