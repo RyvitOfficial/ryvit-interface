@@ -6,11 +6,14 @@ export const AddContract = async (
   token: string,
 ) => {
   try {
-    const { data } = await request('https://api.ryvit.app/contracts/', {
-      method: 'POST',
-      body: formData,
-      headers: { authorization: `Bearer ${token}` },
-    });
+    const { data } = await request(
+      `${process.env.NEXT_PUBLIC_RYVIT_API}/contracts/`,
+      {
+        method: 'POST',
+        body: formData,
+        headers: { authorization: `Bearer ${token}` },
+      },
+    );
 
     return data;
   } catch (error: any) {

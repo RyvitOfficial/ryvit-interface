@@ -9,7 +9,7 @@ export const InformSettingApi = async (
 ) => {
   try {
     const { data } = await request(
-      `https://api.ryvit.app/contracts/${id}/settings`,
+      `${process.env.NEXT_PUBLIC_RYVIT_API}/contracts/${id}/settings`,
       {
         method: 'PUT',
         body: formData,

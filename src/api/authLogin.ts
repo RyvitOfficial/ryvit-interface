@@ -4,7 +4,7 @@ import request from '@/utils/request';
 export const loginUser = async (formData: SignInFormData) => {
   try {
     const { data } = await request<IResponseSignIn>(
-      'https://api.ryvit.app/users/login',
+      `${process.env.NEXT_PUBLIC_RYVIT_API}/users/login`,
       {
         method: 'POST',
         body: formData,
