@@ -3,7 +3,7 @@ import Image, { StaticImageData } from 'next/image';
 
 import buttonCustomStyles from './ButtonCustomStyle';
 
-export type CButtonVariantType = 'simple' | 'form';
+export type ButtonRoundedType = 'sm' | 'xl';
 export type CButtonColorType =
   | 'blue'
   | 'darkBlue'
@@ -14,19 +14,20 @@ export type CButtonColorType =
   | 'red';
 
 interface ButtonProps {
-  color?: CButtonColorType;
-  content: string | React.ReactNode;
-  variant: CButtonVariantType;
+  color: CButtonColorType;
+  content?: string | React.ReactNode;
+  rounded: ButtonRoundedType;
   disabled?: boolean;
   type?: 'button' | 'submit';
   className?: string;
   fill?: string;
   logo?: string | StaticImageData;
   onClick?: () => void;
+  children?: React.ReactNode;
 }
 
 const Button = ({
-  variant,
+  rounded,
   color,
   onClick,
   className,
@@ -34,12 +35,13 @@ const Button = ({
   disabled,
   content,
   logo,
+  children,
   ...props
 }: ButtonProps) => {
   return (
     <button
       type={type}
-      className={`${buttonCustomStyles(variant, color, disabled)} ${className}`}
+      className={`${buttonCustomStyles(rounded, color, disabled)} ${className}`}
       disabled={disabled}
       {...props}
       onClick={onClick}
@@ -54,7 +56,7 @@ const Button = ({
           draggable={false}
         />
       )}
-      {content}
+      {content ? content : children}
     </button>
   );
 };
