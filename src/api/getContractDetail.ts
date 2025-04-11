@@ -9,7 +9,7 @@ export const GetContractDetail = async (
 ) => {
   try {
     const { data } = await request<IGetContractResponse>(
-      `https://api.ryvit.app/contracts/${id}?network=${network}`,
+      `${process.env.NEXT_PUBLIC_RYVIT_API}/contracts/${id}?network=${network}`,
       {
         method: 'GET',
         headers: { authorization: `Bearer ${token}` },

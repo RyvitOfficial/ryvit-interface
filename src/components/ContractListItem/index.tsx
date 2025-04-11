@@ -2,6 +2,8 @@ import Link from 'next/link';
 
 import CardItem from '@/components/CardItem';
 
+import shortenAddress from '@/utils/shortenAddress';
+
 import { Crypto } from '@/assets';
 
 interface IContractListItem {
@@ -26,7 +28,10 @@ const ContractListItem = ({
       </div>
       <div className="flex justify-between items-center w-full">
         <CardItem title="Name" content={contractName} />
-        <CardItem title="Address" content={contractAddress} />
+        <CardItem
+          title="Address"
+          content={shortenAddress(contractAddress, 8)}
+        />
         <CardItem title="Time To Live" content={timeToLeave} />
         <Link
           href={manageHref}

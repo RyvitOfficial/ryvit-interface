@@ -1,15 +1,20 @@
 import request from '@/utils/request';
 
-import { ISettings } from '@/types';
+import { ITransactionDetails } from '@/types';
 
-export const InformSettingApi = async (
-  formData: ISettings,
+interface ISendTransactionDetails {
+  transactions: ITransactionDetails[];
+  successes: string[];
+}
+
+export const SendTransactionDetails = async (
+  formData: ISendTransactionDetails,
   token: string,
   id: string,
 ) => {
   try {
     const { data } = await request(
-      `${process.env.NEXT_PUBLIC_RYVIT_API}/contracts/${id}/settings`,
+      `${process.env.NEXT_PUBLIC_RYVIT_API}/contracts/extend/${id}`,
       {
         method: 'PUT',
         body: formData,

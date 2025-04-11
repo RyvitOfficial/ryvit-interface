@@ -11,11 +11,12 @@ import Button from '@/components/Button';
 import Toast from '@/components/Toasts';
 import Checkbox from '@/components/CheckBox';
 
-import { login } from '@/reducers/user';
+import { login, setUserInfo } from '@/reducers/user';
 import { loginUser } from '@/api/authLogin';
 import { useAppDispatch, useAppSelector } from '@/hooks/useRedux';
 
 import { SignInFormData } from '@/types';
+import { GetTokenIsValid } from '@/api/getUser';
 
 const SignInForm = () => {
   const {
@@ -65,6 +66,7 @@ const SignInForm = () => {
       }
 
       dispatch(login(resultLogin.result.token));
+
       if (rememberMe) {
         document.cookie = `rememberMe=true; path=/; max-age=${
           30 * 24 * 60 * 60
@@ -72,6 +74,13 @@ const SignInForm = () => {
       } else {
         document.cookie = `rememberMe=false; path=/;`;
       }
+
+      GetTokenIsValid(resultLogin.result.token).then((res) => {
+        if (res) {
+          dispatch(setUserInfo(res));
+        }
+      });
+
       router.push('/dashboard');
     } catch {
       Toast({ text: 'Login failed', type: 'error' });
@@ -148,7 +157,7 @@ const SignInForm = () => {
 
           <div className="flex justify-center">
             <Button
-              variant="form"
+              rounded="xl"
               color="blue"
               type="submit"
               content={loading ? 'Signing In...' : 'Sign In'}

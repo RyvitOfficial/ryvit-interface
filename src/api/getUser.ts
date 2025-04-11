@@ -1,13 +1,17 @@
+import { IUser } from '@/types';
 import request from '@/utils/request';
 
 export const GetTokenIsValid = async (token: string) => {
   try {
-    const { response } = await request(`https://api.ryvit.app/users`, {
-      method: 'GET',
-      headers: { authorization: `Bearer ${token}` },
-    });
+    const { data } = await request<IUser>(
+      `${process.env.NEXT_PUBLIC_RYVIT_API}/users`,
+      {
+        method: 'GET',
+        headers: { authorization: `Bearer ${token}` },
+      },
+    );
 
-    return response.status === 200;
+    return data.result;
   } catch {
     return false;
   }

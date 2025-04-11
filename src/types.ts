@@ -1,3 +1,5 @@
+import { rpc } from '@stellar/stellar-sdk';
+
 export type NetworkType = 'testnet' | 'mainnet';
 
 export interface SignUpFormData {
@@ -70,3 +72,32 @@ export interface IDataKey {
 export type SvgProps = {
   fill?: string;
 };
+
+export interface ITransactionResult {
+  id: string;
+  successful: boolean;
+  hash: string;
+  created_at: string;
+  fee_charged: string;
+}
+
+export interface IUser {
+  name: string;
+  logo: string | undefined;
+  email: string;
+  address: string | undefined;
+  isAdmin: boolean;
+  balanceTest: number;
+  balanceMain: number;
+  isVerified: boolean;
+}
+
+export interface ITransactionDetails {
+  hash: string;
+  created_at: number;
+  values: any | undefined;
+  status:
+    | rpc.Api.GetTransactionStatus.FAILED
+    | rpc.Api.GetTransactionStatus.SUCCESS
+    | rpc.Api.GetTransactionStatus.NOT_FOUND;
+}

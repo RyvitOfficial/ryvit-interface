@@ -1,14 +1,17 @@
+import { IUser } from '@/types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface AuthState {
   isLogin: boolean;
   token: string | null;
+  details: IUser | null;
   user: string | null;
 }
 
 const initialState: AuthState = {
   isLogin: false,
   token: null,
+  details: null,
   user: null,
 };
 
@@ -41,8 +44,12 @@ const user = createSlice({
       removeCookie('token');
       removeCookie('rememberMe');
     },
+
+    setUserInfo: (state, action: PayloadAction<IUser>) => {
+      state.details = action.payload;
+    },
   },
 });
 
-export const { login, logout } = user.actions;
+export const { login, logout, setUserInfo } = user.actions;
 export default user.reducer;

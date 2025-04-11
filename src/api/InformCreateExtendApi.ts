@@ -1,17 +1,18 @@
 import request from '@/utils/request';
 
-interface IInformExtendApi {
+interface IInformCreateExtendApi {
   dataKeys: string[];
+  admin: string;
 }
 
-export const InformExtendApi = async (
-  formData: IInformExtendApi,
+export const InformCreateExtendApi = async (
+  formData: IInformCreateExtendApi,
   token: string,
   id: string,
 ) => {
   try {
-    const { data } = await request(
-      `${process.env.NEXT_PUBLIC_RYVIT_API}/contracts/extend/${id}`,
+    const { data } = await request<string[]>(
+      `${process.env.NEXT_PUBLIC_RYVIT_API}/contracts/extend/${id}/create`,
       {
         method: 'POST',
         body: formData,

@@ -8,7 +8,7 @@ interface VerifyEmailResponse {
 export const verifyEmail = async (
   token: string,
 ): Promise<VerifyEmailResponse> => {
-  return await request('https://api.ryvit.app/users/verify', {
+  return await request(`${process.env.NEXT_PUBLIC_RYVIT_API}/users/verify`, {
     method: 'PUT',
     body: { token },
   });
