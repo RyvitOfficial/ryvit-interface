@@ -81,6 +81,12 @@ export interface ITransactionResult {
   fee_charged: string;
 }
 
+export interface IGeneratedToken {
+  name: string;
+  symbol: string;
+  address: string;
+}
+
 export interface IUser {
   name: string;
   logo: string | undefined;
@@ -90,6 +96,10 @@ export interface IUser {
   balanceTest: number;
   balanceMain: number;
   isVerified: boolean;
+  generatedToken: IGeneratedToken | undefined;
+  contractsCount: number;
+  detaKeysCount: number;
+  dataKeysExpireSoonCount: number;
 }
 
 export interface ITransactionDetails {
