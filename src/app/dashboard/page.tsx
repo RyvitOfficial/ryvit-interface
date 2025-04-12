@@ -1,3 +1,4 @@
+import DashboardContainer from '@/containers/DashboardContainer';
 import { Metadata } from 'next/types';
 
 export const metadata: Metadata = {
@@ -5,7 +6,7 @@ export const metadata: Metadata = {
 };
 
 const Dashboard = () => {
-  return <div></div>;
+  return <DashboardContainer />;
 };
 
 export default Dashboard;
