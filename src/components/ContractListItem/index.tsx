@@ -22,7 +22,7 @@ const ContractListItem = ({
   iconColor,
 }: IContractListItem) => {
   return (
-    <div className="flex items-center w-full bg-white rounded-[20px] py-3 px-6">
+    <div className="flex items-center w-full bg-white rounded-[20px] py-3 px-6 border border-border">
       <div className="bg-[#F7F7F7] p-3 rounded-2xl mr-12 flex justify-center items-center">
         <Crypto fill={iconColor} />
       </div>
