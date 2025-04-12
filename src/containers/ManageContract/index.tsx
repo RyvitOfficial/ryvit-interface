@@ -2,12 +2,16 @@
 
 import { useEffect, useState } from 'react';
 import { useAppSelector } from '@/hooks/useRedux';
+import { useBlux } from '@bluxcc/react';
 
 import Overview from '@/components/Overview';
 import { DataKeysTable } from '../DataKeysTable';
 import FloatingMenu from '@/components/FloatingMenu';
 import ManageContractCard from '../ManageContractCard';
 import LoadingThreeDotsPulse from '@/components/LoadingDots';
+import LoadingModal from '@/components/LoadingModal';
+import ExtendModalContainer from '../Modals/PaymentMethodModal';
+import ExtendTransactions from './ExtendTransactions';
 
 import { findLengthExtendRestore } from '@/utils/findLengthExtendRestore';
 import { CalculateSubscribeLength } from '@/utils/calculateSubscribeLength';
@@ -15,12 +19,6 @@ import { CalculateSubscribeLength } from '@/utils/calculateSubscribeLength';
 import { GetContractDetail } from '@/api/getContractDetail';
 
 import { IGetContractResponse } from '@/types';
-import ExtendModalContainer from '../Modals/PaymentMethodModal';
-
-import { useBlux } from '@bluxcc/react';
-
-import LoadingModal from '@/components/LoadingModal';
-import ExtendTransactions from './ExtendTransactions';
 
 interface ManageContractProps {
   id: string;

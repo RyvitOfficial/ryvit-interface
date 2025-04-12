@@ -10,6 +10,7 @@ export { default as Range } from './Range';
 export { default as Loading } from './Loading';
 export { default as Function } from './Function';
 export { default as Wallet } from './Wallet';
+export { default as Network } from './Network';
 export { default as Setting } from './Setting';
 export { default as EyeSlash } from './EyeSlash';
 export { default as Activity } from './Activity';

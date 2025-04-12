@@ -74,7 +74,7 @@ const ManageContractCard = ({
             />
           </div>
 
-          <div className="flex  gap-6 w-[65%] tablet:w-full">
+          <div className="flex gap-6 w-[65%] tablet:w-full">
             <Button
               type="button"
               rounded="sm"

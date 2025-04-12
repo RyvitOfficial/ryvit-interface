@@ -11,7 +11,8 @@ export type CButtonColorType =
   | 'outline'
   | 'outlineWhiteBlack'
   | 'discard'
-  | 'red';
+  | 'red'
+  | 'yellow';
 
 interface ButtonProps {
   color: CButtonColorType;

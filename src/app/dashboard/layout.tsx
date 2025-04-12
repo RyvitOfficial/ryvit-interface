@@ -50,11 +50,13 @@ export default function RootLayout({
             <Aside />
           </div>
 
-          <section className="w-full h-full">
+          <section className="w-full min-h-full flex flex-col items-center justify-start">
             <div className="w-full">
               <Header title={title} />
             </div>
-            <article className="w-full">{children}</article>
+            <article className="w-full h-full flex flex-col flex-grow">
+              {children}
+            </article>
           </section>
         </div>
       </div>

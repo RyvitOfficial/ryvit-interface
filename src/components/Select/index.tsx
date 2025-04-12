@@ -2,8 +2,10 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import cn from 'classnames';
 
 import ArrowUp01Icon from '@/assets/ArrowUp';
+import { Network } from '@/assets';
 
 type Option = {
   label: string;
@@ -16,6 +18,7 @@ interface AnimatedSelectProps {
   defaultValue?: string;
   onChange: (value: string) => void;
   placeholder?: string;
+  network: boolean;
 }
 
 export const AnimatedSelect = ({
@@ -24,6 +27,7 @@ export const AnimatedSelect = ({
   defaultValue = '',
   onChange,
   placeholder = 'Select an option',
+  network,
 }: AnimatedSelectProps) => {
   const [open, setOpen] = useState(false);
   const [internalValue, setInternalValue] = useState(defaultValue);
@@ -42,12 +46,32 @@ export const AnimatedSelect = ({
     <div className="relative select-dropdown">
       <button
         onClick={() => setOpen((prev) => !prev)}
-        className="rounded-xl placeholder-[#a8a7a8] text-[#2c2c2c] text-[14px] w-full h-[48px] p-4 bg-transparent justify-between items-center inline-flex outline-none border transition-all duration-300"
+        className={cn(
+          'items-center inline-flex outline-none border transition-all duration-300',
+          {
+            'justify-between rounded-xl placeholder-[#a8a7a8] text-[#2c2c2c] text-[14px] w-full h-[48px] p-4 bg-transparent ':
+              !network,
+            'rounded-2xl w-full border-2 border-primary/80 h-9 bg-primary/10 text-primary/80':
+              network,
+          },
+        )}
       >
-        <span>{selectedOption?.label || placeholder}</span>
-        <div className={`transition-transform ${open ? 'rotate-180' : ''}`}>
-          <ArrowUp01Icon />
-        </div>
+        <span
+          className={cn({
+            'w-[100px]': network,
+          })}
+        >
+          {selectedOption?.label || placeholder}
+        </span>
+        {network ? (
+          <div>
+            <Network fill="rgba(27, 89, 248, 0.5)" />
+          </div>
+        ) : (
+          <div className={`transition-transform ${open ? 'rotate-180' : ''}`}>
+            <ArrowUp01Icon />
+          </div>
+        )}
       </button>
 
       <AnimatePresence>

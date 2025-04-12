@@ -15,10 +15,11 @@ const buttonCustomStyles = (
     darkBlue: 'text-white bg-secondary !rounded hover:bg-secondary/80',
     discard: 'text-red-600 !bg-red-100 !rounded-[8px] hover:!bg-red-200/80',
     red: 'bg-red-500 text-white',
+    yellow: 'bg-[#E7FB05] text-primary hover:bg-[#E7FB05]/90 ',
   };
 
   const baseStyle =
-    ' h-12 transition px-6 text-base text-center flex justify-center items-center select-none cursor-pointer whitespace-nowrap';
+    'font-medium h-12 transition px-6 text-base text-center flex justify-center items-center select-none cursor-pointer whitespace-nowrap';
 
   const disabledStyle =
     '!bg-gray-300 !text-white hover:!bg-gray-300 !cursor-not-allowed';

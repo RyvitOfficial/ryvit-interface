@@ -9,6 +9,12 @@ import { getChangedDigits } from '@/utils/getChangerNumber';
 import { getLatestLedger } from '@/utils/getLatestLedger';
 
 import { useAppSelector } from '@/hooks/useRedux';
+import { AnimatedSelect } from '../Select';
+
+const networkOptions = [
+  { label: 'Testnet', value: '1' },
+  { label: 'Mainnet', value: '3' },
+];
 
 interface HeaderProps {
   title: string;
@@ -17,6 +23,8 @@ interface HeaderProps {
 const Header = ({ title }: HeaderProps) => {
   const [lastLedger, setLastLedger] = useState<string>('0');
   const [previousLedger, setPreviousLedger] = useState<string>('324233');
+  const [selectedNetwork, setselectedNetwork] = useState('');
+
   const user = useAppSelector((state) => state.user.details);
 
   useEffect(() => {
@@ -33,6 +41,10 @@ const Header = ({ title }: HeaderProps) => {
 
     return () => clearInterval(intervalId);
   }, [lastLedger]);
+
+  const selectOnChange = (value: string) => {
+    setselectedNetwork(value);
+  };
 
   const changedDigits = getChangedDigits(previousLedger, lastLedger);
 
@@ -71,6 +83,16 @@ const Header = ({ title }: HeaderProps) => {
               ))}
             </span>
           </div>
+        </div>
+
+        <div className="w-[150px]">
+          <AnimatedSelect
+            options={networkOptions}
+            value={selectedNetwork}
+            defaultValue={networkOptions[0].value}
+            onChange={selectOnChange}
+            network
+          />
         </div>
 
         <UserMenu>
