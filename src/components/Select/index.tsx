@@ -18,7 +18,7 @@ interface AnimatedSelectProps {
   defaultValue?: string;
   onChange: (value: string) => void;
   placeholder?: string;
-  network: boolean;
+  network?: boolean;
 }
 
 export const AnimatedSelect = ({
