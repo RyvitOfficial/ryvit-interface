@@ -7,24 +7,30 @@ interface IToastBase {
   type: Exclude<ToastType, 'process'>;
 }
 
-interface IToastProcess {
+interface IToastProcess<T> {
   type: 'process';
   text: string;
-  promise: Promise<any>;
-  successMessage?: string | ((data: any) => string);
+  promise: Promise<T>;
+  setValues?: (value: T) => void;
+  successMessage?: string | ((data: T) => string);
   errorMessage?: string;
 }
 
-type IToast = IToastBase | IToastProcess;
+type IToast<T = any> = IToastBase | IToastProcess<T>;
 
 const Toast = (props: IToast) => {
   if (props.type === 'process') {
     toast.promise(props.promise, {
       loading: props.text,
-      success: (data: any) =>
-        typeof props.successMessage === 'function'
+      success: (data: any) => {
+        if (props.setValues) {
+          props.setValues(data);
+        }
+
+        return typeof props.successMessage === 'function'
           ? props.successMessage(data)
-          : props.successMessage || 'Success',
+          : props.successMessage || 'Success';
+      },
       error: props.errorMessage || 'Something went wrong',
     });
   } else {
