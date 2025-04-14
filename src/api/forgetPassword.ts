@@ -1,13 +1,13 @@
 import request from '@/utils/request';
 
-import { ISignUpFormData, ApiResponse } from '@/types';
+import { IForgetPassword, ApiResponse } from '@/types';
 
-export const registerUser = async (
-  formData: ISignUpFormData,
+export const forgetPassword = async (
+  formData: IForgetPassword,
 ): Promise<ApiResponse> => {
   try {
     const { data } = await request(
-      `${process.env.NEXT_PUBLIC_RYVIT_API}/users`,
+      `${process.env.NEXT_PUBLIC_RYVIT_API}/users/reset`,
       {
         method: 'POST',
         body: formData,

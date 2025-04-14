@@ -5,7 +5,6 @@ import Image from 'next/image';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 
-import Card from '@/components/Card';
 import Input from '@/components/Input';
 import Button from '@/components/Button';
 import Toast from '@/components/Toasts';
@@ -15,15 +14,16 @@ import { login, setUserInfo } from '@/reducers/user';
 import { loginUser } from '@/api/authLogin';
 import { useAppDispatch, useAppSelector } from '@/hooks/useRedux';
 
-import { SignInFormData } from '@/types';
+import { ISignInFormData } from '@/types';
 import { GetTokenIsValid } from '@/api/getUser';
+import Link from 'next/link';
 
 const SignInForm = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<SignInFormData>();
+  } = useForm<ISignInFormData>();
 
   const router = useRouter();
 
@@ -44,7 +44,7 @@ const SignInForm = () => {
     setRememberMe(!rememberMe);
   };
 
-  const onSubmit = async (data: SignInFormData) => {
+  const onSubmit = async (data: ISignInFormData) => {
     setLoading(true);
 
     try {
@@ -90,104 +90,109 @@ const SignInForm = () => {
   };
 
   return (
-    <div className="w-4/15">
-      <Card bgColor="white" borderColor="#E9EAEB" className="shadow-lg">
-        <form onSubmit={handleSubmit(onSubmit)} className="px-14 pt-12">
-          <div className="w-full text-center flex justify-center mb-2">
-            <Image
-              src="/images/logoType.png"
-              alt="logoType"
-              width={130}
-              height={130}
+    <section className="w-1/3 shadow-lg bg-white border border-border rounded-xl small:shadow-none small:rounded-none small:border-none small:h-screen small:w-full">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="w-full px-14 pt-12 short:pt-4 h-fit small:px-4 small:w-[90%] small:m-auto small:flex small:flex-col small:items-center small:justify-center"
+      >
+        <div className="w-full text-center flex justify-center mb-2">
+          <Image
+            src="/images/logoType.png"
+            alt="logoType"
+            width={130}
+            height={130}
+          />
+        </div>
+        <div className="flex flex-col justify-center items-center mb-8">
+          <h5 className="text-[22px] font-Inter font-[600] text-[#343C6A] short:text-xl">
+            Sign in to Account
+          </h5>
+          <p className="text-[13px] text-gray-400 text-center mt-1 short:text-xs">
+            Log in to access your dashboard and features
+          </p>
+        </div>
+        <div className="space-y-4 w-full">
+          <div className="relative">
+            <Input
+              label="Email Address"
+              placeholder="Enter your email address"
+              border
+              error
+              errorMsg={errors.email && errors.email.message}
+              {...register('email', {
+                required: 'Email is required',
+                pattern: {
+                  value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/,
+                  message: 'Please enter a valid email address',
+                },
+              })}
             />
           </div>
-          <div className="flex flex-col justify-center items-center mb-8">
-            <h5 className="text-[22px] font-Inter font-[600] text-[#343C6A]">
-              Sign in to Account
-            </h5>
-            <p className="text-[13px] text-gray-400 text-center mt-1">
-              Log in to access your dashboard and features
-            </p>
-          </div>
-          <div className="space-y-4">
-            <div className="relative">
-              <Input
-                label="Email Address"
-                placeholder="Enter your email address"
-                border
-                error
-                errorMsg={errors.email && errors.email.message}
-                {...register('email', {
-                  required: 'Email is required',
-                  pattern: {
-                    value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/,
-                    message: 'Please enter a valid email address',
-                  },
-                })}
-              />
-            </div>
 
-            <div className="relative">
-              <Input
-                type="password"
-                label="Password"
-                placeholder="Enter your password"
-                border
-                hideCharacter
-                error
-                errorMsg={errors.password && errors.password.message}
-                {...register('password', { required: 'Password is required' })}
-              />
-            </div>
-          </div>
-
-          <div className="flex justify-between px-1 mt-3 mb-8 text-gray-500">
-            <Checkbox
-              label="Remember me"
-              checked={rememberMe}
-              value={'Remember me'}
-              onChange={handleCheckBoxChange}
-              type="primary"
+          <div className="relative">
+            <Input
+              type="password"
+              label="Password"
+              placeholder="Enter your password"
+              border
+              hideCharacter
+              error
+              errorMsg={errors.password && errors.password.message}
+              {...register('password', { required: 'Password is required' })}
             />
+          </div>
+        </div>
 
-            <a href="#" className="!text-[#1B59F8] font-medium text-[14px]">
-              Forgot Password?
+        <div className="flex justify-between px-1 small:px-0 mt-3 mb-8 text-gray-500 w-full">
+          <Checkbox
+            label="Remember me"
+            checked={rememberMe}
+            value={'Remember me'}
+            onChange={handleCheckBoxChange}
+            type="primary"
+          />
+
+          <Link
+            href="/forget-password"
+            className="!text-[#1B59F8] font-medium text-[14px]"
+          >
+            {' '}
+            Forgot Password?
+          </Link>
+        </div>
+
+        <div className="flex justify-center w-full">
+          <Button
+            rounded="xl"
+            color="blue"
+            type="submit"
+            content={loading ? 'Signing In...' : 'Sign In'}
+            className="w-full cursor-pointer font-Inter font-medium"
+          />
+        </div>
+
+        {/* <div>
+          <p className="text-[14px] font-[600] mt-4">
+            By continuing you agree{' '}
+            <a href="#" className="text-blue-700">
+              Terms of Service
+            </a>{' '}
+            and{' '}
+            <a href="#" className="text-blue-700">
+              Privacy Policy
             </a>
-          </div>
+            .
+          </p>
+        </div> */}
 
-          <div className="flex justify-center">
-            <Button
-              rounded="xl"
-              color="blue"
-              type="submit"
-              content={loading ? 'Signing In...' : 'Sign In'}
-              className="w-full cursor-pointer font-Inter font-medium"
-            />
-          </div>
-
-          <div>
-            <p className="text-[14px] font-[600] mt-4">
-              By continuing you agree{' '}
-              <a href="#" className="text-blue-700">
-                Terms of Service
-              </a>{' '}
-              and{' '}
-              <a href="#" className="text-blue-700">
-                Privacy Policy
-              </a>
-              .
-            </p>
-          </div>
-
-          <div className="font-[600] w-full text-center mt-12 pb-8">
-            <span> have an account?</span>{' '}
-            <a href="/signup" className="text-blue-700">
-              Sign Up
-            </a>
-          </div>
-        </form>
-      </Card>
-    </div>
+        <div className="font-[600] w-full text-center mt-5 pb-8 short:mt-4 short:pb-4">
+          <span> have an account?</span>{' '}
+          <a href="/signup" className="text-blue-700">
+            Sign Up
+          </a>
+        </div>
+      </form>
+    </section>
   );
 };
 

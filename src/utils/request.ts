@@ -27,7 +27,7 @@ const request = async <T>(
 
   if (response.status >= 400) {
     const data = await response.json();
-    throw { data, response };
+    return { data, response };
   }
 
   const data = await response.json();

@@ -2,14 +2,28 @@ import { rpc } from '@stellar/stellar-sdk';
 
 export type NetworkType = 'testnet' | 'mainnet';
 
-export interface SignUpFormData {
+export interface ISignUpFormData {
   name: string;
   email: string;
   password: string;
 }
 
-export interface SignInFormData {
+export interface ISignInFormData {
   email: string;
+  password: string;
+}
+
+export interface IForgetPassword {
+  email: string;
+}
+
+export interface IResetPassword {
+  password: string;
+  token: string;
+}
+
+export interface IResetPasswordForm {
+  token: string;
   password: string;
 }
 

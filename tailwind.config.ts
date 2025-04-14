@@ -34,7 +34,7 @@ module.exports = {
       xxl: { min: '1536px' },
 
       tall: { raw: '(min-height: 933px)' },
-      short: { raw: '(max-height: 716px)' },
+      short: { raw: '(max-height: 600px)' },
     },
   },
   plugins: [],

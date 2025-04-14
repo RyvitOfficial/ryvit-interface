@@ -1,7 +1,7 @@
-import { IResponseSignIn, SignInFormData } from '@/types';
+import { IResponseSignIn, ISignInFormData } from '@/types';
 import request from '@/utils/request';
 
-export const loginUser = async (formData: SignInFormData) => {
+export const loginUser = async (formData: ISignInFormData) => {
   try {
     const { data } = await request<IResponseSignIn>(
       `${process.env.NEXT_PUBLIC_RYVIT_API}/users/login`,
