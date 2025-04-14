@@ -28,8 +28,7 @@ const Metadata = () => {
       <meta name="theme-color" content="#ffffff" />
 
       {/* Icons */}
-      {/* <link rel="apple-touch-icon" href="/icons/logo128.png" /> */}
-      {/* <link rel="icon" href="/icons/logo128.png" /> */}
+      <link rel="icon" href="/images/ryvit.ico" />
 
       {/* Open Graph / Facebook */}
       <meta
