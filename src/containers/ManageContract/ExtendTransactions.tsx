@@ -71,7 +71,7 @@ const ExtendTransactions = async (
 
           for (let i = 0; i < res.result.length; i++) {
             const resultTx = (await sendTransaction(
-              res.result[i],
+              res.result[i].txExtend,
             )) as ITransactionResult;
 
             txsDetails.push({
@@ -81,6 +81,8 @@ const ExtendTransactions = async (
               status: resultTx.successful
                 ? Api.GetTransactionStatus.SUCCESS
                 : Api.GetTransactionStatus.FAILED,
+              useValues: res.result[i].useValues,
+              useNames: res.result[i].useNames,
             });
 
             Toast({
@@ -89,11 +91,7 @@ const ExtendTransactions = async (
             });
           }
 
-          await SendTransactionDetails(
-            { transactions: txsDetails, successes: selectedDatakeysName },
-            token!,
-            id,
-          );
+          await SendTransactionDetails(txsDetails, token!, id);
         } else {
           Toast({
             type: 'error',
