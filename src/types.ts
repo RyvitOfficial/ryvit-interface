@@ -80,7 +80,7 @@ export interface IDataKey {
   network: 'testnet' | 'mainnet';
   contract: string;
   valuesType: 'range' | 'list' | 'function' | 'none';
-  values?: string[] | number[];
+  values: IValues[];
 }
 
 export type SvgProps = {
@@ -116,6 +116,13 @@ export interface IUser {
   dataKeysExpireSoonCount: number;
 }
 
+export interface IValues {
+  value: string;
+  key: string;
+  liveLedger: number;
+  autoSelect: boolean;
+}
+
 export interface ITransactionDetails {
   hash: string;
   created_at: number;
@@ -124,4 +131,12 @@ export interface ITransactionDetails {
     | rpc.Api.GetTransactionStatus.FAILED
     | rpc.Api.GetTransactionStatus.SUCCESS
     | rpc.Api.GetTransactionStatus.NOT_FOUND;
+  useValues: IValues[];
+  useNames: string[];
+}
+
+export interface IResponseCreateTransactions {
+  txExtend: string;
+  useNames: string[];
+  useValues: IValues[];
 }

@@ -14,10 +14,11 @@ export function Providers({ children }: { children: React.ReactNode }) {
           accent: '#1B59F8',
           textColor: '#000000',
           font: 'Inter',
-          cornerRadius: 'lg',
+          cornerRadius: '16px',
           logo: '/images/logoType.png',
         },
         loginMethods: ['wallet'],
+        defaultNetwork: networks.testnet,
       }}
     >
       {children}

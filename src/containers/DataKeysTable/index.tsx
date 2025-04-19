@@ -88,7 +88,7 @@ export const DataKeysTable = ({
                 />
               </div>
               <div>{item.name}</div>
-              <div>{item.values ? item.values.length : 1}</div>
+              <div>{item.values.length}</div>
               <div>{item.liveLedger}</div>
               <div>
                 <span className="px-2 py-1 text-xs bg-purple-100 text-purple-700 rounded-md">

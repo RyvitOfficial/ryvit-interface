@@ -1,5 +1,7 @@
 import request from '@/utils/request';
 
+import { IResponseCreateTransactions } from '@/types';
+
 interface IInformCreateExtendApi {
   dataKeys: string[];
   admin: string;
@@ -11,7 +13,7 @@ export const InformCreateExtendApi = async (
   id: string,
 ) => {
   try {
-    const { data } = await request<string[]>(
+    const { data } = await request<IResponseCreateTransactions[]>(
       `${process.env.NEXT_PUBLIC_RYVIT_API}/contracts/extend/${id}/create`,
       {
         method: 'POST',

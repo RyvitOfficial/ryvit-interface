@@ -2,13 +2,8 @@ import request from '@/utils/request';
 
 import { ITransactionDetails } from '@/types';
 
-interface ISendTransactionDetails {
-  transactions: ITransactionDetails[];
-  successes: string[];
-}
-
 export const SendTransactionDetails = async (
-  formData: ISendTransactionDetails,
+  transactions: ITransactionDetails[],
   token: string,
   id: string,
 ) => {
@@ -17,8 +12,8 @@ export const SendTransactionDetails = async (
       `${process.env.NEXT_PUBLIC_RYVIT_API}/contracts/extend/${id}`,
       {
         method: 'PUT',
-        body: formData,
-        headers: { authorization: `Bearer ${token}` },
+        body: { transactions: transactions },
+        headers: { authorization: ` Bearer ${token} ` },
       },
     );
 
