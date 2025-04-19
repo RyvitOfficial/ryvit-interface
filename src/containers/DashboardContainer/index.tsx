@@ -9,7 +9,7 @@ const DashboardContainer = () => {
         <DashboardStats />
       </div>
 
-      <div className="overflow-y-auto w-full h-full small:flex small:flex-col-reverse gap-4 mt-4 desktop:grid desktop:grid-cols-[2fr_22%] flex-grow">
+      <div className="overflow-y-auto w-full h-full small:flex small:flex-col-reverse gap-4 mt-4 desktop:grid desktop:grid-cols-[3fr_1fr] flex-grow">
         <div className="h-full">
           <RecentContract />
         </div>

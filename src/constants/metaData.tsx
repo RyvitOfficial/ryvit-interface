@@ -28,7 +28,7 @@ const Metadata = () => {
       <meta name="theme-color" content="#ffffff" />
 
       {/* Icons */}
-      <link rel="icon" href="/images/ryvit.ico" />
+      <link rel="icon" href="/favicon.ico" />
 
       {/* Open Graph / Facebook */}
       <meta
@@ -39,7 +39,10 @@ const Metadata = () => {
         property="og:description"
         content="Manage and automate your Stellar and Soroban smart contracts with ease. Ryvit helps you extend TTLs, monitor data, and handle payments with XLM."
       />
-      <meta property="og:image" content="https://ryvit.app/og-image.png" />
+      <meta
+        property="og:image"
+        content="https://ryvit.app/images/logoType.png"
+      />
       <meta property="og:url" content="https://ryvit.app" />
       <meta property="og:type" content="website" />
 

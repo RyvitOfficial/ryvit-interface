@@ -22,15 +22,6 @@ const CreateContractContainer = () => {
   const token = useAppSelector((state) => state.user.token);
   const userDetails = useAppSelector((state) => state.user.details);
 
-  const handleCopyAddress = () => {
-    if (contractDetails) {
-      navigator.clipboard
-        .writeText(contractDetails.address)
-        .then(() => Toast({ type: 'success', text: 'Address copied!' }))
-        .catch((err) => console.error('Failed to copy address: ', err));
-    }
-  };
-
   const handleTokenNameOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setContractName(e.target.value.trim());
   };
@@ -56,6 +47,15 @@ const CreateContractContainer = () => {
 
   const showAddress = shortenAddress(address, 6).toUpperCase();
 
+  const handleCopyAddress = () => {
+    if (contractDetails || address) {
+      navigator.clipboard
+        .writeText(contractDetails ? contractDetails.address : address)
+        .then(() => Toast({ type: 'success', text: 'Address copied!' }))
+        .catch(() => console.error('Failed to copy address: '));
+    }
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -69,7 +69,7 @@ const CreateContractContainer = () => {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: 'easeOut' }}
-            className="text-lg font-semibold text-white mb-2"
+            className="bigScreen:text-2xl small:text-md desktop:text-xl font-semibold text-white mb-2"
           >
             Generate Token <span className="text-[#E7FB05]">Contract</span> &
             Get Address
@@ -91,15 +91,17 @@ const CreateContractContainer = () => {
             initial={{ opacity: 0, x: -10 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, ease: 'easeOut' }}
-            className="w-full desktop:max-w-[300px] small:w-full small:flex small:items-center"
+            className="w-full small:flex small:items-center"
           >
             <p className="mb-2 text-sm px-1 small:w-[40%]">
               <code>{userDetails?.generatedToken?.name}</code> Address :
             </p>
+
             <div className="flex items-center justify-between bg-gray-800 p-3 rounded-xl overflow-x-auto small:w-full">
               <span className="text-white text-xs small:text-[10px]">
                 <code>{showAddress}</code>
               </span>
+
               <Button
                 color="yellow"
                 rounded="sm"
@@ -124,6 +126,7 @@ const CreateContractContainer = () => {
                 inputClassName="placeholder:!text-white/90 !text-white bg-white border-white/50"
                 onChange={handleTokenNameOnChange}
               />
+
               <Button
                 color="yellow"
                 rounded="xl"

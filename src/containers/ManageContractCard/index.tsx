@@ -45,7 +45,7 @@ const ManageContractCard = ({
         <div className="flex justify-start items-center">
           <div className="mr-4 h-full tablet:hidden mobile:hidden">
             <Image
-              src="/images/crypto.png"
+              src="/images/Crypto.png"
               alt="crypto"
               width={70}
               height={70}
