@@ -1,6 +1,8 @@
 'use client';
 
-import StatCard from '@/components/StateCard';
+import { Contract, Event, Key } from '@/assets';
+import Renew from '@/assets/Renew';
+import DashboardStatCard from '@/components/DashboardStatCard';
 
 import { useAppSelector } from '@/hooks/useRedux';
 
@@ -8,28 +10,38 @@ const DashboardStats = () => {
   const userDetails = useAppSelector((state) => state.user.details);
 
   return (
-    <div className="grid grid-cols-4 gap-4 mt-6">
-      <StatCard
-        title="Active Contracts"
+    <div className="grid grid-cols-4 gap-5 mt-6">
+      <DashboardStatCard
+        icon={<Contract />}
+        label="Smart Contracts"
+        description="Active contracts managed"
         value={userDetails ? userDetails.contractsCount : 0}
-        color="bg-gradient-to-br from-blue-600 to-blue-800"
+        color="text-blue-400"
+        iconBgColor="#3B82F6"
       />
-      <StatCard
-        title="TTL Expiring Soon"
-        value={userDetails ? userDetails.dataKeysExpireSoonCount : 0}
-        color="bg-gradient-to-br from-yellow-500 to-yellow-600"
-      />
-      <StatCard
-        title="Wallet Balance"
-        value={`${
-          userDetails ? (userDetails.balanceTest / 10 ** 7).toFixed(3) : 0
-        } XLM`}
-        color="bg-gradient-to-br from-green-500 to-green-600"
-      />
-      <StatCard
-        title="Total Data Keys"
+      <DashboardStatCard
+        icon={<Key fill="#A855F7" />}
+        label="Data Keys"
+        description="Managed storage keys"
         value={userDetails ? userDetails.detaKeysCount : 0}
-        color="bg-gradient-to-br from-gray-600 to-gray-700"
+        color="text-purple-400"
+        iconBgColor="#A855F7"
+      />
+      <DashboardStatCard
+        icon={<Renew />}
+        label="Auto Renewals"
+        description="Active TTL renewals"
+        value={2}
+        color="text-green-400"
+        iconBgColor="#10B981"
+      />
+      <DashboardStatCard
+        icon={<Event fill="#FB923C" />}
+        label="Event Monitors"
+        description="Events being watched"
+        value={23}
+        color="text-orange-400"
+        iconBgColor="#F59E0B"
       />
     </div>
   );

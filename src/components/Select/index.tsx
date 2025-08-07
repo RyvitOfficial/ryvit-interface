@@ -49,9 +49,9 @@ export const AnimatedSelect = ({
         className={cn(
           'items-center inline-flex outline-none border transition-all duration-300',
           {
-            'justify-between rounded-xl placeholder-[#a8a7a8] text-[#2c2c2c] text-[14px] w-full h-[48px] p-4 bg-transparent ':
+            'justify-between rounded-lg placeholder-[#a8a7a8] text-[#2c2c2c] text-[14px] w-full h-[48px] p-4 bg-transparent ':
               !network,
-            'rounded-2xl w-full border-2 border-primary/80 h-9 bg-primary/10 text-primary/80':
+            'rounded-lg w-full border-2 border-border3 h-11 bg-bgblack2 text-white':
               network,
           },
         )}
@@ -65,7 +65,7 @@ export const AnimatedSelect = ({
         </span>
         {network ? (
           <div>
-            <Network fill="rgba(27, 89, 248, 0.5)" />
+            <Network fill="rgba(27, 89, 248, 0.9)" />
           </div>
         ) : (
           <div className={`transition-transform ${open ? 'rotate-180' : ''}`}>
@@ -81,7 +81,7 @@ export const AnimatedSelect = ({
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
-            className="absolute z-10 mt-2 w-full p-2 bg-white rounded-xl shadow-xl text-[#2c2c2c] overflow-hidden"
+            className="absolute z-10 mt-2 w-full p-2 bg-bgblack2 rounded-lg shadow-xl text-white overflow-hidden"
           >
             {options.map((option) => (
               <li
@@ -90,7 +90,7 @@ export const AnimatedSelect = ({
                   onChange(option.value);
                   setOpen(false);
                 }}
-                className="px-4 py-2 hover:bg-primary/10 cursor-pointer rounded-xl text-sm"
+                className="px-4 py-2 hover:bg-primary/10 cursor-pointer rounded-lg text-sm"
               >
                 {option.label}
               </li>

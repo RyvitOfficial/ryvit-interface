@@ -1,22 +1,23 @@
-import CreateContractContainer from '../CreateContractContainer';
+import Card from '@/components/Card';
 import DashboardStats from '../OverviewCard';
-import RecentContract from '../RecentContract';
+import QuickActions from '../QuickActions';
+import WalletBalanceCard from '../WalletBalanceCard';
 
 const DashboardContainer = () => {
   return (
-    <div className="w-full h-full flex-grow flex flex-col items-start justify-start">
+    <div className="w-full h-full flex-grow flex flex-col items-start justify-start px-6 gap-6">
       <div className="w-full">
         <DashboardStats />
       </div>
 
-      <div className="overflow-y-auto w-full h-full small:flex small:flex-col-reverse gap-4 mt-4 desktop:grid desktop:grid-cols-[3fr_1fr] flex-grow">
-        <div className="h-full">
-          <RecentContract />
+      <Card bgColor="bgblack" borderColor="#3741514D" className="p-5 w-full">
+        <h2 className="text-white font-bold pb-4">Quick Actions</h2>
+        <div className="w-full">
+          <QuickActions />
         </div>
-        <div className="h-full">
-          <CreateContractContainer />
-        </div>
-      </div>
+      </Card>
+
+      <WalletBalanceCard />
     </div>
   );
 };

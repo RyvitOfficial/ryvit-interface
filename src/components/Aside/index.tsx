@@ -42,7 +42,7 @@ const Aside = () => {
   };
 
   return (
-    <div className="bg-white rounded-[13px] border-2 border-[#E9EAEB] w-full h-full flex flex-col justify-between">
+    <div className="bg-bgblack1 border-2 border-borderblack w-full h-full flex flex-col justify-between">
       <div>
         <div className="w-full flex items-center justify-center mb-6 mt-4">
           <Image
@@ -62,7 +62,7 @@ const Aside = () => {
                 className={`flex items-center space-x-3 px-4 py-[14px] rounded-xl transition-colors ${
                   isActive
                     ? 'bg-primary/15 text-primary font-[600]'
-                    : 'text-gray-500 hover:bg-gray-100'
+                    : 'text-txtgray hover:bg-primary/15'
                 }`}
               >
                 <span>{icon}</span>

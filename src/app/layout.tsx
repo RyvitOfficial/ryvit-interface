@@ -1,6 +1,6 @@
 'use client';
 
-import { Inter } from 'next/font/google';
+import { Inter, JetBrains_Mono } from 'next/font/google';
 
 import './globals.css';
 import { Provider } from 'react-redux';
@@ -14,6 +14,12 @@ const inter = Inter({
   variable: '--font-inter',
 });
 
+const jetbrains = JetBrains_Mono({
+  subsets: ['latin'],
+  variable: '--font-jetbrains',
+  display: 'swap',
+});
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -25,7 +31,9 @@ export default function RootLayout({
         <meta charSet="UTF-8" />
         <Metadata />
       </head>
-      <body className={`${inter.variable} antialiased h-screen`}>
+      <body
+        className={`${inter.variable} ${jetbrains.variable} antialiased h-screen`}
+      >
         <Provider store={store}>
           {children}
           <Toaster position="bottom-center" />
