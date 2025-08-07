@@ -31,21 +31,21 @@ export default function RootLayout({
 
   const [isMounted, setIsMounted] = useState(false);
 
-  useEffect(() => {
-    setIsMounted(true);
-    if (!isLogin) {
-      router.push('/signin');
-    }
-  }, [isLogin, router]);
+  // useEffect(() => {
+  //   setIsMounted(true);
+  //   if (!isLogin) {
+  //     router.push('/signin');
+  //   }
+  // }, [isLogin, router]);
 
-  if (!isMounted) return null;
+  // if (!isMounted) return null;
 
-  if (!isLogin) return null;
+  // if (!isLogin) return null;
 
   return (
     <Providers>
       <div className="bg-background w-full h-full flex justify-center items-center">
-        <div className="flex justify-center items-start space-x-4 h-[95vh] w-[97%] !m-auto">
+        <div className="flex justify-center items-start h-full w-full !m-auto">
           <div className="h-[100%] w-1/5">
             <Aside />
           </div>
