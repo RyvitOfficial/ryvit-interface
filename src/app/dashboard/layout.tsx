@@ -17,6 +17,7 @@ const titleMap: Record<string, string> = {
   '/dashboard/activities': 'Activities',
   '/dashboard/wallet': 'Wallet',
   '/dashboard/settings': 'Settings',
+  '/dashboard/event': 'Event Monitoring',
 };
 
 export default function RootLayout({
@@ -44,19 +45,17 @@ export default function RootLayout({
 
   return (
     <Providers>
-      <div className="bg-background w-full h-full flex justify-center items-center">
+      <div className="bg-background w-full h-screen flex justify-center items-center">
         <div className="flex justify-center items-start h-full w-full !m-auto">
-          <div className="h-[100%] w-1/5">
+          <div className="h-full w-1/5">
             <Aside />
           </div>
 
-          <section className="w-full min-h-full flex flex-col items-center justify-start">
-            <div className="w-full">
+          <section className="w-full h-full flex flex-col overflow-auto">
+            <div className="w-full shrink-0">
               <Header title={title} />
             </div>
-            <article className="w-full h-full flex flex-col flex-grow">
-              {children}
-            </article>
+            <article className="w-full flex-1 ">{children}</article>
           </section>
         </div>
       </div>

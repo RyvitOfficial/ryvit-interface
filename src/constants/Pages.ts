@@ -1,5 +1,6 @@
 export enum Pages {
   DASHBOARD = '/dashboard',
+  EVENT = '/dashboard/event',
   SETTINGS = '/dashboard/settings',
   SIGNUP = '/signup',
   SIGNIN = '/signin',
