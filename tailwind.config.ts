@@ -26,6 +26,9 @@ module.exports = {
         txtgray2: '#6B7280',
         bgblack2: '#1A1F2E',
         border3: '#2D3748',
+        border4: '#334155',
+        border5: '#2D2D44',
+        input: '#22232B',
       },
       fontFamily: {
         inter: ['var(--font-inter)'],
@@ -38,6 +41,7 @@ module.exports = {
       small: { max: '1023px' },
       desktop: { min: '1024px' },
       desktopMax: { max: '1536px' },
+      fixScale: { min: '1390px', max: '1536px' },
       bigScreen: { min: '1550px' },
 
       lg: { min: '1024px', max: '1279px' },
