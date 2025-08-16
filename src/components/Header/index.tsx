@@ -49,19 +49,19 @@ const Header = ({ title }: HeaderProps) => {
   const changedDigits = getChangedDigits(previousLedger, lastLedger);
 
   return (
-    <header className="w-full bg-bgblack1 border-2 border-borderblack border-l-0 flex items-center justify-between h-24 px-8">
+    <header className="w-full bg-transparent flex items-center justify-between h-24 px-8">
       <span className="text-2xl text-white font-[600]">{title}</span>
       <section className="flex items-center space-x-4">
-        <div className="Ledger flex justify-center h-11 items-center space-x-2 border border-border2 rounded-md pl-4 overflow-hidden">
+        <div className="Ledger flex justify-center h-11 items-center space-x-2 bg-bgblack1 border-2 border-border3 rounded-lg pl-4 overflow-hidden desktopMax:!h-9 desktopMax:text-sm">
           <div className="flex items-center space-x-2">
             <div className="bg-green-500 h-[9px] w-[9px] rounded-full animate-pulse"></div>
-            <span className="text-white/70 text-[14px] font-medium">
+            <span className="text-white/80 text-sm font-medium font-jetbrains">
               Last Ledger
             </span>
           </div>
 
-          <div className="bg-codebg/50 flex justify-center items-center py-2 h-full min-w-[80px]">
-            <span className="text-[13px] text-primary">
+          <div className="flex justify-center items-center h-full min-w-[80px]">
+            <span className="text-base text-primary font-jetbrains font-bold">
               {lastLedger.split('').map((digit, index) => (
                 <motion.span
                   key={index}
@@ -92,6 +92,7 @@ const Header = ({ title }: HeaderProps) => {
             defaultValue={networkOptions[0].value}
             onChange={selectOnChange}
             network
+            className="desktopMax:!h-9 desktopMax:text-sm !bg-bgblack1 !border-[#334155] text-white/80"
           />
         </div>
 
