@@ -19,6 +19,7 @@ interface AnimatedSelectProps {
   onChange: (value: string) => void;
   placeholder?: string;
   network?: boolean;
+  className?: string;
 }
 
 export const AnimatedSelect = ({
@@ -28,6 +29,7 @@ export const AnimatedSelect = ({
   onChange,
   placeholder = 'Select an option',
   network,
+  className,
 }: AnimatedSelectProps) => {
   const [open, setOpen] = useState(false);
   const [internalValue, setInternalValue] = useState(defaultValue);
@@ -47,13 +49,14 @@ export const AnimatedSelect = ({
       <button
         onClick={() => setOpen((prev) => !prev)}
         className={cn(
-          'items-center inline-flex outline-none border transition-all duration-300',
+          'flex items-center justify-start outline-none border transition-all duration-300 font-jetbrains',
           {
-            'justify-between rounded-lg placeholder-[#a8a7a8] text-[#2c2c2c] text-[14px] w-full h-[48px] p-4 bg-transparent ':
+            'justify-between rounded-lg placeholder-[#fff] border-border2 text-[#D1D5DB] text-[14px] w-full h-[48px] p-4 bg-input':
               !network,
             'rounded-lg w-full border-2 border-border3 h-11 bg-bgblack2 text-white':
               network,
           },
+          className,
         )}
       >
         <span
@@ -81,7 +84,7 @@ export const AnimatedSelect = ({
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
-            className="absolute z-10 mt-2 w-full p-2 bg-bgblack2 rounded-lg shadow-xl text-white overflow-hidden"
+            className="absolute z-10 mt-2 w-full p-2 bg-bgblack2 rounded-lg shadow-xl text-white overflow-hidden font-jetbrains"
           >
             {options.map((option) => (
               <li
