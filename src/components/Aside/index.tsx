@@ -44,13 +44,16 @@ const Aside = () => {
   return (
     <div className="bg-bgblack1 border-2 border-borderblack w-full h-full flex flex-col justify-between">
       <div>
-        <div className="w-full flex items-center justify-center mb-6 mt-4">
+        <div className="w-full flex items-center justify-start my-10 gap-3 pl-9">
           <Image
-            src="/images/logoType.png"
+            src="/images/logo-blue.png"
             alt="logoType"
-            width={130}
-            height={130}
+            width={45}
+            height={45}
           />
+          <h2 className="text-white font-bold text-2xl font-jetbrains">
+            Ryvit
+          </h2>
         </div>
         <nav className="flex flex-col space-y-2 px-5 mt-3 tablet:px-1">
           {navItems.map(({ name, href, icon }) => {
@@ -61,8 +64,8 @@ const Aside = () => {
                 href={href}
                 className={`flex items-center space-x-3 px-4 py-[14px] rounded-xl transition-colors ${
                   isActive
-                    ? 'bg-primary/15 text-primary font-[600]'
-                    : 'text-txtgray hover:bg-primary/15'
+                    ? 'bg-[#1B59F8]/20 text-[#3B82F6] font-[600]'
+                    : 'text-txtgray hover:bg-[#1B59F8]/20'
                 }`}
               >
                 <span>{icon}</span>
