@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import Image, { StaticImageData } from 'next/image';
 
 import buttonCustomStyles from './ButtonCustomStyle';
@@ -12,7 +12,11 @@ export type CButtonColorType =
   | 'outlineWhiteBlack'
   | 'discard'
   | 'red'
-  | 'yellow';
+  | 'yellow'
+  | 'green'
+  | 'gray'
+  | 'dark'
+  | 'custom';
 
 interface ButtonProps {
   color: CButtonColorType;
@@ -22,7 +26,7 @@ interface ButtonProps {
   type?: 'button' | 'submit';
   className?: string;
   fill?: string;
-  logo?: string | StaticImageData;
+  logo?: string | StaticImageData | React.ReactNode;
   onClick?: () => void;
   children?: React.ReactNode;
 }
@@ -39,6 +43,23 @@ const Button = ({
   children,
   ...props
 }: ButtonProps) => {
+  const renderLogo = () => {
+    if (!logo) return null;
+    if (typeof logo === 'string' || (logo as StaticImageData)?.src) {
+      return (
+        <Image
+          src={logo as string | StaticImageData}
+          width={25}
+          height={25}
+          alt="logo"
+          className="mr-2"
+          draggable={false}
+        />
+      );
+    }
+    return <div className="mr-2 flex items-center">{logo as ReactNode}</div>;
+  };
+
   return (
     <button
       type={type}
@@ -47,16 +68,8 @@ const Button = ({
       {...props}
       onClick={onClick}
     >
-      {logo && (
-        <Image
-          src={logo}
-          width={25}
-          height={25}
-          alt="logo"
-          className="mr-2"
-          draggable={false}
-        />
-      )}
+      {renderLogo()}
+
       {content ? content : children}
     </button>
   );

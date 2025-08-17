@@ -10,7 +10,7 @@ const CLabel = ({ label, htmlFor, className, noneMargin }: CLabelProps) => {
     <div className={`flex items-start ml-1  ${className}`}>
       <label
         htmlFor={htmlFor}
-        className={`text-[15px] font-inter font-[400] text-[#343C6A] ${
+        className={`text-sm font-inter font-[400] text-txtgray ${
           noneMargin ? '' : 'mb-2 '
         }flex`}
       >

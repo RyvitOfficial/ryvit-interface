@@ -61,7 +61,7 @@ const Modal = ({
             transition={{ duration: 0.25 }}
             style={{ width: width ?? '482px' }}
             className={cn(
-              'mobile:w-[calc(100%-32px)] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 !z-[9999] rounded-[10px] shadow-2xl bg-white',
+              'mobile:w-[calc(100%-32px)] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 !z-[9999] rounded-[10px] shadow-2xl bg-[#1A1B21] border border-[#2B2C2F]',
               className,
             )}
             onClick={(e) => e.stopPropagation()}
