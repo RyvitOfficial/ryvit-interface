@@ -7,6 +7,7 @@ import CInput from '@/components/Input';
 import Button from '@/components/Button';
 import ColoredTag from '@/components/ColoredTag';
 import { AnimatedSelect } from '@/components/Select';
+import AddEventModal from '@/containers/Modals/AddEventModal';
 import { ToggleButtonGroup } from '@/components/ToggleButtonGroup';
 
 import { Add, Tick } from '@/assets';
@@ -19,12 +20,21 @@ const options = [
 
 const EventConfig = () => {
   const [method, setMethod] = useState<'HTTP' | 'RabbitMQ'>('HTTP');
+  const [AddEventIsOpen, setAddEventsIsOpen] = useState(false);
 
   const handleSelectValue = (value: string) => {};
 
+  const handleOnClose = () => {
+    setAddEventsIsOpen(false);
+  };
+
+  const handleAddEventClick = () => {
+    setAddEventsIsOpen(true);
+  };
+
   return (
     <Card
-      bgColor="#141419"
+      bgColor="#121319"
       borderColor="#2D2D44"
       className="w-full text-white py-5 px-6"
     >
@@ -52,6 +62,7 @@ const EventConfig = () => {
               rounded="sm"
               logo={<Add />}
               className="text-sm !px-4 !py-1 !rounded-md h-8"
+              onClick={handleAddEventClick}
             />
           </div>
         </div>
@@ -96,6 +107,8 @@ const EventConfig = () => {
           </div>
         </div>
       </section>
+
+      <AddEventModal isOpen={AddEventIsOpen} onClose={handleOnClose} />
     </Card>
   );
 };

@@ -6,7 +6,7 @@ export const navItems = [
   {
     name: 'Event',
     href: '/dashboard/event',
-    icon: <EventList fill="#3B82F6" />,
+    icon: <EventList />,
   },
   { name: 'Activities', href: '/dashboard/activities', icon: <Activity /> },
   { name: 'Wallet', href: '/dashboard/wallet', icon: <Wallet /> },

@@ -31,7 +31,7 @@ const SDKConfig = () => {
 
   return (
     <Card
-      bgColor="#141419"
+      bgColor="#121319"
       borderColor="#2D2D44"
       className="w-full text-white py-5 px-6 h-full flex flex-col"
     >

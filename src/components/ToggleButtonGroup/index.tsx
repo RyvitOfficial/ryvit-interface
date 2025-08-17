@@ -22,9 +22,13 @@ export function ToggleButtonGroup<T extends string>({
           <button
             key={option}
             onClick={() => onChange(option)}
-            className={`w-full px-8 h-[46px] desktopMax:h-[35px] desktopMax:rounded-lg rounded-xl transition-colors text-sm 
-              ${isSelected ? 'bg-btnblue text-white' : 'bg-codebg text-txtgray'}
-              hover:bg-blue-500 hover:text-white`}
+            className={`w-full px-8 h-[46px] desktopMax:h-[35px] desktopMax:rounded-lg rounded-xl transition text-sm 
+              ${
+                isSelected
+                  ? 'bg-btnblue text-white'
+                  : 'bg-bgblack2 text-txtgray'
+              }
+              hover:brightness-110 hover:text-white`}
           >
             {option}
           </button>

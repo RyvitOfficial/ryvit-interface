@@ -42,7 +42,7 @@ const Aside = () => {
   };
 
   return (
-    <div className="bg-bgblack1 border-2 border-borderblack w-full h-full flex flex-col justify-between">
+    <div className="bg-background shadow-lg border border-borderblack/0 border-l-0 w-full h-full flex flex-col justify-between">
       <div>
         <div className="w-full flex items-center justify-start my-10 gap-3 pl-9">
           <Image
@@ -62,7 +62,7 @@ const Aside = () => {
               <Link
                 key={name}
                 href={href}
-                className={`flex items-center space-x-3 px-4 py-[14px] rounded-xl transition-colors ${
+                className={`flex items-center space-x-3 px-3 py-3 rounded-xl transition-colors ${
                   isActive
                     ? 'bg-[#1B59F8]/20 text-[#3B82F6] font-[600]'
                     : 'text-txtgray hover:bg-[#1B59F8]/20'

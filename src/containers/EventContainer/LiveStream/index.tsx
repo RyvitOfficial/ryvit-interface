@@ -73,7 +73,7 @@ const LiveStream = () => {
 
   return (
     <Card
-      bgColor="#141419"
+      bgColor="#121319"
       borderColor="#2D2D44"
       className="py-5 px-6 !h-full min-h-0 flex flex-col"
     >
