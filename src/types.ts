@@ -75,12 +75,23 @@ export interface IDataKey {
   _id: string;
   name: string;
   type: string;
-  value: IValue;
+  // value: IValue;
   liveLedger: number;
   network: 'testnet' | 'mainnet';
   contract: string;
   valuesType: 'range' | 'list' | 'function' | 'none';
   values: IValues[];
+  status: 'active' | 'near_expiry' | 'expired';
+  expiresAt: string;
+  timeRemaining: string;
+  autoRenew: boolean;
+}
+
+export interface IValues {
+  value: string;
+  key: string;
+  liveLedger: number;
+  autoSelect: boolean;
 }
 
 export type SvgProps = {
@@ -114,13 +125,6 @@ export interface IUser {
   contractsCount: number;
   detaKeysCount: number;
   dataKeysExpireSoonCount: number;
-}
-
-export interface IValues {
-  value: string;
-  key: string;
-  liveLedger: number;
-  autoSelect: boolean;
 }
 
 export interface ITransactionDetails {
