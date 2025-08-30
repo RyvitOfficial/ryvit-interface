@@ -1,16 +1,17 @@
 'use client';
 
-import { Alert, Key, Warning } from '@/assets';
+import { useAppSelector } from '@/hooks/useRedux';
+
 import Renew from '@/assets/Renew';
 import StatCard from '@/components/StateCard';
 
-import { useAppSelector } from '@/hooks/useRedux';
+import { Alert, Key, Warning } from '@/assets';
 
-const DashboardStats = () => {
+const TTLStats = () => {
   const userDetails = useAppSelector((state) => state.user.details);
 
   return (
-    <div className="grid grid-cols-4 gap-5 mt-6">
+    <div className="grid grid-cols-4 gap-5">
       <StatCard
         title="Auto-Renew"
         value={userDetails ? userDetails.contractsCount : 0}
@@ -32,11 +33,11 @@ const DashboardStats = () => {
       <StatCard
         title="Total Keys"
         value={userDetails ? userDetails.detaKeysCount : 0}
-        icon={<Key />}
+        icon={<Key fill="#3B82F6" />}
         iconBgColor="#3B82F6"
       />
     </div>
   );
 };
 
-export default DashboardStats;
+export default TTLStats;
