@@ -35,7 +35,7 @@ const EventConfig = () => {
   return (
     <Card
       bgColor="#121319"
-      borderColor="#2D2D44"
+      borderColor="transparent"
       className="w-full text-white py-5 px-6"
     >
       <h2 className="font-medium text-lg font-jetbrains desktopMax:text-base">
