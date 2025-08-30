@@ -35,13 +35,13 @@ const CSwitch = ({
   return (
     <button
       onClick={toggle}
-      className={`w-16 h-8 rounded-full flex items-center px-1 transition-colors duration-300 switch ${
-        isOn ? 'bg-primary justify-end' : 'bg-gray-300 justify-start'
+      className={`w-12 h-7 rounded-full flex items-center px-1 transition-colors duration-300 switch ${
+        isOn ? 'bg-primary justify-end' : 'bg-bgblack2 justify-start'
       } ${className}`}
     >
       <motion.div
         layout
-        className="w-6 h-6 bg-white rounded-full shadow"
+        className="w-5 h-5 bg-white rounded-full shadow"
         transition={{ type: 'spring', stiffness: 700, damping: 30 }}
       />
     </button>

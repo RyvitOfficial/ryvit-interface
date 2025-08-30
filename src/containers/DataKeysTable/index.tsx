@@ -2,17 +2,17 @@
 import React, { useEffect, useState } from 'react';
 
 import Checkbox from '@/components/CheckBox';
-import CircleProgress from '@/components/CircleProgressBar';
-
-import { liveLedgerToPercentage } from '@/utils/liveLedgerToPercentage';
-
-import { useAppSelector } from '@/hooks/useRedux';
 
 import { IDataKey } from '@/types';
+import { StatusBadge } from '@/components/StatusBadge';
+import CSwitch from '@/components/Switch';
+import ProgressBar from '@/components/ProgressBar';
 
 interface DataKeysTableProps {
   dataKeys: IDataKey[];
-  onSelectionChange?: (selected: { id: string; name: string }[]) => void;
+  onSelectionChange?: (
+    selected: { id: string; name: string; status: string }[],
+  ) => void;
   clearTrigger: number;
 }
 
@@ -23,7 +23,7 @@ export const DataKeysTable = ({
 }: DataKeysTableProps) => {
   const [selected, setSelected] = useState<string[]>([]);
 
-  const lastLedger = useAppSelector((state) => state.lastLedger.ledger);
+  // const lastLedger = useAppSelector((state) => state.lastLedger.ledger);
 
   const isAllSelected = selected.length === dataKeys.length;
 
@@ -31,7 +31,11 @@ export const DataKeysTable = ({
     if (onSelectionChange) {
       const selectedData = dataKeys
         .filter((item) => selected.includes(item._id))
-        .map((item) => ({ id: item._id, name: item.name }));
+        .map((item) => ({
+          id: item._id,
+          name: item.name,
+          status: item.status,
+        }));
       onSelectionChange(selectedData);
     }
   }, [selected]);
@@ -52,65 +56,82 @@ export const DataKeysTable = ({
   };
 
   return (
-    <div className="p-5 bg-white rounded-[13px] border-2 border-border h-[100%] overflow-y-auto">
-      <h2 className="text-lg font-semibold text-secondary mb-4">DataKeys</h2>
-      <div className="border border-border rounded-xl ">
-        <div className="grid grid-cols-[80px_2fr_1fr_1fr_1fr_1fr] items-center text-sm font-medium text-[#272833] border-b py-3 px-4 bg-[#f7f7f7]">
-          <div>
-            <Checkbox
-              checked={isAllSelected}
-              onChange={toggleSelectAll}
-              value="select"
-            />
-          </div>
-          <div>Name</div>
-          <div>Subscribe</div>
+    <div className="py-5 bg-bgblack rounded-xl h-full overflow-y-auto">
+      <h2 className="text-xl font-semibold text-white mb-4 px-6 py-2">
+        Data Keys
+      </h2>
+      <div className="overflow-y-auto ">
+        {/* header */}
+        <div className="grid grid-cols-[2fr_1fr_1.5fr_1fr_1fr_1fr] text-base desktopMax:text-sm font-medium text-txtgray bg-bgblack2/40 px-8 py-6 border-t border-border5 sticky top-0 w-full z-10">
+          <div>Key Name</div>
+          <div>Expires</div>
+          <div>Time Remaining</div>
+          <div>Status</div>
           <div>Live Ledger</div>
-          <div>Values</div>
-          <div>Expired</div>
+          <div>Auto-Renew</div>
         </div>
 
+        {/* rows */}
         {dataKeys.map((item) => {
           const isSelected = selected.includes(item._id);
           return (
             <div
               key={item._id}
-              className={`grid grid-cols-[80px_2fr_1fr_1fr_1fr_1fr] items-center text-sm text-gray-700 border-b last:border-b-0 p-4 ${
-                isSelected ? 'bg-blue-50' : ''
+              className={`grid grid-cols-[2fr_1fr_1.5fr_1fr_1fr_1fr] text-sm items-center px-8 py-[18px] border-b border-border5 ${
+                isSelected ? 'bg-input' : 'bg-transparent'
               }`}
             >
-              <div>
+              {/* name */}
+              <div className="text-white font-jetbrains flex gap-2">
                 <Checkbox
                   checked={isSelected}
                   onChange={() => toggleSelection(item._id)}
                   value={item._id}
                   type="secondary"
+                  label={item.name}
                 />
               </div>
-              <div>{item.name}</div>
-              <div>{item.values.length}</div>
-              <div>{item.liveLedger}</div>
-              <div>
-                <span className="px-2 py-1 text-xs bg-purple-100 text-purple-700 rounded-md">
-                  {item.valuesType}
-                </span>
-              </div>
+
+              {/* expires */}
+              <div className="text-white">{item.expiresAt}</div>
+
+              {/* time remaining */}
               <div className="flex items-center gap-2">
-                <span>
-                  {liveLedgerToPercentage(item.liveLedger, lastLedger)}%
-                </span>
-                <CircleProgress
-                  size={25}
-                  strokeWidth={3}
-                  percentage={liveLedgerToPercentage(
-                    item.liveLedger,
-                    lastLedger,
-                  )}
-                />
+                <div className="w-36">
+                  <ProgressBar
+                    label="2d 12h"
+                    percent={45}
+                    status={item.status}
+                  />
+                </div>
+                {/* <span className="text-txtgray text-sm">
+                  {item.timeRemaining}
+                </span> */}
+              </div>
+
+              {/* status */}
+              <div>
+                <StatusBadge status={item.status} />
+              </div>
+
+              <div className="text-white">{item.liveLedger}</div>
+
+              {/* auto renew */}
+              <div>
+                <CSwitch checked={item.autoRenew} onChange={() => {}} />
               </div>
             </div>
           );
         })}
+      </div>
+      <div className="flex items-center gap-2 pl-4 mt-4">
+        <Checkbox
+          checked={isAllSelected}
+          onChange={toggleSelectAll}
+          value="select"
+          type="secondary"
+        />
+        <span className="text-white text-xs font-jetbrains">select all</span>
       </div>
     </div>
   );

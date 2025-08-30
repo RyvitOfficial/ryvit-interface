@@ -21,7 +21,7 @@ const StatCard = ({
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.4 }}
-      className={`rounded-2xl px-5 py-6 text-white shadow-md flex justify-between items-center bg-bgblack1 border-borderblack`}
+      className={`rounded-2xl px-5 py-6 text-white shadow-md flex justify-between items-center bg-bgblack border-borderblack`}
     >
       <div className="">
         <div

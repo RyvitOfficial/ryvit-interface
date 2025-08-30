@@ -32,7 +32,7 @@ const Checkbox = ({
   className,
 }: CheckboxProps) => {
   return (
-    <label className={` ${className} flex items-center space-x-[7px]`}>
+    <label className={` ${className} flex items-center gap-3`}>
       <input
         type="checkbox"
         meta={meta}
@@ -59,7 +59,7 @@ const Checkbox = ({
       </div>
       {label && (
         <div
-          className={`text-sm font-medium select-none transition-colors duration-100 text-black`}
+          className={`text-sm font-medium select-none transition-colors duration-100 text-white`}
         >
           {label}
         </div>

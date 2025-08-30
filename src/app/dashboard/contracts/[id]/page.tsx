@@ -10,6 +10,8 @@ export const metadata: Metadata = {
 const Contracts = ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = use(params);
 
+  console.log(id);
+
   return <ManageContract id={id} />;
 };
 

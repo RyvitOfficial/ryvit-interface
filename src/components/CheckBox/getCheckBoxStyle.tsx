@@ -18,15 +18,15 @@ export const getCheckBoxStyle = (
     }
 
     case 'secondary': {
-      return `w-5 h-5 border-2 ${
+      return `w-[18px] h-[18px] border-1 ${
         disabled
-          ? 'pointer-events-none !bg-[#F2F4F7] border !border-[#EAECF0]'
+          ? 'pointer-events-none !bg-bgblack1 border !border-[#333]'
           : 'cursor-pointer'
       }
       ${
         checked
-          ? 'bg-[#EEFFF9] border-2 !border-[#1B59F8]'
-          : ' bg-white border !border-gray'
+          ? 'bg-bgblack1 border !border-[#1B59F8]'
+          : ' bg-black1 border !border-border2'
       }`;
     }
   }

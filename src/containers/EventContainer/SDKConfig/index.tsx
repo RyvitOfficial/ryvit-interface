@@ -32,7 +32,7 @@ const SDKConfig = () => {
   return (
     <Card
       bgColor="#121319"
-      borderColor="#2D2D44"
+      borderColor="transparent"
       className="w-full text-white py-5 px-6 h-full flex flex-col"
     >
       <h2 className="text-lg font-medium font-jetbrains desktopMax:text-base text-white mb-2 shrink-0">

@@ -74,7 +74,7 @@ const LiveStream = () => {
   return (
     <Card
       bgColor="#121319"
-      borderColor="#2D2D44"
+      borderColor="transparent"
       className="py-5 px-6 !h-full min-h-0 flex flex-col"
     >
       <div className="flex justify-between items-center mb-4 shrink-0">

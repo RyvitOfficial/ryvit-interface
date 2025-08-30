@@ -18,6 +18,7 @@ const titleMap: Record<string, string> = {
   '/dashboard/wallet': 'Wallet',
   '/dashboard/settings': 'Settings',
   '/dashboard/event': 'Event Monitoring',
+  '/dashboard/ttl': 'TTL Manager',
 };
 
 export default function RootLayout({

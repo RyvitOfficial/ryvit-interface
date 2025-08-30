@@ -27,3 +27,5 @@ export { default as Network } from './Network';
 export { default as Setting } from './Setting';
 export { default as EyeSlash } from './EyeSlash';
 export { default as Activity } from './Activity';
+export { default as TTL } from './TTL';
+export { default as SmartContract } from './SmartContract';
