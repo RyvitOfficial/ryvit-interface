@@ -1,14 +1,14 @@
 import React from 'react';
 import cn from 'classnames';
 
-export type TTLStatusType = 'active' | 'near_expiry' | 'expired';
+export type ContractStatusBadgeType = 'active' | 'inactive';
 
-interface TTLStatusBadgeProps {
-  status: TTLStatusType;
+interface ContractStatusBadgeProps {
+  status: ContractStatusBadgeType;
 }
 
-const ttlStatusConfig: Record<
-  TTLStatusType,
+const ContractStatusConfig: Record<
+  ContractStatusBadgeType,
   { label: string; bg: string; text: string }
 > = {
   active: {
@@ -16,20 +16,16 @@ const ttlStatusConfig: Record<
     bg: 'bg-[#10B981]/10',
     text: 'text-[#10B981]',
   },
-  near_expiry: {
-    label: 'Near Expiry',
-    bg: 'bg-[#F59E0B]/10',
-    text: 'text-[#F59E0B]',
-  },
-  expired: {
-    label: 'Expired',
+
+  inactive: {
+    label: 'Inactive',
     bg: 'bg-[#EF4444]/10',
     text: 'text-[#EF4444]',
   },
 };
 
-export const TTLStatusBadge = ({ status }: TTLStatusBadgeProps) => {
-  const { label, bg, text } = ttlStatusConfig[status];
+export const ContractStatusBadge = ({ status }: ContractStatusBadgeProps) => {
+  const { label, bg, text } = ContractStatusConfig[status];
 
   return (
     <span
