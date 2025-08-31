@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { ReactNode, useState } from 'react';
 import Image from 'next/image';
 
 import Label from '../Label';
@@ -10,7 +10,7 @@ import useCustomID from '@/hooks/useCustomId';
 import { Eye, EyeSlash } from '@/assets';
 
 interface IInputProps {
-  icon?: string;
+  icon?: string | ReactNode;
   label?: string;
   error?: boolean;
   border?: boolean;
@@ -79,8 +79,12 @@ const CInput = ({
 
       <div className="relative w-full">
         {icon && (
-          <div className={`${iconClassName} absolute bottom-4 left-3.5`}>
-            <Image src={icon} width={22} height={22} alt="inputIcon" />
+          <div className={`${iconClassName} absolute bottom-3 left-3.5`}>
+            {typeof icon === 'string' ? (
+              <Image src={icon} width={22} height={22} alt="inputIcon" />
+            ) : (
+              icon
+            )}
           </div>
         )}
 
