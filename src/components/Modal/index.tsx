@@ -71,11 +71,11 @@ const Modal = ({
                 <header className="flex justify-between items-center select-none py-4">
                   <div className="flex items-center space-x-2">
                     {icon && (
-                      <div className="w-[40px] h-[40px] border border-border rounded-[13px] flex justify-center items-center">
+                      <div className="w-[40px] h-[40px] border border-border2 rounded-[13px] flex justify-center items-center">
                         {icon}
                       </div>
                     )}
-                    <p className="text-xl font-medium">{title}</p>
+                    <p className="text-lg font-medium text-white">{title}</p>
                   </div>
                   <div
                     onClick={iconClick ?? onClose}

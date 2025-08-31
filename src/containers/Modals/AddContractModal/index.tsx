@@ -91,14 +91,13 @@ const AddContractModal = ({
       isOpen={isOpen}
       onClose={onClose}
       iconClick={handleIconClick}
-      title="Add Contract"
-      icon={<FileAdd fill="#414651" />}
+      title="Add New Contract"
+      icon={<FileAdd fill="#fff" />}
     >
       <form onSubmit={handleSubmit} className="space-y-4">
         <CInput
-          placeholder="Enter your contract name"
+          placeholder="Type a name for your contract"
           label="Contract Name"
-          border
           value={contractName}
           maxLength={20}
           onChange={handleContractNameChange}
@@ -106,17 +105,18 @@ const AddContractModal = ({
             contractName !== '' &&
             (contractName.length < 3 || contractName.length > 20)
           }
-          errorMsg="Contract name must be between 3 and 20 characters"
+          errorMsg="Name must be between 3 and 20 characters."
+          inputClassName="!bg-input text-white font-jetbrains"
         />
 
         <CInput
-          placeholder="Enter your contract Address"
+          placeholder="Paste your contract address"
           label="Contract Address"
-          border
           value={contractAddress}
           onChange={handleContractAddressChange}
           error={!isValidAddress && contractAddress !== ''}
-          errorMsg="The address is invalid"
+          errorMsg="This contract address is not valid."
+          inputClassName="!bg-input text-white font-jetbrains"
         />
 
         <ValidateContract
@@ -124,21 +124,27 @@ const AddContractModal = ({
           onValidationResult={setIsValidAddress}
         />
 
-        <div className="flex items-center justify-center w-full space-x-2 mt-6">
+        <p className="text-xs text-txtgray px-1 pb-2">
+          Enter a name to identify your contract and paste the exact contract
+          address.
+          <span className="italic"> Address must be valid on Soroban.</span>
+        </p>
+
+        <div className="w-full flex justify-end gap-3 mt-8 h-10">
           <Button
             content="Cancel"
             type="button"
-            rounded="xl"
-            color="outlineWhiteBlack"
-            className="!w-[40%]"
+            rounded="sm"
+            color="dark"
+            className="w-1/5 h-full text-sm text-white"
             onClick={handleCancelClick}
           />
           <Button
-            content="Confirm"
+            content="Add Contract"
             type="submit"
-            rounded="xl"
-            color="blue"
-            className="!w-[60%]"
+            rounded="sm"
+            color="green"
+            className="w-2/6 h-full text-sm"
           />
         </div>
       </form>

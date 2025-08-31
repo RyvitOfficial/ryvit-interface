@@ -16,6 +16,8 @@ export type CButtonColorType =
   | 'green'
   | 'gray'
   | 'dark'
+  | 'black'
+  | 'secondRed'
   | 'custom';
 
 interface ButtonProps {
