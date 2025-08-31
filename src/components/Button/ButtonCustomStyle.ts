@@ -15,10 +15,14 @@ const buttonCustomStyles = (
     darkBlue: 'text-white bg-secondary !rounded hover:bg-secondary/80',
     discard: 'text-red-600 !bg-red-100 !rounded-[8px] hover:!bg-red-200/80',
     red: 'bg-red-500 text-white',
+    secondRed:
+      'bg-[#EF4444]/20 text-[#F87171] hover:bg-[#EF4444]/30 h-9 text-sm',
     yellow: 'bg-[#E7FB05] text-primary hover:bg-[#E7FB05]/90 ',
     green: 'bg-[#16A34A] text-white hover:bg-[#16A34A]/90',
     gray: 'bg-bgblack2 text-white hover:brightness-110',
     dark: 'bg-input hover:brightness-110',
+    black:
+      'bg-bgblack2 text-white border border-border5/80 hover:bg-bgblack !text-xs h-8',
     custom: '',
   };
 
