@@ -10,11 +10,14 @@ import AddContractModal from '@/containers/Modals/AddContractModal';
 
 import { useGetContracts } from '@/hooks/useGetContracts';
 import { useAppSelector } from '@/hooks/useRedux';
+import ContractList from '../ContractList';
+import FilterCard from './FilterCard';
 
 const ContractsContainer = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [search, setSearch] = useState('');
 
-  const token = useAppSelector((state) => state.user.token);
+  // const token = useAppSelector((state) => state.user.token);
 
   const handleAddContarctModal = () => {
     setIsOpen(true);
@@ -24,48 +27,55 @@ const ContractsContainer = () => {
     setIsOpen(false);
   };
 
-  const { data, error, loading } = useGetContracts(token!, 'testnet');
+  // const { data, error, loading } = useGetContracts(token!, 'testnet');
 
-  let contractListStatus;
+  // let contractListStatus;
 
-  if (error) {
-    contractListStatus = (
-      <div className="w-full mt-[5%] flex justify-center items-center">
-        Error
-      </div>
-    );
-  }
+  // if (error) {
+  //   contractListStatus = (
+  //     <div className="w-full mt-[5%] flex justify-center items-center">
+  //       Error
+  //     </div>
+  //   );
+  // }
 
-  if (loading) {
-    contractListStatus = (
-      <div className="mt-[10%] flex justify-center items-center">
-        <LoadingThreeDotsPulse />
-      </div>
-    );
-  }
+  // if (loading) {
+  //   contractListStatus = (
+  //     <div className="mt-[10%] flex justify-center items-center">
+  //       <LoadingThreeDotsPulse />
+  //     </div>
+  //   );
+  // }
 
-  if (data) {
-    if (data.length === 0) {
-      contractListStatus = (
-        <div className="w-full mt-[5%] flex justify-center items-center">
-          <Image src="/images/not.png" alt="Empty" width={300} height={300} />
-        </div>
-      );
-    } else {
-      contractListStatus = <ContractsList data={data} />;
-    }
-  }
+  // if (data) {
+  //   if (data.length === 0) {
+  //     contractListStatus = (
+  //       <div className="w-full mt-[5%] flex justify-center items-center">
+  //         <Image src="/images/not.png" alt="Empty" width={300} height={300} />
+  //       </div>
+  //     );
+  //   } else {
+  //     contractListStatus = <ContractsList data={data} />;
+  //   }
+  // }
 
   return (
-    <div className="w-full h-full">
-      <AddContractCard addContractOnClick={handleAddContarctModal} />
+    <div className="w-full h-full p-5 flex flex-col gap-4">
+      {/* <AddContractCard addContractOnClick={handleAddContarctModal} /> */}
+      <FilterCard
+        search={search}
+        setSearch={setSearch}
+        onAddContract={handleAddContarctModal}
+      />
       <AddContractModal
         isOpen={isOpen}
         setIsOpen={setIsOpen}
         onClose={ModalOnClose}
       />
 
-      {contractListStatus}
+      <ContractList search={search} />
+
+      {/* {contractListStatus} */}
     </div>
   );
 };
