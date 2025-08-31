@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import Checkbox from '@/components/CheckBox';
 
 import { IDataKey } from '@/types';
-import { StatusBadge } from '@/components/StatusBadge';
+import { TTLStatusBadge } from '@/components/StatusBadge';
 import CSwitch from '@/components/Switch';
 import ProgressBar from '@/components/ProgressBar';
 
@@ -111,7 +111,7 @@ export const DataKeysTable = ({
 
               {/* status */}
               <div>
-                <StatusBadge status={item.status} />
+                <TTLStatusBadge status={item.status} />
               </div>
 
               <div className="text-white">{item.liveLedger}</div>
