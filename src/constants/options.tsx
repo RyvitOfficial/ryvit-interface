@@ -11,15 +11,15 @@ import {
 
 export const navItems = [
   { name: 'Dashboard', href: '/dashboard', icon: <Home /> },
-  { name: 'Contracts', href: '/dashboard/contracts', icon: <SmartContract /> },
+  { name: 'Contracts', href: '/contracts', icon: <SmartContract /> },
   {
     name: 'Event',
-    href: '/dashboard/event',
+    href: '/contracts/event',
     icon: <EventList />,
   },
   {
     name: 'TTL Manager',
-    href: '/dashboard/ttl',
+    href: '/contracts/ttl',
     icon: <TTL />,
   },
   { name: 'Activities', href: '/dashboard/activities', icon: <Activity /> },

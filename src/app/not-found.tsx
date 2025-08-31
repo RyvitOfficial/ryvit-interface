@@ -6,8 +6,8 @@ export const metadata: Metadata = {
   title: 'Ryvit - 404 Not Found',
 };
 
-const NotFound = () => {
+const NotFoundPage = () => {
   return <NotFoundContainer />;
 };
 
-export default NotFound;
+export default NotFoundPage;
