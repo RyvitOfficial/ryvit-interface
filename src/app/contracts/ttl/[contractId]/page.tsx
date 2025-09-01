@@ -6,8 +6,8 @@ export const metadata: Metadata = {
   title: 'Ryvit - Manage TTL',
 };
 
-const TTL = ({ params }: { params: { contractId: string } }) => {
-  const { contractId } = params;
+const TTL = async ({ params }: { params: Promise<{ contractId: string }> }) => {
+  const { contractId } = await params;
 
   return <ManageTTLContainer currentContractId={contractId} />;
 };
