@@ -3,6 +3,7 @@
 import ContractCard from '@/components/ContractCard';
 import { ContractStatusBadgeType } from '@/components/ContractStatusBadge';
 import { NetworkType } from '@/types';
+import shortenAddress from '@/utils/shortenAddress';
 
 interface ContractListProps {
   search: string;
@@ -11,7 +12,7 @@ interface ContractListProps {
 const contracts = [
   {
     name: 'Wagent',
-    address: 'CABC123...DEF456',
+    address: 'GC5AACPBG5THFS35G4US3WQEFZAQ75E5UCD3TXVXLGBP4L5YGSAHAR75',
     functions: 8,
     events: 3,
     ttl: '15d',
@@ -22,7 +23,7 @@ const contracts = [
   },
   {
     name: 'Token DGS',
-    address: 'CAFS1LK...DFRT3',
+    address: 'GC5AACPBG5THFS35G4US3WQEFZAQ75E5UCD3TXVXLGBP4L5YGSAHAR75',
     functions: 4,
     events: 2,
     ttl: '57d',
@@ -33,7 +34,7 @@ const contracts = [
   },
   {
     name: 'FLuxity',
-    address: 'CDLZFC3...XYZ123',
+    address: 'GC5AACPBG5THFS35G4US3WQEFZAQ75E5UCD3TXVXLGBP4L5YGSAHAR75',
     functions: 12,
     events: 5,
     ttl: '120d',
@@ -44,7 +45,7 @@ const contracts = [
   },
   {
     name: 'ABS',
-    address: 'CDLZFC3...XYZ123',
+    address: 'GC5AACPBG5THFS35G4US3WQEFZAQ75E5UCD3TXVXLGBP4L5YGSAHAR85',
     functions: 12,
     events: 5,
     ttl: '120d',
@@ -69,7 +70,7 @@ export default function ContractList({ search }: ContractListProps) {
           <ContractCard
             key={i}
             name={c.name}
-            address={c.address}
+            address={shortenAddress(c.address, 14)}
             functions={c.functions}
             events={c.events}
             ttl={c.ttl}
