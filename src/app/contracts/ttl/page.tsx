@@ -1,18 +1,24 @@
-import { use } from 'react';
-import { Metadata } from 'next/types';
+'use client';
 
-import ManageTTLContainer from '@/containers/ManageTTLContainer';
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 
-export const metadata: Metadata = {
-  title: 'Ryvit - Manage TTL',
-};
+import ManageTTLSkeleton from '@/containers/SkeletonContainers/TTLSkeleton';
 
-const TTL = ({ params }: { params: Promise<{ id: string }> }) => {
-  const { id } = use(params);
+import { contractsOptions } from '@/constants/options';
 
-  console.log(id);
+export default function TTLPage() {
+  const router = useRouter();
 
-  return <ManageTTLContainer />;
-};
+  useEffect(() => {
+    if (contractsOptions.length > 0) {
+      router.replace(`ttl/${contractsOptions[0].value}`);
+    }
+  }, [router]);
 
-export default TTL;
+  return (
+    <div className="flex items-center justify-center">
+      <ManageTTLSkeleton />
+    </div>
+  );
+}
