@@ -1,12 +1,23 @@
-import EventContainer from '@/containers/EventContainer';
-import { Metadata } from 'next/types';
+'use client';
 
-export const metadata: Metadata = {
-  title: 'Ryvit - Event',
-};
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 
-const Event = () => {
-  return <EventContainer />;
-};
+import { contractsOptions } from '@/constants/options';
+import EventContainerSkeleton from '@/containers/SkeletonContainers/EventSkeleton';
 
-export default Event;
+export default function EventPage() {
+  const router = useRouter();
+
+  useEffect(() => {
+    if (contractsOptions.length > 0) {
+      router.replace(`event/${contractsOptions[0].value}`);
+    }
+  }, [router]);
+
+  return (
+    <div className="flex items-center justify-center">
+      <EventContainerSkeleton />
+    </div>
+  );
+}

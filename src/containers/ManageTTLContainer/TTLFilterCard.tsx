@@ -1,14 +1,9 @@
 import { useState } from 'react';
 
-import Button from '@/components/Button';
 import CLabel from '@/components/Label';
+import Button from '@/components/Button';
+import ContractSelect from '../ContractSelect';
 import { AnimatedSelect } from '@/components/Select';
-
-const options = [
-  { label: 'Fluxity Contract (CD4VOKXNRC......K6EMBOEEAE)', value: '1' },
-  { label: 'Stellar Contract (CD4VOKXNRC......K6EMBOEEAE)', value: '3' },
-  { label: 'Soroban Contract (CD4VOKXNRC......K6EMBOEEAE)', value: '5' },
-];
 
 const options1 = [
   { label: 'Active', value: 'active' },
@@ -21,7 +16,11 @@ const options2 = [
   { label: 'Off', value: 'off' },
 ];
 
-const TTLFilter = () => {
+interface TTLFilterProps {
+  currentContractId: string;
+}
+
+const TTLFilter = ({ currentContractId }: TTLFilterProps) => {
   const [selectedStatusValue, setSelectedStatusValue] = useState('');
   const [selectedAutoRenewValue, setSelectedAutoRenewValue] = useState('');
 
@@ -37,14 +36,7 @@ const TTLFilter = () => {
     <div className="bg-bgblack p-5 rounded-xl items-center gap-4 w-full grid grid-cols-[2fr_1fr_1fr_max-content]">
       <div>
         <CLabel label="Active Contract" />
-        <AnimatedSelect
-          options={options}
-          onChange={handleSelectValue}
-          defaultValue="Fluxity Contract (CD4VOKXNRC......K6EMBOEEAE)"
-          placeholder="Fluxity Contract (CD4VOKXNRC......K6EMBOEEAE)"
-          network={false}
-          className="desktopMax:h-[35px] desktopMax:text-[13px] border-none"
-        />
+        <ContractSelect currentId={currentContractId} />
       </div>
 
       <div>

@@ -29,6 +29,8 @@ const SDKConfig = () => {
     setPublicKey(e.target.value);
   };
 
+  const handleCopyClick = () => {};
+
   return (
     <Card
       bgColor="#121319"
@@ -48,6 +50,7 @@ const SDKConfig = () => {
             rounded="sm"
             className="h-6 text-xs !px-3"
             logo={<Copy />}
+            onClick={handleCopyClick}
           />
         </div>
 

@@ -1,12 +1,14 @@
 'use client';
 
 import { useState } from 'react';
+
 import { DataKeysTable } from '../DataKeysTable';
 import TTLStats from '../TTLStatCard';
-import { IDataKey } from '@/types';
 import TTLFilter from './TTLFilterCard';
 import Overview from '@/components/Overview';
 import Button from '@/components/Button';
+
+import { IDataKey } from '@/types';
 
 const dataKeys: IDataKey[] = [
   {
@@ -81,7 +83,11 @@ const dataKeys: IDataKey[] = [
   },
 ];
 
-const ManageTTLContainer = () => {
+interface ManageTTLContainerProps {
+  currentContractId: string;
+}
+
+const ManageTTLContainer = ({ currentContractId }: ManageTTLContainerProps) => {
   const [clearTrigger, setClearTrigger] = useState(0);
   const [dataKeySelect, setDataKeySelect] = useState<
     { id: string; name: string }[] | null
@@ -91,6 +97,10 @@ const ManageTTLContainer = () => {
     extends: 0,
     restore: 0,
   });
+
+  const filteredDataKeys = dataKeys.filter(
+    (key) => key.contract === currentContractId,
+  );
 
   const handleSelectionChange = (
     selected: { id: string; name: string; status: string }[],
@@ -117,7 +127,7 @@ const ManageTTLContainer = () => {
       style={{ height: 'calc(100vh - 110px)' }}
     >
       <TTLStats />
-      <TTLFilter />
+      <TTLFilter currentContractId={currentContractId} />
       <div className="grid grid-cols-[4fr_1.28fr] desktopMax:grid-cols-[4fr_1.1fr] w-full gap-2 min-h-0 h-full">
         <DataKeysTable
           dataKeys={dataKeys}

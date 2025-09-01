@@ -40,6 +40,7 @@ const ContractCard = ({
   const handleNavigate = (path: string) => {
     router.push(`/contracts/${path}/${address}`);
   };
+
   return (
     <div className="bg-bgblack rounded-xl p-4 flex flex-col gap-3 shadow-md">
       <div className="flex items-center justify-between">
@@ -90,12 +91,14 @@ const ContractCard = ({
           rounded="sm"
           content="Manage TTL"
           logo={<TTL />}
+          onClick={() => handleNavigate('ttl')}
         />
         <Button
           color="black"
           rounded="sm"
           content="Events"
           logo={<EventList />}
+          onClick={() => handleNavigate('events')}
         />
         <Button
           color="secondRed"
