@@ -12,8 +12,8 @@ import { Providers } from '../Providers';
 
 const titleMap: Record<string, string> = {
   '/contracts': 'Contracts',
-  '/contracts/event': 'Event Monitoring',
-  '/contracts/ttl': 'TTL Manager',
+  '/contracts/event/*': 'Event Monitoring',
+  '/contracts/ttl/*': 'TTL Manager',
 };
 
 export default function RootLayout({

@@ -26,3 +26,18 @@ export const navItems = [
   { name: 'Wallet', href: '/dashboard/wallet', icon: <Wallet /> },
   { name: 'Settings', href: '/dashboard/settings', icon: <Setting /> },
 ];
+
+export const contractsOptions = [
+  {
+    label: 'Fluxity Contract (CD4VOKXNRC......K6EMBOEE75)',
+    value: 'GC5AACPBG5THFS35G4US3WQEFZAQ75E5UCD3TXVXLGBP4L5YGSAHAR75',
+  },
+  {
+    label: 'Stellar Contract (CD4VOKXNRC......K6EMBOEE23)',
+    value: 'GC5AACPBG5THFS35G4US3WQEFerQ75E5UCD3TXVXLGBP4L5YGSAHAR95',
+  },
+  {
+    label: 'Soroban Contract (CD4VOKXNRC......K6EMBOEE98)',
+    value: 'GC5AACPBG5THFS35G4US3WQEFZAQ75E5UCD3TXVXLGBP4L5YGSAHAR85',
+  },
+];

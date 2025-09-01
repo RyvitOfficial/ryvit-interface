@@ -11,14 +11,13 @@ import AddEventModal from '@/containers/Modals/AddEventModal';
 import { ToggleButtonGroup } from '@/components/ToggleButtonGroup';
 
 import { Add, Tick } from '@/assets';
+import ContractSelect from '@/containers/ContractSelect';
 
-const options = [
-  { label: 'Fluxity Contract (CD4VOKXNRC......K6EMBOEEAE)', value: '1' },
-  { label: 'Stellar Contract (CD4VOKXNRC......K6EMBOEEAE)', value: '3' },
-  { label: 'Soroban Contract (CD4VOKXNRC......K6EMBOEEAE)', value: '5' },
-];
+interface EventConfigContainerProps {
+  currentContractId: string;
+}
 
-const EventConfig = () => {
+const EventConfig = ({ currentContractId }: EventConfigContainerProps) => {
   const [method, setMethod] = useState<'HTTP' | 'RabbitMQ'>('HTTP');
   const [AddEventIsOpen, setAddEventsIsOpen] = useState(false);
 
@@ -44,18 +43,12 @@ const EventConfig = () => {
       <section className="flex items-start justify-between mt-8 desktopMax:mt-4 desktopMax:gap-2 gap-4">
         <div className="w-full max-w-[50%]">
           <p className="pb-4 text-[#D1D5DB] text-sm">Contract Address</p>
-          <AnimatedSelect
-            options={options}
-            onChange={handleSelectValue}
-            defaultValue="Fluxity Contract (CD4VOKXNRC......K6EMBOEEAE)"
-            placeholder="Fluxity Contract (CD4VOKXNRC......K6EMBOEEAE)"
-            network={false}
-            className="desktopMax:h-[35px] desktopMax:text-[13px]"
-          />
+
+          <div className="w-5/5">
+            <ContractSelect currentId={currentContractId} />
+          </div>
+
           <div className="flex flex-wrap gap-2 mt-4 w-full">
-            <ColoredTag label="created-lockup" color="blue" />
-            <ColoredTag label="cancel-lockup" color="green" />
-            <ColoredTag label="withdraw-lockup" color="purple" />
             <Button
               content="Add Event"
               color="gray"
@@ -64,6 +57,9 @@ const EventConfig = () => {
               className="text-sm !px-4 !py-1 !rounded-md h-8"
               onClick={handleAddEventClick}
             />
+            <ColoredTag label="created-lockup" color="blue" />
+            <ColoredTag label="cancel-lockup" color="green" />
+            <ColoredTag label="withdraw-lockup" color="purple" />
           </div>
         </div>
         <div className="w-full desktopMax:w-full max-w-[50%]">
