@@ -1,15 +1,18 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, ReactNode } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import cn from 'classnames';
 
 import ArrowUp01Icon from '@/assets/ArrowUp';
 import { Network } from '@/assets';
+import shortenAddress from '@/utils/shortenAddress';
 
 type Option = {
   label: string;
   value: string;
+  icon?: ReactNode;
+  color?: string;
 };
 
 interface AnimatedSelectProps {
@@ -18,8 +21,11 @@ interface AnimatedSelectProps {
   defaultValue?: string;
   onChange: (value: string) => void;
   placeholder?: string;
-  network?: boolean;
   className?: string;
+  network?: boolean;
+  searchable?: boolean;
+  details?: string;
+  address?: boolean;
 }
 
 export const AnimatedSelect = ({
@@ -28,12 +34,17 @@ export const AnimatedSelect = ({
   defaultValue = '',
   onChange,
   placeholder = 'Select an option',
-  network,
   className,
+  network = false,
+  searchable = false,
+  details,
+  address,
 }: AnimatedSelectProps) => {
   const [open, setOpen] = useState(false);
   const [internalValue, setInternalValue] = useState(defaultValue);
+  const [search, setSearch] = useState('');
   const isControlled = value !== undefined;
+
   const selectedOption =
     options.find((o) => o.value === (isControlled ? value : internalValue)) ||
     options.find((o) => o.value === defaultValue);
@@ -44,61 +55,125 @@ export const AnimatedSelect = ({
     }
   }, [value, isControlled]);
 
+  const filteredOptions = searchable
+    ? options.filter((opt) =>
+        opt.label.toLowerCase().includes(search.toLowerCase()),
+      )
+    : options;
+
   return (
-    <div className="relative select-dropdown">
+    <div className="relative w-full">
+      {/* Trigger */}
       <button
         onClick={() => setOpen((prev) => !prev)}
         className={cn(
-          'flex items-center justify-start outline-none border transition-all duration-300 font-jetbrains',
-          {
-            'justify-between rounded-lg placeholder-[#fff] border-border2 text-[#D1D5DB] text-[14px] w-full h-[48px] p-4 bg-input':
-              !network,
-            'rounded-lg w-full border-2 border-border3 h-11 bg-bgblack2 text-white':
-              network,
-          },
+          'flex items-center justify-between w-full py-2 rounded-lg border text-sm transition-all',
+          network
+            ? 'bg-bgblack2 border-border3 text-white/80 h-11'
+            : 'bg-bgblack2 border-border2 text-white h-[48px]',
+          selectedOption?.icon ? 'px-2' : 'px-4',
           className,
         )}
       >
-        <span
-          className={cn({
-            'w-[100px]': network,
-          })}
-        >
-          {selectedOption?.label || placeholder}
-        </span>
-        {network ? (
-          <div>
-            <Network fill="rgba(27, 89, 248, 0.9)" />
+        <div className="flex items-center justify-between gap-2 h-full">
+          {/* {selectedOption?.color && !network && (
+            <span
+              className="w-3 h-3 rounded-full"
+              style={{ backgroundColor: selectedOption.color }}
+            />
+          )} */}
+          {selectedOption?.icon && (
+            <div className="flex justify-center items-center h-full font-medium bg-bgblack rounded-lg w-[40px]">
+              {selectedOption?.icon}
+            </div>
+          )}
+
+          <div className={cn('flex flex-col items-start  justify-center')}>
+            <span> {selectedOption?.label || placeholder}</span>
+            {details ||
+              (address && (
+                <span className="text-txtgray text-[10px] font-light">
+                  {address
+                    ? selectedOption &&
+                      shortenAddress(selectedOption?.value, 10)
+                    : details}
+                </span>
+              ))}
           </div>
+        </div>
+
+        {network ? (
+          <Network fill="rgba(27, 89, 248, 0.9)" />
         ) : (
-          <div className={`transition-transform ${open ? 'rotate-180' : ''}`}>
+          <div className={`transition-transform ${open ? '' : 'rotate-180'}`}>
             <ArrowUp01Icon />
           </div>
         )}
       </button>
 
+      {/* Dropdown */}
       <AnimatePresence>
         {open && (
-          <motion.ul
-            initial={{ opacity: 0, y: -10 }}
+          <motion.div
+            initial={{ opacity: 0, y: -5 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
+            exit={{ opacity: 0, y: -5 }}
             transition={{ duration: 0.2 }}
-            className="absolute z-10 mt-2 w-full p-2 bg-bgblack2 rounded-lg shadow-xl text-white overflow-hidden font-jetbrains"
+            className="absolute mt-2 w-full bg-bgblack2 rounded-lg shadow-2xl z-20 border border-border2/10 overflow-hidden"
           >
-            {options.map((option) => (
-              <li
-                key={option.value}
-                onClick={() => {
-                  onChange(option.value);
-                  setOpen(false);
-                }}
-                className="px-4 py-2 hover:bg-primary/10 cursor-pointer rounded-lg text-sm"
-              >
-                {option.label}
-              </li>
-            ))}
-          </motion.ul>
+            {searchable && (
+              <div className="p-2">
+                <input
+                  type="text"
+                  placeholder="Search..."
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  className="w-full px-3 py-2 text-sm bg-bgblack1 border border-border3 rounded-md text-white placeholder-gray-400 outline-none"
+                />
+              </div>
+            )}
+
+            {/* Options */}
+            <ul className="max-h-60 overflow-auto px-2 py-3 bg-bgblack2 space-y-2">
+              {filteredOptions.map((option) => (
+                <li
+                  key={option.value}
+                  onClick={() => {
+                    onChange(option.value);
+                    setOpen(false);
+                    setSearch('');
+                  }}
+                  className="px-4 py-2 flex items-center gap-2 bg-bgblack/30 shadow-md hover:bg-bgblack1/50 cursor-pointer rounded-lg text-sm text-white"
+                >
+                  <div className="flex items-center justify-between gap-4 h-full">
+                    {option.icon && (
+                      <div className="flex justify-center items-center h-full font-medium ">
+                        {option.icon}
+                      </div>
+                    )}
+
+                    <div
+                      className={cn('flex flex-col items-start justify-center')}
+                    >
+                      <span> {option.label || placeholder}</span>
+                      {details ||
+                        (address && (
+                          <span className="text-txtgray text-[10px] font-light">
+                            {address
+                              ? selectedOption &&
+                                shortenAddress(selectedOption?.value, 10)
+                              : details}
+                          </span>
+                        ))}
+                    </div>
+                  </div>
+                </li>
+              ))}
+              {filteredOptions.length === 0 && searchable && (
+                <li className="px-4 py-2 text-gray-400 text-sm">No results</li>
+              )}
+            </ul>
+          </motion.div>
         )}
       </AnimatePresence>
     </div>

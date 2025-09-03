@@ -9,11 +9,13 @@ import Aside from '@/components/Aside';
 import Header from '@/components/Header';
 import resolveTitle from '@/utils/resolveTitle';
 import { Providers } from '../Providers';
+import { StrKey } from '@stellar/stellar-sdk';
 
 const titleMap: Record<string, string> = {
   '/contracts': 'Contracts',
   '/contracts/event/*': 'Event Monitoring',
   '/contracts/ttl/*': 'TTL Manager',
+  '/contracts/function/*': 'Call Function',
 };
 
 export default function RootLayout({
@@ -22,6 +24,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
+
   const router = useRouter();
   const title = resolveTitle(pathname, titleMap);
   const isLogin = useSelector((state: RootState) => state.user.isLogin);
@@ -39,6 +42,12 @@ export default function RootLayout({
 
   // if (!isLogin) return null;
 
+  const pathParts = pathname.split('/');
+  const isValid = StrKey.isValidEd25519PublicKey(
+    pathParts[pathParts.length - 1].toLocaleUpperCase(),
+  );
+  const currentContractId = isValid ? pathParts[pathParts.length - 1] : '';
+
   return (
     <Providers>
       <div className="bg-background w-full h-screen flex justify-center items-center">
@@ -49,7 +58,7 @@ export default function RootLayout({
 
           <section className="w-full h-full flex flex-col overflow-auto">
             <div className="w-full shrink-0">
-              <Header title={title} />
+              <Header title={title} currentContractId={currentContractId} />
             </div>
             <article className="w-full flex-1 ">{children}</article>
           </section>
