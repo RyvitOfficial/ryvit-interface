@@ -144,3 +144,36 @@ export interface IResponseCreateTransactions {
   useNames: string[];
   useValues: IValues[];
 }
+
+export type SorobanType =
+  | 'u32'
+  | 'i32'
+  | 'u64'
+  | 'i64'
+  | 'u128'
+  | 'i128'
+  | 'string'
+  | 'symbol'
+  | 'bool'
+  | 'address'
+  | 'bytes';
+
+export type InputField = {
+  name: string;
+  label?: string;
+  type: SorobanType;
+  placeholder?: string;
+  required?: boolean;
+};
+
+export type ContractFunction = {
+  name: string;
+  inputs: InputField[];
+  description?: string;
+};
+
+export type ContractMeta = {
+  id: string;
+  label: string;
+  functions: ContractFunction[];
+};
