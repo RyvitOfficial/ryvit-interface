@@ -6,18 +6,12 @@ import Card from '@/components/Card';
 import CInput from '@/components/Input';
 import Button from '@/components/Button';
 import ColoredTag from '@/components/ColoredTag';
-import { AnimatedSelect } from '@/components/Select';
 import AddEventModal from '@/containers/Modals/AddEventModal';
 import { ToggleButtonGroup } from '@/components/ToggleButtonGroup';
 
 import { Add, Tick } from '@/assets';
-import ContractSelect from '@/containers/ContractSelect';
 
-interface EventConfigContainerProps {
-  currentContractId: string;
-}
-
-const EventConfig = ({ currentContractId }: EventConfigContainerProps) => {
+const EventConfig = () => {
   const [method, setMethod] = useState<'HTTP' | 'RabbitMQ'>('HTTP');
   const [AddEventIsOpen, setAddEventsIsOpen] = useState(false);
 
@@ -42,12 +36,6 @@ const EventConfig = ({ currentContractId }: EventConfigContainerProps) => {
       </h2>
       <section className="flex items-start justify-between mt-8 desktopMax:mt-4 desktopMax:gap-2 gap-4">
         <div className="w-full max-w-[50%]">
-          <p className="pb-4 text-[#D1D5DB] text-sm">Contract Address</p>
-
-          <div className="w-5/5">
-            <ContractSelect currentId={currentContractId} />
-          </div>
-
           <div className="flex flex-wrap gap-2 mt-4 w-full">
             <Button
               content="Add Event"
