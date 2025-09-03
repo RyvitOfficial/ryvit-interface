@@ -11,6 +11,7 @@ import {
 } from '../ContractStatusBadge';
 
 import { Delete, Event, EventList, TTL } from '@/assets';
+import shortenAddress from '@/utils/shortenAddress';
 
 interface ContractCardProps {
   name: string;
@@ -45,12 +46,14 @@ const ContractCard = ({
     <div className="bg-bgblack rounded-xl p-4 flex flex-col gap-3 shadow-md">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 flex items-center justify-center rounded-full bg-zinc-800 text-cyan-400">
+          <div className="w-10 h-10 flex items-center justify-center rounded-md text-cyan-400">
             {icon || '◎'}
           </div>
           <div>
             <h3 className="text-base font-medium text-white">{name}</h3>
-            <p className="text-xs text-txtgray font-jetbrains">{address}</p>
+            <p className="text-xs text-txtgray font-jetbrains">
+              {shortenAddress(address)}
+            </p>
           </div>
         </div>
         <div className="flex items-center gap-2">
@@ -84,7 +87,7 @@ const ContractCard = ({
           rounded="sm"
           content="View Functions"
           logo={<Event />}
-          onClick={() => handleNavigate('functions')}
+          onClick={() => handleNavigate('function')}
         />
         <Button
           color="black"
@@ -98,7 +101,7 @@ const ContractCard = ({
           rounded="sm"
           content="Events"
           logo={<EventList />}
-          onClick={() => handleNavigate('events')}
+          onClick={() => handleNavigate('event')}
         />
         <Button
           color="secondRed"
@@ -107,10 +110,6 @@ const ContractCard = ({
           className="ml-auto !h-8"
           logo={<Delete fill="#F87171" />}
         />
-
-        {/* <button className="flex items-center gap-1 px-3 py-1 ml-auto rounded-md bg-red-900 text-sm text-red-100 hover:bg-red-800">
-          Remove
-        </button> */}
       </div>
     </div>
   );
