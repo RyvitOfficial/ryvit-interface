@@ -2,7 +2,6 @@ import { useState } from 'react';
 
 import CLabel from '@/components/Label';
 import Button from '@/components/Button';
-import ContractSelect from '../ContractSelect';
 import { AnimatedSelect } from '@/components/Select';
 
 const options1 = [
@@ -16,11 +15,7 @@ const options2 = [
   { label: 'Off', value: 'off' },
 ];
 
-interface TTLFilterProps {
-  currentContractId: string;
-}
-
-const TTLFilter = ({ currentContractId }: TTLFilterProps) => {
+const TTLFilter = () => {
   const [selectedStatusValue, setSelectedStatusValue] = useState('');
   const [selectedAutoRenewValue, setSelectedAutoRenewValue] = useState('');
 
@@ -33,12 +28,7 @@ const TTLFilter = ({ currentContractId }: TTLFilterProps) => {
   };
 
   return (
-    <div className="bg-bgblack p-5 rounded-xl items-center gap-4 w-full grid grid-cols-[2fr_1fr_1fr_max-content]">
-      <div>
-        <CLabel label="Active Contract" />
-        <ContractSelect currentId={currentContractId} />
-      </div>
-
+    <div className="bg-bgblack p-5 rounded-xl items-center gap-4 w-full grid grid-cols-[1fr_1fr_1fr]">
       <div>
         <CLabel label="Status" />
         <AnimatedSelect
@@ -63,7 +53,7 @@ const TTLFilter = ({ currentContractId }: TTLFilterProps) => {
         />
       </div>
 
-      <div className="mt-6">
+      <div className="mt-6 ml-auto">
         <Button
           color="blue"
           content="Apply Filter"
