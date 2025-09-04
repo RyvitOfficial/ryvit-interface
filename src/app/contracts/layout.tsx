@@ -1,15 +1,18 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { usePathname, useRouter } from 'next/navigation';
-import { RootState } from '@/store';
+import { usePathname } from 'next/navigation';
 
+import AuthGuard from '@/app/AuthGuard';
 import Aside from '@/components/Aside';
 import Header from '@/components/Header';
+import NotFoundContainer from '@/containers/NotFound';
+import LoadingProgressBar from '@/components/Loading';
+
+import { useContractValidation } from '@/hooks/useContractValidation';
+import useLedgerUpdater from '@/hooks/useLedgerUpdater';
+import { useGetContracts } from '@/hooks/useGetContracts';
+
 import resolveTitle from '@/utils/resolveTitle';
-import { Providers } from '../Providers';
-import { StrKey } from '@stellar/stellar-sdk';
 
 const titleMap: Record<string, string> = {
   '/contracts': 'Contracts',
@@ -25,31 +28,27 @@ export default function RootLayout({
 }) {
   const pathname = usePathname();
 
-  const router = useRouter();
   const title = resolveTitle(pathname, titleMap);
-  const isLogin = useSelector((state: RootState) => state.user.isLogin);
-
-  const [isMounted, setIsMounted] = useState(false);
-
-  // useEffect(() => {
-  //   setIsMounted(true);
-  //   if (!isLogin) {
-  //     router.push('/signin');
-  //   }
-  // }, [isLogin, router]);
-
-  // if (!isMounted) return null;
-
-  // if (!isLogin) return null;
+  useLedgerUpdater();
+  useGetContracts();
 
   const pathParts = pathname.split('/');
-  const isValid = StrKey.isValidEd25519PublicKey(
-    pathParts[pathParts.length - 1].toLocaleUpperCase(),
-  );
-  const currentContractId = isValid ? pathParts[pathParts.length - 1] : '';
+  const lastPath = pathParts[pathParts.length - 1];
+
+  const { isNotFound, isLoading } = useContractValidation(lastPath);
+
+  if (isLoading) {
+    return <LoadingProgressBar />;
+  }
+
+  if (isNotFound) {
+    return <NotFoundContainer />;
+  }
+
+  const currentContractId = lastPath;
 
   return (
-    <Providers>
+    <AuthGuard>
       <div className="bg-background w-full h-screen flex justify-center items-center">
         <div className="flex justify-center items-start h-full w-full !m-auto">
           <div className="h-full w-1/5">
@@ -64,6 +63,6 @@ export default function RootLayout({
           </section>
         </div>
       </div>
-    </Providers>
+    </AuthGuard>
   );
 }

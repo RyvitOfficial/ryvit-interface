@@ -1,4 +1,5 @@
 import EventContainer from '@/containers/EventContainer';
+
 import { Metadata } from 'next/types';
 
 export const metadata: Metadata = {

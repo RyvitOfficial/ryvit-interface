@@ -5,7 +5,7 @@ import { useRouter, usePathname } from 'next/navigation';
 import { AnimatedSelect } from '@/components/Select';
 import AccountIdenticon from '@/components/AccountIdenticon';
 
-import { contractsOptions } from '@/constants/options';
+import { useAppSelector } from '@/hooks/useRedux';
 
 interface ContractSelectProps {
   currentId: string;
@@ -14,6 +14,13 @@ interface ContractSelectProps {
 const ContractSelect = ({ currentId }: ContractSelectProps) => {
   const router = useRouter();
   const pathname = usePathname();
+
+  const contractsOptions = useAppSelector((state) => state.user.contracts).map(
+    (item) => ({
+      label: item.name,
+      value: item.address,
+    }),
+  );
 
   const handleChange = (newId: string) => {
     const newPath = pathname.split('/').slice(0, -1).concat(newId).join('/');

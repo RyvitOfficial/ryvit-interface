@@ -1,14 +1,13 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { usePathname, useRouter } from 'next/navigation';
-import { RootState } from '@/store';
+import { usePathname } from 'next/navigation';
 
 import Aside from '@/components/Aside';
 import Header from '@/components/Header';
 import resolveTitle from '@/utils/resolveTitle';
-import { Providers } from '../Providers';
+import AuthGuard from '../AuthGuard';
+import useLedgerUpdater from '@/hooks/useLedgerUpdater';
+import { useGetContracts } from '@/hooks/useGetContracts';
 
 const titleMap: Record<string, string> = {
   '/dashboard': 'Dashboard',
@@ -20,25 +19,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-  const router = useRouter();
   const title = resolveTitle(pathname, titleMap);
-  const isLogin = useSelector((state: RootState) => state.user.isLogin);
 
-  const [isMounted, setIsMounted] = useState(false);
-
-  // useEffect(() => {
-  //   setIsMounted(true);
-  //   if (!isLogin) {
-  //     router.push('/signin');
-  //   }
-  // }, [isLogin, router]);
-
-  // if (!isMounted) return null;
-
-  // if (!isLogin) return null;
+  useLedgerUpdater();
+  useGetContracts();
 
   return (
-    <Providers>
+    <AuthGuard>
       <div className="bg-background w-full h-screen flex justify-center items-center">
         <div className="flex justify-center items-start h-full w-full !m-auto">
           <div className="h-full w-1/5">
@@ -53,6 +40,6 @@ export default function RootLayout({
           </section>
         </div>
       </div>
-    </Providers>
+    </AuthGuard>
   );
 }

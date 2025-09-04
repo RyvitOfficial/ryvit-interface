@@ -1,6 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 
+import { useAppSelector } from './useRedux';
 import { GetContract } from '@/api/getContracts';
+import { setUserContracts } from '@/reducers/user';
 
 import { IGetContractResponse } from '@/types';
 
@@ -10,30 +13,19 @@ export type ContractDataType = {
   error: null | any;
 };
 
-export const useGetContracts = (token: string, network: string) => {
-  const [contractData, setContractData] = useState<ContractDataType>({
-    loading: true,
-    data: null,
-    error: false,
-  });
+export const useGetContracts = () => {
+  const dispatch = useDispatch();
+
+  const token = useAppSelector((state) => state.user.token);
+  const network = useAppSelector((state) => state.user.network);
 
   useEffect(() => {
     const data = () => {
-      GetContract(token, network)
-        .then((contract) => {
-          setContractData({
-            loading: false,
-            data: contract,
-            error: null,
-          });
-        })
-        .catch(() =>
-          setContractData({
-            loading: false,
-            data: null,
-            error: true,
-          }),
-        );
+      if (token) {
+        GetContract(token, network).then((contract) => {
+          dispatch(setUserContracts(contract));
+        });
+      }
     };
 
     data();
@@ -41,7 +33,5 @@ export const useGetContracts = (token: string, network: string) => {
     const intervalId = setInterval(data, 5000);
 
     return () => clearInterval(intervalId);
-  }, [token, network]);
-
-  return contractData;
+  }, [token, network, dispatch]);
 };

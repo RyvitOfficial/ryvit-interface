@@ -1,6 +1,6 @@
 import React from 'react';
 
-type Status = 'expired' | 'near_expiry' | 'active';
+export type Status = 'expired' | 'near_expiry' | 'active';
 
 type ProgressBarProps = {
   percent: number;
@@ -34,13 +34,6 @@ export default function ProgressBar({
       : status === 'near_expiry'
       ? 'bg-yellow-500'
       : 'bg-green-500';
-
-  // const textColor =
-  //   status === 'expired'
-  //     ? 'text-red-500'
-  //     : status === 'near_expiry'
-  //     ? 'text-yellow-500'
-  //     : 'text-green-500';
 
   return (
     <div className={`flex items-center gap-2 min-w-0 ${className}`}>

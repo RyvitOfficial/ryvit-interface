@@ -54,7 +54,10 @@ export interface IGetContractResponse {
   datakeys: IDataKey[];
   liveLedger: number;
   network: 'testnet' | 'mainnet';
+  events: [];
+  functions: [];
   settings: ISettings;
+  isProcessing: boolean;
 }
 
 export interface IFunctionValue {
@@ -75,16 +78,12 @@ export interface IDataKey {
   _id: string;
   name: string;
   type: string;
-  // value: IValue;
-  liveLedger: number;
   network: 'testnet' | 'mainnet';
   contract: string;
-  valuesType: 'range' | 'list' | 'function' | 'none';
-  values: IValues[];
-  status: 'active' | 'near_expiry' | 'expired';
-  expiresAt: string;
-  timeRemaining: string;
-  autoRenew: boolean;
+  value: string;
+  key: string;
+  liveLedger: number;
+  autoExtend: boolean;
 }
 
 export interface IValues {

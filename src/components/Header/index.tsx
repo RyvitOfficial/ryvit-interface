@@ -1,16 +1,15 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
+import { useState } from 'react';
 
-import ContractSelect from '@/containers/ContractSelect';
-import UserMenu from '@/containers/UserMenu';
 import { AnimatedSelect } from '../Select';
-
-import { getChangedDigits } from '@/utils/getChangerNumber';
-import { getLatestLedger } from '@/utils/getLatestLedger';
+import UserMenu from '@/containers/UserMenu';
+import ContractSelect from '@/containers/ContractSelect';
 
 import { useAppSelector } from '@/hooks/useRedux';
+import { useDispatch } from 'react-redux';
+import { setUserNetwork } from '@/reducers/user';
+import { NetworkType } from '@/types';
 
 const networkOptions = [
   { label: 'Testnet', value: '1' },
@@ -23,32 +22,17 @@ interface HeaderProps {
 }
 
 const Header = ({ title, currentContractId }: HeaderProps) => {
-  const [lastLedger, setLastLedger] = useState<string>('0');
-  const [previousLedger, setPreviousLedger] = useState<string>('324233');
   const [selectedNetwork, setselectedNetwork] = useState('');
 
+  const dispatch = useDispatch();
+
   const user = useAppSelector((state) => state.user.details);
-
-  useEffect(() => {
-    const data = () => {
-      getLatestLedger().then((ledger) => {
-        setPreviousLedger(lastLedger);
-        setLastLedger(ledger.toString());
-      });
-    };
-
-    data();
-
-    const intervalId = setInterval(data, 2000);
-
-    return () => clearInterval(intervalId);
-  }, [lastLedger]);
+  const lastLedger = useAppSelector((state) => state.lastLedger.ledger);
 
   const selectOnChange = (value: string) => {
     setselectedNetwork(value);
+    dispatch(setUserNetwork(value as NetworkType));
   };
-
-  const changedDigits = getChangedDigits(previousLedger, lastLedger);
 
   return (
     <header className="w-full bg-transparent flex items-center justify-between h-24 px-8">
@@ -73,25 +57,7 @@ const Header = ({ title, currentContractId }: HeaderProps) => {
           </div>
           <div className="flex justify-center items-center h-full min-w-[80px]">
             <span className="text-base text-primary font-jetbrains font-bold">
-              {lastLedger.split('').map((digit, index) => (
-                <motion.span
-                  key={index}
-                  initial={{ opacity: 1 }}
-                  animate={{ opacity: changedDigits.includes(index) ? 0.7 : 1 }}
-                  transition={{
-                    duration: 1,
-                    type: 'tween',
-                    ease: 'linear',
-                  }}
-                  className={
-                    changedDigits.includes(index)
-                      ? 'text-blue-400'
-                      : 'text-primary'
-                  }
-                >
-                  {digit}
-                </motion.span>
-              ))}
+              {lastLedger}
             </span>
           </div>
         </div>

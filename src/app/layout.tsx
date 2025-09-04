@@ -7,6 +7,7 @@ import { Provider } from 'react-redux';
 import { store } from '@/store';
 import Metadata from '@/constants/metaData';
 import { Toaster } from 'sonner';
+import { Providers } from './Providers';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -35,8 +36,10 @@ export default function RootLayout({
         className={`${inter.variable} ${jetbrains.variable} antialiased h-screen`}
       >
         <Provider store={store}>
-          {children}
-          <Toaster position="bottom-center" />
+          <Providers>
+            {children}
+            <Toaster position="bottom-center" />
+          </Providers>
         </Provider>
       </body>
     </html>

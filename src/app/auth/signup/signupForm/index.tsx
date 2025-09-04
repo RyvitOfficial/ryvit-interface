@@ -11,6 +11,7 @@ import Toast from '@/components/Toasts';
 import { registerUser } from '@/api/authRegister';
 
 import { ISignUpFormData } from '@/types';
+import { Pages } from '@/constants/Pages';
 
 const SignUpForm = () => {
   const {
@@ -111,7 +112,7 @@ const SignUpForm = () => {
 
         <div className="font-[500] w-full text-center mt-5 pb-8 short:mt-4 short:pb-4">
           <span>Already have an account?</span>{' '}
-          <a href="/signin" className="text-blue-700">
+          <a href={Pages.SIGNIN} className="text-blue-700">
             Sign In
           </a>
         </div>

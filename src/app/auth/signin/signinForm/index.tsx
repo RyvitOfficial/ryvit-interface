@@ -17,6 +17,7 @@ import { useAppDispatch, useAppSelector } from '@/hooks/useRedux';
 import { ISignInFormData } from '@/types';
 import { GetTokenIsValid } from '@/api/getUser';
 import Link from 'next/link';
+import { Pages } from '@/constants/Pages';
 
 const SignInForm = () => {
   const {
@@ -186,8 +187,8 @@ const SignInForm = () => {
         </div> */}
 
         <div className="font-[600] w-full text-center mt-5 pb-8 short:mt-4 short:pb-4">
-          <span> have an account?</span>{' '}
-          <a href="/signup" className="text-blue-700">
+          <span> have an account?</span>
+          <a href={Pages.SIGNUP} className="text-blue-700">
             Sign Up
           </a>
         </div>

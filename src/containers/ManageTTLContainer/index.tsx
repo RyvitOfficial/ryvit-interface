@@ -8,80 +8,7 @@ import TTLFilter from './TTLFilterCard';
 import Overview from '@/components/Overview';
 import Button from '@/components/Button';
 
-import { IDataKey } from '@/types';
-
-const dataKeys: IDataKey[] = [
-  {
-    _id: '1',
-    name: 'lockup 23',
-    type: 'lockup',
-    liveLedger: 123456,
-    network: 'testnet',
-    contract: 'contract_123',
-    valuesType: 'none',
-    values: [],
-    status: 'active',
-    expiresAt: '2024-02-01',
-    timeRemaining: '30d 0h',
-    autoRenew: true,
-  },
-  {
-    _id: '2',
-    name: 'lockup 22',
-    type: 'lockup',
-    liveLedger: 123457,
-    network: 'mainnet',
-    contract: 'contract_456',
-    valuesType: 'none',
-    values: [],
-    status: 'near_expiry',
-    expiresAt: '2024-02-08',
-    timeRemaining: '2d 12h',
-    autoRenew: true,
-  },
-  {
-    _id: '3',
-    name: 'lockup 10',
-    type: 'lockup',
-    liveLedger: 123458,
-    network: 'testnet',
-    contract: 'contract_789',
-    valuesType: 'none',
-    values: [],
-    status: 'expired',
-    expiresAt: '2024-01-01',
-    timeRemaining: 'Expired',
-    autoRenew: false,
-  },
-  {
-    _id: '4',
-    name: 'lockup 8',
-    type: 'lockup',
-    liveLedger: 123459,
-    network: 'mainnet',
-    contract: 'contract_987',
-    valuesType: 'none',
-    values: [],
-    status: 'expired',
-    expiresAt: '2024-01-01',
-    timeRemaining: 'Expired',
-    autoRenew: false,
-  },
-  {
-    _id: '5',
-    name: 'lockup 7',
-    type: 'lockup',
-    liveLedger: 123460,
-    network: 'testnet',
-    contract: 'contract_654',
-    valuesType: 'none',
-    values: [],
-    status: 'expired',
-    expiresAt: '2024-01-01',
-    timeRemaining: 'Expired',
-    autoRenew: false,
-  },
-];
+import { useAppSelector } from '@/hooks/useRedux';
 
 interface ManageTTLContainerProps {
   currentContractId: string;
@@ -93,14 +20,18 @@ const ManageTTLContainer = ({ currentContractId }: ManageTTLContainerProps) => {
     { id: string; name: string }[] | null
   >(null);
 
+  const contracts = useAppSelector((state) => state.user.contracts);
+
+  const selectedContract = contracts.filter(
+    (e) => e.address === currentContractId,
+  );
+
+  const dataKeys = selectedContract[0].datakeys;
+
   const [dataKeyStatus, setDataKeyStatus] = useState({
     extends: 0,
     restore: 0,
   });
-
-  const filteredDataKeys = dataKeys.filter(
-    (key) => key.contract === currentContractId,
-  );
 
   const handleSelectionChange = (
     selected: { id: string; name: string; status: string }[],
@@ -127,7 +58,7 @@ const ManageTTLContainer = ({ currentContractId }: ManageTTLContainerProps) => {
       style={{ height: 'calc(100vh - 110px)' }}
     >
       <TTLStats />
-      <TTLFilter currentContractId={currentContractId} />
+      <TTLFilter />
       <div className="grid grid-cols-[4fr_1.28fr] desktopMax:grid-cols-[4fr_1.1fr] w-full gap-2 min-h-0 h-full">
         <DataKeysTable
           dataKeys={dataKeys}

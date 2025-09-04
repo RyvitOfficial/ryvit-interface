@@ -16,6 +16,7 @@ import { resetPassword } from '@/api/resetPassword';
 import { getValidResetPasswordToken } from '@/api/getValidResetPasswordToken';
 
 import { IResetPasswordForm } from '@/types';
+import { Pages } from '@/constants/Pages';
 
 interface IResetPasswordProps {
   token: string;
@@ -61,7 +62,7 @@ const ResetPasswordForm = ({ token }: IResetPasswordProps) => {
         text: 'Password changed successfully',
       });
 
-      router.push('/signin');
+      router.push(Pages.SIGNIN);
     }
   };
 

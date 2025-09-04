@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { useEffect, useState, use } from 'react';
 import { useRouter } from 'next/navigation';
 import { verifyEmail } from '@/api/verifyEmail';
+import { Pages } from '@/constants/Pages';
 
 const VerifyEmailPage = ({
   params,
@@ -26,7 +27,7 @@ const VerifyEmailPage = ({
         if (response.status === 200) {
           setStatus('success');
           setTimeout(() => {
-            router.push('/signin');
+            router.push(Pages.SIGNIN);
           }, 3000);
         } else if (response.status === 400) {
           setStatus('error');

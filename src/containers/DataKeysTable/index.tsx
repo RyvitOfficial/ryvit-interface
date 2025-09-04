@@ -1,12 +1,19 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 
+import CSwitch from '@/components/Switch';
 import Checkbox from '@/components/CheckBox';
+import ProgressBar from '@/components/ProgressBar';
+import { TTLStatusBadge } from '@/components/StatusBadge';
+
+import { liveLedgerToPercentage } from '@/utils/liveLedgerToPercentage';
+import calculateStatusContract from '@/utils/calculateStatusContract';
+import calculateTimeRemaning from '@/utils/calculateTimeRemaning';
+import shortenAddress from '@/utils/shortenAddress';
+
+import { useAppSelector } from '@/hooks/useRedux';
 
 import { IDataKey } from '@/types';
-import { TTLStatusBadge } from '@/components/StatusBadge';
-import CSwitch from '@/components/Switch';
-import ProgressBar from '@/components/ProgressBar';
 
 interface DataKeysTableProps {
   dataKeys: IDataKey[];
@@ -23,7 +30,7 @@ export const DataKeysTable = ({
 }: DataKeysTableProps) => {
   const [selected, setSelected] = useState<string[]>([]);
 
-  // const lastLedger = useAppSelector((state) => state.lastLedger.ledger);
+  const lastLedger = useAppSelector((state) => state.lastLedger.ledger);
 
   const isAllSelected = selected.length === dataKeys.length;
 
@@ -34,7 +41,7 @@ export const DataKeysTable = ({
         .map((item) => ({
           id: item._id,
           name: item.name,
-          status: item.status,
+          status: 'expired',
         }));
       onSelectionChange(selectedData);
     }
@@ -88,37 +95,50 @@ export const DataKeysTable = ({
                   onChange={() => toggleSelection(item._id)}
                   value={item._id}
                   type="secondary"
-                  label={item.name}
+                  label={
+                    `${item.name} ${item.value}`.length > 18
+                      ? `${item.name} ${shortenAddress(item.value, 4)}`
+                      : `${item.name} ${item.value}`
+                  }
                 />
               </div>
 
               {/* expires */}
-              <div className="text-white">{item.expiresAt}</div>
+              <div className="text-white">
+                {calculateTimeRemaning(item.liveLedger)}
+              </div>
 
               {/* time remaining */}
               <div className="flex items-center gap-2">
                 <div className="w-36">
                   <ProgressBar
-                    label="2d 12h"
-                    percent={45}
-                    status={item.status}
+                    label={
+                      (
+                        100 -
+                        liveLedgerToPercentage(item.liveLedger, lastLedger)
+                      ).toString() + '%'
+                    }
+                    percent={liveLedgerToPercentage(
+                      item.liveLedger,
+                      lastLedger,
+                    )}
+                    status={calculateStatusContract(item.liveLedger)}
                   />
                 </div>
-                {/* <span className="text-txtgray text-sm">
-                  {item.timeRemaining}
-                </span> */}
               </div>
 
               {/* status */}
               <div>
-                <TTLStatusBadge status={item.status} />
+                <TTLStatusBadge
+                  status={calculateStatusContract(item.liveLedger)}
+                />
               </div>
 
               <div className="text-white">{item.liveLedger}</div>
 
               {/* auto renew */}
               <div>
-                <CSwitch checked={item.autoRenew} onChange={() => {}} />
+                <CSwitch checked={item.autoExtend} onChange={() => {}} />
               </div>
             </div>
           );
