@@ -1,15 +1,15 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import Image from 'next/image';
-import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
+import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/navigation';
 
-import Card from '@/components/Card';
 import Input from '@/components/Input';
 import Toast from '@/components/Toasts';
 import Button from '@/components/Button';
+import AuthCard from '@/components/AuthCard';
 import LoadingThreeDotsPulse from '@/components/LoadingDots';
 
 import { resetPassword } from '@/api/resetPassword';
@@ -59,7 +59,7 @@ const ResetPasswordForm = ({ token }: IResetPasswordProps) => {
     } else {
       Toast({
         type: 'success',
-        text: 'Password changed successfully',
+        text: 'Your password has been updated successfully. You can now sign in.',
       });
 
       router.push(Pages.SIGNIN);
@@ -69,7 +69,7 @@ const ResetPasswordForm = ({ token }: IResetPasswordProps) => {
   return (
     <>
       {status === 'success' ? (
-        <section className="w-1/3 shadow-lg bg-white border border-border rounded-xl small:shadow-none small:rounded-none small:border-none small:h-screen small:w-full">
+        <AuthCard>
           <form
             onSubmit={handleSubmit(onSubmit)}
             className="w-full px-14 py-12 h-fit small:px-4 small:w-[90%] small:m-auto small:flex small:flex-col small:items-center small:justify-center"
@@ -84,18 +84,18 @@ const ResetPasswordForm = ({ token }: IResetPasswordProps) => {
             </div>
             <div className="flex flex-col justify-center items-center mb-8">
               <h5 className="text-[22px] font-Inter font-[600] text-[#343C6A] short:text-xl">
-                Reset Your Password
+                Create a New Password
               </h5>
               <p className="text-[13px] text-gray-400 text-center mt-1 short:text-xs">
-                Enter your new password below to reset your account password
+                Please choose a strong password to secure your account
               </p>
             </div>
 
             <div className="relative">
               <Input
                 type="password"
-                label="Password"
-                placeholder="Enter your password"
+                label="New Password"
+                placeholder="Enter your new password"
                 border
                 hideCharacter
                 error
@@ -108,24 +108,30 @@ const ResetPasswordForm = ({ token }: IResetPasswordProps) => {
                 rounded="xl"
                 color="blue"
                 type="submit"
-                content="Confrim"
+                content="Reset Password"
                 className="w-full cursor-pointer font-Inter font-medium"
               />
             </div>
           </form>
-        </section>
+        </AuthCard>
       ) : status === 'error' ? (
-        <Card bgColor="white" borderColor="#e5e5e5">
-          <div className="p-12 text-xl flex flex-col space-y-4">
-            <p> Something went wrong</p>
+        <AuthCard>
+          <div className="px-12 py-24 flex flex-col justify-center items-center gap-4">
+            <p className="text-white text-2xl font-medium">
+              Invalid or expired link
+            </p>
+            <p className="text-gray-300 px-4 mb-8 text-sm text-center">
+              The password reset link is not valid anymore. Please request a new
+              reset link.
+            </p>
             <Link
               href="/"
-              className="rounded-md bg-indigo-600 px-3 text-center py-2.5 text-sm cursor-pointer font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              className="w-1/3 rounded-lg bg-primary px-3 text-center py-2.5 text-sm cursor-pointer text-white shadow-xs hover:bg-primary/80"
             >
               Go back home
             </Link>
           </div>
-        </Card>
+        </AuthCard>
       ) : (
         <LoadingThreeDotsPulse />
       )}
