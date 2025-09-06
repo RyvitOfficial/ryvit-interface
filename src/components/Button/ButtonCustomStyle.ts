@@ -6,7 +6,7 @@ const buttonCustomStyles = (
   disabled?: boolean,
 ): string => {
   const colorClasses: Record<CButtonColorType, string> = {
-    blue: 'bg-[#1B59F8] text-white hover:bg-[#343C6A]',
+    blue: 'bg-primary text-white hover:bg-primary/70',
     white: 'bg-white !text-primary !rounded hover:bg-white/90',
     outline:
       'border-2 border-white !rounded-sm text-white hover:bg-white hover:text-blue-600 font-medium',
@@ -29,8 +29,7 @@ const buttonCustomStyles = (
   const baseStyle =
     'font-medium h-12 transition px-6 text-base text-center flex justify-center items-center select-none cursor-pointer whitespace-nowrap';
 
-  const disabledStyle =
-    '!bg-gray-300 !text-white hover:!bg-gray-300 !cursor-not-allowed';
+  const disabledStyle = '!bg-[#6B7280] !text-[#9CA3AF]  !cursor-not-allowed';
 
   const roundedStyle = `${
     rounded === 'sm' ? 'rounded-[8px]' : 'rounded-[12px]'
