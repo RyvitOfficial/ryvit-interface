@@ -6,8 +6,8 @@ import { Search } from '@/assets';
 const statusOption = [
   { label: 'All', value: '' },
   { label: 'Active', value: 'active' },
-  { label: 'Near Expiry', value: 'Near Expiry' },
-  { label: 'Expired', value: 'Expired' },
+  { label: 'Near Expiry', value: 'near_expiry' },
+  { label: 'Expired', value: 'expired' },
 ];
 
 const autoRenewOptions = [

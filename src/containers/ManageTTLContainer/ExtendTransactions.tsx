@@ -24,9 +24,15 @@ const ExtendTransactions = async (
   setLoadingTitle: (_: string) => void,
   sendTransaction: (_: string) => Promise<unknown>,
   login: () => void,
+  setWaitConnectWallet: (_: boolean) => void,
+  waitConnectWallet: boolean,
   walletAddress: string | null | undefined,
   token: string | null,
 ) => {
+  if (waitConnectWallet) {
+    setWaitConnectWallet(false);
+  }
+
   if (method === 'ryvit') {
     const selectedDatakeys = selectedKeys.map((key) => key.key);
 
@@ -110,6 +116,7 @@ const ExtendTransactions = async (
         }
       }
     } else {
+      setWaitConnectWallet(true);
       setIsOpen(false);
       login();
     }

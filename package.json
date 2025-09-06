@@ -11,7 +11,7 @@
   "dependencies": {
     "@bluxcc/react": "^0.1.9",
     "@reduxjs/toolkit": "^2.6.1",
-    "@stellar/stellar-sdk": "^14.1.1",
+    "@stellar/stellar-sdk": "^13.1.0",
     "autoprefixer": "^10.4.21",
     "axios": "^1.8.4",
     "classnames": "^2.5.1",

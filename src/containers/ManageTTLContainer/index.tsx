@@ -24,6 +24,7 @@ const ManageTTLContainer = ({ currentContractId }: ManageTTLContainerProps) => {
   const [disabledExtend, setDisabledExtend] = useState(true);
   const [method, setMethod] = useState<string | null>(null);
   const [loadingTitle, setLoadingTitle] = useState<string>('');
+  const [waitConnectWallet, ssetWaitConnectWallete] = useState<boolean>(false);
 
   const token = useAppSelector((state) => state.user.token);
 
@@ -68,6 +69,7 @@ const ManageTTLContainer = ({ currentContractId }: ManageTTLContainerProps) => {
   };
 
   const handleOnClose = () => {
+    ssetWaitConnectWallete(false);
     setMethod(null);
     setIsOpen(false);
   };
@@ -84,6 +86,8 @@ const ManageTTLContainer = ({ currentContractId }: ManageTTLContainerProps) => {
       setLoadingTitle,
       sendTransaction,
       login,
+      ssetWaitConnectWallete,
+      waitConnectWallet,
       user.wallet?.address,
       token,
     );
@@ -120,7 +124,9 @@ const ManageTTLContainer = ({ currentContractId }: ManageTTLContainerProps) => {
       </div>
 
       <ExtendModalContainer
-        isOpen={isOpen}
+        isOpen={
+          isOpen || (user.wallet?.address && waitConnectWallet) ? true : false
+        }
         setIsOpen={setIsOpen}
         onClose={handleOnClose}
         handleConfirmOnClick={handleConfirmOnClick}
