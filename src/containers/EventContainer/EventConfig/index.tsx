@@ -15,7 +15,7 @@ const EventConfig = () => {
   const [method, setMethod] = useState<'HTTP' | 'RabbitMQ'>('HTTP');
   const [AddEventIsOpen, setAddEventsIsOpen] = useState(false);
 
-  const handleSelectValue = (value: string) => {};
+  // const handleSelectValue = (value: string) => {};
 
   const handleOnClose = () => {
     setAddEventsIsOpen(false);
