@@ -4,9 +4,10 @@ import { useState, useEffect, ReactNode } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import cn from 'classnames';
 
+import shortenAddress from '@/utils/shortenAddress';
+
 import ArrowUp01Icon from '@/assets/ArrowUp';
 import { Network } from '@/assets';
-import shortenAddress from '@/utils/shortenAddress';
 
 type Option = {
   label: string;
@@ -76,12 +77,6 @@ export const AnimatedSelect = ({
         )}
       >
         <div className="flex items-center justify-between gap-2 h-full">
-          {/* {selectedOption?.color && !network && (
-            <span
-              className="w-3 h-3 rounded-full"
-              style={{ backgroundColor: selectedOption.color }}
-            />
-          )} */}
           {selectedOption?.icon && (
             <div className="flex justify-center items-center h-full font-medium bg-bgblack rounded-lg w-[40px]">
               {selectedOption?.icon}
@@ -152,17 +147,12 @@ export const AnimatedSelect = ({
                       </div>
                     )}
 
-                    <div
-                      className={cn('flex flex-col items-start justify-center')}
-                    >
-                      <span> {option.label || placeholder}</span>
+                    <div className="flex flex-col items-start justify-center">
+                      <span>{option.label || placeholder}</span>
                       {details ||
                         (address && (
                           <span className="text-txtgray text-[10px] font-light">
-                            {address
-                              ? selectedOption &&
-                                shortenAddress(selectedOption?.value, 10)
-                              : details}
+                            {shortenAddress(option.value, 10)}
                           </span>
                         ))}
                     </div>
