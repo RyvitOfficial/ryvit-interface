@@ -64,8 +64,6 @@ const AddContractModal = ({
         type: 'process',
         text: 'Adding contract...',
         promise: addContractPromise,
-        successMessage: 'Contract Added Successfuly',
-        errorMessage: 'Contract Id exist!',
       });
     }
 
