@@ -5,8 +5,8 @@ export const metadata: Metadata = {
   title: 'Ryvit - Dashboard',
 };
 
-const Dashboard = () => {
+const Home = () => {
   return <DashboardContainer />;
 };
 
-export default Dashboard;
+export default Home;

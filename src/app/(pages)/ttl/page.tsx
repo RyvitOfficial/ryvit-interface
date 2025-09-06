@@ -5,16 +5,20 @@ import { useRouter } from 'next/navigation';
 
 import ManageTTLSkeleton from '@/containers/SkeletonContainers/TTLSkeleton';
 
-import { contractsOptions } from '@/constants/options';
+import { useAppSelector } from '@/hooks/useRedux';
 
 export default function TTLPage() {
   const router = useRouter();
 
+  const contract = useAppSelector((state) => state.user.contracts);
+
   useEffect(() => {
-    if (contractsOptions.length > 0) {
-      router.replace(`ttl/${contractsOptions[0].value}`);
+    if (contract.length > 0) {
+      router.replace(`ttl/${contract[0].address}`);
+    } else {
+      router.push('/contracts');
     }
-  }, [router]);
+  }, [router, contract]);
 
   return (
     <div className="flex items-center justify-center">

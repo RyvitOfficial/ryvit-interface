@@ -10,9 +10,9 @@ export const buildPayment = async (admin: string) => {
   const adminUserH = new Account(admin, accountResponse.sequence);
 
   const paymentCall = Operation.payment({
-    amount: '0.01',
+    amount: '0.09',
     asset: Asset.native(),
-    destination: 'GBYC7O7ZT2ZUMZCSBEK3LRHQPAXPCBXGFZMF56CCJ44MOIDB4KIESGCX',
+    destination: process.env.NEXT_PUBLIC_RYVIT_WALLET as string,
     source: admin,
   });
 

@@ -75,7 +75,7 @@ const CInput = ({
 
   return (
     <div className={className}>
-      <Label label={label} htmlFor={id} />
+      {label && <Label label={label} htmlFor={id} />}
 
       <div className="relative w-full">
         {icon && (
@@ -113,12 +113,12 @@ const CInput = ({
           enterKeyHint={enterKeyHint}
           autoComplete="off"
           className={`
-            self-stretch rounded-xl placeholder-[#a8a7a8] text-[#2c2c2c] text-[14px] w-full h-[45px] p-4 bg-transparent justify-start items-center inline-flex outline-none border transition-all duration-300
+            self-stretch rounded-xl bg-bgblack2 placeholder-[#a8a7a8] text-white text-[14px] w-full h-[45px] p-4 justify-start items-center inline-flex outline-none border transition-all duration-300
             ${inputClassName}
             ${icon ? 'px-12' : 'px-4'}
             ${
               border
-                ? 'border-2 border-border focus:border-blue-500'
+                ? 'border-2 border-border2 focus:border-blue-500'
                 : 'border-transparent'
             }
             ${error && 'border !border-error'}

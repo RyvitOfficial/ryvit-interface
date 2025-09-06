@@ -1,21 +1,18 @@
 'use client';
 
-import { ContractStatusBadgeType } from '@/components/ContractStatusBadge';
 import AccountIdenticon from '@/components/AccountIdenticon';
 import ContractCard from '@/components/ContractCard';
 
-import { contracts } from '@/constants/options';
-
-import shortenAddress from '@/utils/shortenAddress';
-
-import { NetworkType } from '@/types';
+import { IGetContractResponse } from '@/types';
+import calculateStatusContract from '@/utils/calculateStatusContract';
 
 interface ContractListProps {
   search: string;
+  data: IGetContractResponse[];
 }
 
-export default function ContractList({ search }: ContractListProps) {
-  const filtered = contracts.filter(
+export default function ContractList({ search, data }: ContractListProps) {
+  const filtered = data.filter(
     (c) =>
       c.name.toLowerCase().includes(search.toLowerCase()) ||
       c.address.toLowerCase().includes(search.toLowerCase()),
@@ -29,13 +26,14 @@ export default function ContractList({ search }: ContractListProps) {
             key={i}
             name={c.name}
             address={c.address}
-            functions={c.functions}
-            events={c.events}
-            ttl={c.ttl}
-            status={c.status as ContractStatusBadgeType}
-            network={c.network as NetworkType}
-            addedDate={c.addedDate}
+            functions={c.functions.length}
+            events={c.events.length}
+            ttl={c.datakeys.length.toString()}
+            status={calculateStatusContract(c.liveLedger)}
+            network={c.network}
+            // addedDate={c.addedDate}
             icon={<AccountIdenticon address={c.address} size={18} />}
+            processing={c.isProcessing}
           />
         ))
       ) : (

@@ -22,7 +22,7 @@ const LoadingProgressBar = () => {
   }, []);
 
   return (
-    <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-White text-white w-full h-screen">
+    <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-bgblack2 text-white w-full h-screen">
       <motion.div
         className="text-4xl font-bold mb-8 tracking-wide"
         initial={{ opacity: 0, y: -20 }}
@@ -37,7 +37,7 @@ const LoadingProgressBar = () => {
         />
       </motion.div>
 
-      <div className="w-[400px] small:w-[80%] h-1 bg-gray-700/20 rounded-full overflow-hidden">
+      <div className="w-[400px] small:w-[80%] h-1 bg-gray-700/60 rounded-full overflow-hidden">
         <motion.div
           className="h-full bg-primary"
           initial={{ width: 0 }}

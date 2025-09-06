@@ -1,12 +1,13 @@
 'use client';
 
-import { Inter, JetBrains_Mono } from 'next/font/google';
+import { Inter, JetBrains_Mono, Space_Grotesk } from 'next/font/google';
 
 import './globals.css';
 import { Provider } from 'react-redux';
 import { store } from '@/store';
 import Metadata from '@/constants/metaData';
 import { Toaster } from 'sonner';
+import dynamic from 'next/dynamic';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -20,6 +21,19 @@ const jetbrains = JetBrains_Mono({
   display: 'swap',
 });
 
+const grotesk = Space_Grotesk({
+  subsets: ['latin'],
+  weight: ['400', '700'],
+  variable: '--font-grotesk',
+});
+
+const Providers = dynamic(
+  () => import('./Providers').then((mod) => mod.Providers),
+  {
+    ssr: false,
+  },
+);
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -32,11 +46,13 @@ export default function RootLayout({
         <Metadata />
       </head>
       <body
-        className={`${inter.variable} ${jetbrains.variable} antialiased h-screen`}
+        className={`${inter.variable} ${jetbrains.variable} ${grotesk.variable} antialiased h-screen`}
       >
         <Provider store={store}>
-          {children}
-          <Toaster position="bottom-center" />
+          <Providers>
+            {children}
+            <Toaster position="bottom-center" />
+          </Providers>
         </Provider>
       </body>
     </html>

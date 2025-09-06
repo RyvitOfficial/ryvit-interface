@@ -1,5 +1,3 @@
-// components/DashboardStat.tsx
-
 import React, { JSX } from 'react';
 
 interface IDashboardStatCard {

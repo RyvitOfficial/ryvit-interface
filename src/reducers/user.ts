@@ -1,4 +1,4 @@
-import { IUser } from '@/types';
+import { IGetContractResponse, IUser, NetworkType } from '@/types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface AuthState {
@@ -6,6 +6,9 @@ interface AuthState {
   token: string | null;
   details: IUser | null;
   user: string | null;
+  contracts: IGetContractResponse[];
+  network: NetworkType;
+  isLoading: boolean;
 }
 
 const initialState: AuthState = {
@@ -13,6 +16,9 @@ const initialState: AuthState = {
   token: null,
   details: null,
   user: null,
+  contracts: [],
+  isLoading: true,
+  network: 'testnet',
 };
 
 function setCookie(name: string, value: string, days?: number) {
@@ -48,8 +54,21 @@ const user = createSlice({
     setUserInfo: (state, action: PayloadAction<IUser>) => {
       state.details = action.payload;
     },
+
+    setUserContracts: (
+      state,
+      action: PayloadAction<IGetContractResponse[]>,
+    ) => {
+      state.contracts = action.payload;
+      state.isLoading = false;
+    },
+
+    setUserNetwork: (state, action: PayloadAction<NetworkType>) => {
+      state.network = action.payload;
+    },
   },
 });
 
-export const { login, logout, setUserInfo } = user.actions;
+export const { login, logout, setUserInfo, setUserContracts, setUserNetwork } =
+  user.actions;
 export default user.reducer;

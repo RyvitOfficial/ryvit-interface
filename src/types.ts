@@ -1,4 +1,4 @@
-import { rpc } from '@stellar/stellar-sdk';
+import { Horizon, rpc } from '@stellar/stellar-sdk';
 
 export type NetworkType = 'testnet' | 'mainnet';
 
@@ -54,7 +54,10 @@ export interface IGetContractResponse {
   datakeys: IDataKey[];
   liveLedger: number;
   network: 'testnet' | 'mainnet';
+  events: [];
+  functions: [];
   settings: ISettings;
+  isProcessing: boolean;
 }
 
 export interface IFunctionValue {
@@ -75,16 +78,12 @@ export interface IDataKey {
   _id: string;
   name: string;
   type: string;
-  // value: IValue;
-  liveLedger: number;
   network: 'testnet' | 'mainnet';
   contract: string;
-  valuesType: 'range' | 'list' | 'function' | 'none';
-  values: IValues[];
-  status: 'active' | 'near_expiry' | 'expired';
-  expiresAt: string;
-  timeRemaining: string;
-  autoRenew: boolean;
+  value: string;
+  key: string;
+  liveLedger: number;
+  autoExtend: boolean;
 }
 
 export interface IValues {
@@ -127,6 +126,26 @@ export interface IUser {
   dataKeysExpireSoonCount: number;
 }
 
+export interface ISendTransactionOptions {
+  network?: string;
+  isSoroban?: boolean;
+}
+
+export interface ISendTransactionBlux {
+  (
+    xdr: string,
+    options: ISendTransactionOptions & {
+      isSoroban: true;
+    },
+  ): Promise<rpc.Api.GetSuccessfulTransactionResponse>;
+  (
+    xdr: string,
+    options?: ISendTransactionOptions & {
+      isSoroban?: false;
+    },
+  ): Promise<Horizon.HorizonApi.SubmitTransactionResponse>;
+}
+
 export interface ITransactionDetails {
   hash: string;
   created_at: number;
@@ -135,14 +154,12 @@ export interface ITransactionDetails {
     | rpc.Api.GetTransactionStatus.FAILED
     | rpc.Api.GetTransactionStatus.SUCCESS
     | rpc.Api.GetTransactionStatus.NOT_FOUND;
-  useValues: IValues[];
-  useNames: string[];
+  fee: number;
 }
 
 export interface IResponseCreateTransactions {
-  txExtend: string;
-  useNames: string[];
-  useValues: IValues[];
+  extend: string[];
+  restore: string[];
 }
 
 export type SorobanType =

@@ -1,124 +1,92 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useBlux } from '@bluxcc/react';
 
-import { DataKeysTable } from '../DataKeysTable';
 import TTLStats from '../TTLStatCard';
-import TTLFilter from './TTLFilterCard';
-import Overview from '@/components/Overview';
 import Button from '@/components/Button';
+import DataKeysTable from '../DataKeysTable';
+import Overview from '@/components/Overview';
+import LoadingModal from '@/components/LoadingModal';
+import ExtendTransactions from './ExtendTransactions';
+import ExtendModalContainer from '../Modals/PaymentMethodModal';
 
-import { IDataKey } from '@/types';
-
-const dataKeys: IDataKey[] = [
-  {
-    _id: '1',
-    name: 'lockup 23',
-    type: 'lockup',
-    liveLedger: 123456,
-    network: 'testnet',
-    contract: 'contract_123',
-    valuesType: 'none',
-    values: [],
-    status: 'active',
-    expiresAt: '2024-02-01',
-    timeRemaining: '30d 0h',
-    autoRenew: true,
-  },
-  {
-    _id: '2',
-    name: 'lockup 22',
-    type: 'lockup',
-    liveLedger: 123457,
-    network: 'mainnet',
-    contract: 'contract_456',
-    valuesType: 'none',
-    values: [],
-    status: 'near_expiry',
-    expiresAt: '2024-02-08',
-    timeRemaining: '2d 12h',
-    autoRenew: true,
-  },
-  {
-    _id: '3',
-    name: 'lockup 10',
-    type: 'lockup',
-    liveLedger: 123458,
-    network: 'testnet',
-    contract: 'contract_789',
-    valuesType: 'none',
-    values: [],
-    status: 'expired',
-    expiresAt: '2024-01-01',
-    timeRemaining: 'Expired',
-    autoRenew: false,
-  },
-  {
-    _id: '4',
-    name: 'lockup 8',
-    type: 'lockup',
-    liveLedger: 123459,
-    network: 'mainnet',
-    contract: 'contract_987',
-    valuesType: 'none',
-    values: [],
-    status: 'expired',
-    expiresAt: '2024-01-01',
-    timeRemaining: 'Expired',
-    autoRenew: false,
-  },
-  {
-    _id: '5',
-    name: 'lockup 7',
-    type: 'lockup',
-    liveLedger: 123460,
-    network: 'testnet',
-    contract: 'contract_654',
-    valuesType: 'none',
-    values: [],
-    status: 'expired',
-    expiresAt: '2024-01-01',
-    timeRemaining: 'Expired',
-    autoRenew: false,
-  },
-];
+import { useAppSelector } from '@/hooks/useRedux';
 
 interface ManageTTLContainerProps {
   currentContractId: string;
 }
 
 const ManageTTLContainer = ({ currentContractId }: ManageTTLContainerProps) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [loadingIsOpen, setLoadingIsOpen] = useState(false);
   const [clearTrigger, setClearTrigger] = useState(0);
-  const [dataKeySelect, setDataKeySelect] = useState<
-    { id: string; name: string }[] | null
-  >(null);
+  const [disabledExtend, setDisabledExtend] = useState(true);
+  const [method, setMethod] = useState<string | null>(null);
+  const [loadingTitle, setLoadingTitle] = useState<string>('');
 
-  const [dataKeyStatus, setDataKeyStatus] = useState({
-    extends: 0,
-    restore: 0,
-  });
+  const token = useAppSelector((state) => state.user.token);
 
-  const filteredDataKeys = dataKeys.filter(
-    (key) => key.contract === currentContractId,
+  const { sendTransaction, login, user } = useBlux();
+
+  const [selectedKeys, setSelectedKeys] = useState<Record<string, string>[]>(
+    [],
   );
 
-  const handleSelectionChange = (
-    selected: { id: string; name: string; status: string }[],
-  ) => {
-    setDataKeySelect(selected);
+  const contracts = useAppSelector((state) => state.user.contracts);
 
-    const extendCount = selected.filter(
-      (item) => item.status === 'active' || item.status === 'near_expiry',
-    ).length;
+  const selectedContract = contracts.filter(
+    (e) => e.address === currentContractId,
+  );
 
-    const restoreCount = selected.filter(
-      (item) => item.status === 'expired',
-    ).length;
+  const contractId = contracts.filter(
+    (contract) => contract.address === currentContractId,
+  );
 
-    setDataKeyStatus({
-      extends: extendCount,
-      restore: restoreCount,
-    });
+  const dataKeys = selectedContract[0].datakeys;
+
+  useEffect(() => {
+    if (selectedKeys.length > 0) {
+      setDisabledExtend(false);
+    } else if (selectedKeys.length <= 0) {
+      setDisabledExtend(true);
+    }
+  }, [selectedKeys]);
+
+  useEffect(() => {
+    if (isOpen) {
+      setIsOpen(true);
+    }
+  }, [isOpen]);
+
+  const handleSelectionChange = (selected: Record<string, string>[]) => {
+    setSelectedKeys(selected);
+  };
+
+  const ExtendOnClick = () => {
+    setIsOpen(true);
+  };
+
+  const handleOnClose = () => {
+    setMethod(null);
+    setIsOpen(false);
+  };
+
+  const handleConfirmOnClick = async () => {
+    ExtendTransactions(
+      method,
+      selectedKeys,
+      contractId[0]._id,
+      setClearTrigger,
+      setIsOpen,
+      setLoadingIsOpen,
+      setMethod,
+      setLoadingTitle,
+      sendTransaction,
+      login,
+      user.wallet?.address,
+      token,
+    );
   };
 
   return (
@@ -126,8 +94,7 @@ const ManageTTLContainer = ({ currentContractId }: ManageTTLContainerProps) => {
       className="flex flex-col w-full pt-5 px-5 space-y-4 "
       style={{ height: 'calc(100vh - 110px)' }}
     >
-      <TTLStats />
-      <TTLFilter currentContractId={currentContractId} />
+      <TTLStats dataKeys={dataKeys} />
       <div className="grid grid-cols-[4fr_1.28fr] desktopMax:grid-cols-[4fr_1.1fr] w-full gap-2 min-h-0 h-full">
         <DataKeysTable
           dataKeys={dataKeys}
@@ -137,11 +104,8 @@ const ManageTTLContainer = ({ currentContractId }: ManageTTLContainerProps) => {
         <div className="flex flex-col gap-4 w-full min-h-full">
           <Overview
             key={1}
-            dataKeyLength={dataKeySelect ? dataKeySelect?.length : 0}
-            extendsRestores={{
-              extendes: dataKeyStatus.extends,
-              restores: dataKeyStatus.restore,
-            }}
+            dataKeys={dataKeys}
+            selectedDataKeys={selectedKeys}
           />
 
           <Button
@@ -149,10 +113,26 @@ const ManageTTLContainer = ({ currentContractId }: ManageTTLContainerProps) => {
             content="Extend / Restore"
             rounded="xl"
             className="w-full h-[60px]"
-            disabled={!dataKeySelect || dataKeySelect.length === 0}
+            disabled={disabledExtend}
+            onClick={ExtendOnClick}
           />
         </div>
       </div>
+
+      <ExtendModalContainer
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        onClose={handleOnClose}
+        handleConfirmOnClick={handleConfirmOnClick}
+        method={method}
+        setMethod={setMethod}
+      />
+
+      <LoadingModal
+        isOpen={loadingIsOpen}
+        onClose={handleOnClose}
+        title={loadingTitle}
+      />
     </div>
   );
 };

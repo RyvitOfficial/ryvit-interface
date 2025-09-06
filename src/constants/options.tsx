@@ -1,7 +1,6 @@
 import {
   Activity,
   EventList,
-  File,
   Function,
   Home,
   Setting,
@@ -12,21 +11,21 @@ import {
 import { ContractMeta } from '@/types';
 
 export const navItems = [
-  { name: 'Dashboard', href: '/dashboard', icon: <Home /> },
+  { name: 'Dashboard', href: '/home', icon: <Home /> },
   { name: 'Contracts', href: '/contracts', icon: <SmartContract /> },
   {
     name: 'Event',
-    href: '/contracts/event',
+    href: '/event',
     icon: <EventList />,
   },
   {
     name: 'TTL Manager',
-    href: '/contracts/ttl',
+    href: '/ttl',
     icon: <TTL />,
   },
   {
     name: 'Function',
-    href: '/contracts/function',
+    href: '/function',
     icon: <Function />,
   },
   { name: 'Activities', href: '/dashboard/activities', icon: <Activity /> },

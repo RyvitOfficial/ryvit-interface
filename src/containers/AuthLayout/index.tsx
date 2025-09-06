@@ -7,6 +7,8 @@ import LoadingProgressBar from '@/components/Loading';
 
 import { useAppSelector } from '@/hooks/useRedux';
 
+import { Pages } from '@/constants/Pages';
+
 interface IAuthLayout {
   children: React.ReactNode;
 }
@@ -30,13 +32,13 @@ const AuthLayout = ({ children }: IAuthLayout) => {
 
   useEffect(() => {
     if (isMounted && isLogin) {
-      router.push('/dashboard');
+      router.push(Pages.DASHBOARD);
     }
   }, [isLogin, router, isMounted]);
 
   if (!isMounted || showLoading) {
     return (
-      <div className="w-screen h-screen flex items-center justify-center bg-white">
+      <div className="w-screen h-screen flex items-center justify-center">
         <LoadingProgressBar />
       </div>
     );
@@ -45,10 +47,8 @@ const AuthLayout = ({ children }: IAuthLayout) => {
   if (isLogin) return null;
 
   return (
-    <div className="w-full h-dvh flex justify-between items-center overflow-hidden">
-      <div className="small:hidden absolute top-1/2 left-1/2 w-[1000px] h-full bg-[radial-gradient(circle,_rgba(27,89,248,0.5)_0%,_rgba(27,89,248,0)_70%)] blur-[150px] transform -translate-x-1/2 -translate-y-1/2 animate-pulse "></div>
-
-      <div className="flex items-center justify-center w-full h-full !z-[9999]">
+    <div className="w-full h-dvh flex justify-between items-center overflow-hidden bg-bgblack [background-image:linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] [background-size:40px_40px]">
+      <div className="flex items-center justify-center w-full h-full !z-[9999] flex-col">
         {children}
       </div>
     </div>

@@ -59,7 +59,7 @@ const Checkbox = ({
       </div>
       {label && (
         <div
-          className={`text-sm font-medium select-none transition-colors duration-100 text-white`}
+          className={`text-sm select-none transition-colors duration-100 text-white`}
         >
           {label}
         </div>

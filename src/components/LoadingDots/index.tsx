@@ -20,8 +20,6 @@ function LoadingThreeDotsPulse() {
       transition={{ staggerChildren: -0.2, staggerDirection: -1 }}
       className="flex justify-center items-center gap-5"
     >
-      <span className="text-xl text-primary animate-pulse">Loading</span>
-
       <motion.div
         className="w-3 h-3 rounded-full bg-primary"
         variants={dotVariants}

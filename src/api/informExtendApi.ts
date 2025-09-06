@@ -1,7 +1,7 @@
 import request from '@/utils/request';
 
 interface IInformExtendApi {
-  dataKeys: string[];
+  keys: string[];
 }
 
 export const InformExtendApi = async (
@@ -11,7 +11,7 @@ export const InformExtendApi = async (
 ) => {
   try {
     const { data } = await request(
-      `${process.env.NEXT_PUBLIC_RYVIT_API}/contracts/extend/${id}`,
+      `${process.env.NEXT_PUBLIC_RYVIT_TTL}/${id}`,
       {
         method: 'POST',
         body: formData,
