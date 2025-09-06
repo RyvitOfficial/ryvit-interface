@@ -39,7 +39,7 @@ const ContractCard = ({
   const router = useRouter();
 
   const handleNavigate = (path: string) => {
-    router.push(`/contracts/${path}/${address}`);
+    router.push(`/${path}/${address}`);
   };
 
   return (
@@ -118,9 +118,9 @@ const ContractCard = ({
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
-          className="absolute inset-0 flex flex-col items-center justify-center bg-black/10 backdrop-blur-sm z-50"
+          className="absolute inset-0 flex flex-col items-center justify-center bg-black/10 backdrop-blur-sm z-10"
         >
-          <motion.p
+          <motion.div
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.4, ease: 'easeOut' }}
@@ -141,13 +141,13 @@ const ContractCard = ({
                 />
               ))}
             </motion.div>
-          </motion.p>
+          </motion.div>
 
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3, duration: 0.4 }}
-            className="text-white/80 text-sm mt-2 text-center max-w-xs text-sm"
+            className="text-white/80 text-sm mt-2 text-center max-w-xs"
           >
             Sending data to the network. This may take a few seconds.
           </motion.p>
