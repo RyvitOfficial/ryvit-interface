@@ -16,5 +16,8 @@ export const useContractValidation = (contractId: string) => {
     (!isContract && !subContractsPage.some((a) => a === contractId)) ||
     (!isValid && isContract);
 
-  return { isLoading, isNotFound };
+  const isShowContractSelect =
+    subContractsPage.some((a) => a !== contractId) && isContract;
+
+  return { isLoading, isNotFound, isShowContractSelect };
 };
