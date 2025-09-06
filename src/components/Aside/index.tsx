@@ -50,10 +50,9 @@ const Aside = () => {
             alt="logoType"
             width={45}
             height={45}
+            className="bg-[#]"
           />
-          <h2 className="text-white font-bold text-2xl font-jetbrains">
-            Ryvit
-          </h2>
+          <h2 className="text-white text-2xl font-grotesk font-light">Ryvit</h2>
         </div>
         <nav className="flex flex-col space-y-2 px-5 mt-3 tablet:px-1">
           {navItems.map(({ name, href, icon }) => {
@@ -91,8 +90,8 @@ const Aside = () => {
         ) : (
           <Button
             rounded="xl"
-            color="outlineWhiteBlack"
-            className="w-full justify-between items-center"
+            color="custom"
+            className="w-full justify-between items-center bg-input border border-border2 hover:bg-input/80 text-white font-jetbrains"
             onClick={handleOpenProfile}
           >
             <p>{shortenAddress(userAddress, 5)}</p>

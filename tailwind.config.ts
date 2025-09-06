@@ -29,10 +29,12 @@ module.exports = {
         border4: '#334155',
         border5: '#2D2D44',
         input: '#22232B',
+        textMuted: '#D1D5DB',
       },
       fontFamily: {
         inter: ['var(--font-inter)'],
         jetbrains: ['var(--font-jetbrains)'],
+        grotesk: ['var(--font-grotesk)'],
       },
     },
     screens: {
