@@ -12,7 +12,7 @@ export const GetContract = async (token: string, network: string) => {
       },
     );
 
-    return data.result!;
+    return data;
   } catch (error: any) {
     throw error.data;
   }

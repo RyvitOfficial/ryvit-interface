@@ -16,7 +16,7 @@ import { login, setUserInfo } from '@/reducers/user';
 import { loginUser } from '@/api/authLogin';
 import { useAppDispatch, useAppSelector } from '@/hooks/useRedux';
 
-import { ISignInFormData } from '@/types';
+import { ISignInFormData, IUser } from '@/types';
 import { GetTokenIsValid } from '@/api/getUser';
 import { Pages } from '@/constants/Pages';
 
@@ -79,7 +79,7 @@ const SignInForm = () => {
 
       GetTokenIsValid(resultLogin.result.token).then((res) => {
         if (res) {
-          dispatch(setUserInfo(res));
+          dispatch(setUserInfo(res.result as IUser));
         }
       });
 

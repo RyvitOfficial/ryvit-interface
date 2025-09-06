@@ -4,6 +4,7 @@ import user, { login, logout, setUserInfo } from '@/reducers/user';
 import lastLedger from '@/reducers/lastLedger';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { GetTokenIsValid } from './api/getUser';
+import { IUser } from './types';
 
 function getCookie(name: string): string | null {
   const value = `; ${document.cookie}`;
@@ -34,7 +35,7 @@ if (typeof window !== 'undefined') {
 
     GetTokenIsValid(token).then((res) => {
       if (res) {
-        store.dispatch(setUserInfo(res));
+        store.dispatch(setUserInfo(res.result as IUser));
         store.dispatch(login(token));
       } else {
         store.dispatch(logout());
@@ -48,7 +49,7 @@ if (typeof window !== 'undefined') {
 
       GetTokenIsValid(token).then((res) => {
         if (res) {
-          store.dispatch(setUserInfo(res));
+          store.dispatch(setUserInfo(res.result as IUser));
           store.dispatch(login(token));
         } else {
           store.dispatch(logout());

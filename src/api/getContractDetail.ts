@@ -16,7 +16,7 @@ export const GetContractDetail = async (
       },
     );
 
-    return data.result!;
+    return data;
   } catch (error: any) {
     throw error.data;
   }

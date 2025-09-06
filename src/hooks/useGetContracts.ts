@@ -23,7 +23,7 @@ export const useGetContracts = () => {
     const data = () => {
       if (token) {
         GetContract(token, network).then((contract) => {
-          dispatch(setUserContracts(contract));
+          dispatch(setUserContracts(contract.result as IGetContractResponse[]));
         });
       }
     };

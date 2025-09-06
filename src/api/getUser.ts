@@ -11,8 +11,8 @@ export const GetTokenIsValid = async (token: string) => {
       },
     );
 
-    return data.result;
-  } catch {
-    return false;
+    return data;
+  } catch (error: any) {
+    throw error.data;
   }
 };
