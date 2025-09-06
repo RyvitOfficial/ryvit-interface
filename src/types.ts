@@ -1,4 +1,4 @@
-import { rpc } from '@stellar/stellar-sdk';
+import { Horizon, rpc } from '@stellar/stellar-sdk';
 
 export type NetworkType = 'testnet' | 'mainnet';
 
@@ -126,6 +126,26 @@ export interface IUser {
   dataKeysExpireSoonCount: number;
 }
 
+export interface ISendTransactionOptions {
+  network?: string;
+  isSoroban?: boolean;
+}
+
+export interface ISendTransactionBlux {
+  (
+    xdr: string,
+    options: ISendTransactionOptions & {
+      isSoroban: true;
+    },
+  ): Promise<rpc.Api.GetSuccessfulTransactionResponse>;
+  (
+    xdr: string,
+    options?: ISendTransactionOptions & {
+      isSoroban?: false;
+    },
+  ): Promise<Horizon.HorizonApi.SubmitTransactionResponse>;
+}
+
 export interface ITransactionDetails {
   hash: string;
   created_at: number;
@@ -134,14 +154,12 @@ export interface ITransactionDetails {
     | rpc.Api.GetTransactionStatus.FAILED
     | rpc.Api.GetTransactionStatus.SUCCESS
     | rpc.Api.GetTransactionStatus.NOT_FOUND;
-  useValues: IValues[];
-  useNames: string[];
+  fee: number;
 }
 
 export interface IResponseCreateTransactions {
-  txExtend: string;
-  useNames: string[];
-  useValues: IValues[];
+  extend: string[];
+  restore: string[];
 }
 
 export type SorobanType =
