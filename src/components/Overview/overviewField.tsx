@@ -8,8 +8,8 @@ interface OverviewFieldProps {
 
 const OverviewField = ({ title, value, type }: OverviewFieldProps) => {
   return (
-    <div className="w-full flex justify-between items-center bg-input/40 px-4 py-3 desktopMax:py-2 rounded-lg text-[15px] desktopMax:text-xs">
-      <div className="flex justify-center items-center space-x-3 ">
+    <div className="w-full flex justify-between items-center bg-input/40 px-4 py-3 rounded-lg text-[15px] desktopMax:text-sm">
+      <div className="flex justify-center items-center space-x-2 ">
         <div
           className={`${
             type === 'white' ? 'bg-white' : 'bg-primary'
