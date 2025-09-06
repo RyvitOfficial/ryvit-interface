@@ -1,14 +1,15 @@
 'use client';
 
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 import { AnimatedSelect } from '../Select';
 import UserMenu from '@/containers/UserMenu';
 import ContractSelect from '@/containers/ContractSelect';
 
 import { useAppSelector } from '@/hooks/useRedux';
-import { useDispatch } from 'react-redux';
 import { setUserNetwork } from '@/reducers/user';
+
 import { NetworkType } from '@/types';
 
 const networkOptions = [
@@ -19,9 +20,14 @@ const networkOptions = [
 interface HeaderProps {
   title: string;
   currentContractId?: string;
+  isShowContractSelect?: boolean;
 }
 
-const Header = ({ title, currentContractId }: HeaderProps) => {
+const Header = ({
+  title,
+  currentContractId,
+  isShowContractSelect,
+}: HeaderProps) => {
   const [selectedNetwork, setselectedNetwork] = useState('');
 
   const dispatch = useDispatch();
@@ -38,11 +44,11 @@ const Header = ({ title, currentContractId }: HeaderProps) => {
     <header className="w-full bg-transparent flex items-center justify-between h-24 px-8">
       <div className="flex items-center gap-2 text-2xl text-white font-[600]">
         <span>{title}</span>
-        {currentContractId && currentContractId !== '' && (
+        {isShowContractSelect && (
           <>
             <span className="text-gray-500">/</span>
             <div className="w-[270px]">
-              <ContractSelect currentId={currentContractId} />
+              <ContractSelect currentId={currentContractId!} />
             </div>
           </>
         )}
