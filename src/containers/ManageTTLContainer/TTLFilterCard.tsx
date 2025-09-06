@@ -1,65 +1,71 @@
-import { useState } from 'react';
-
-import CLabel from '@/components/Label';
-import Button from '@/components/Button';
 import { AnimatedSelect } from '@/components/Select';
+import CInput from '@/components/Input';
 
-const options1 = [
+import { Search } from '@/assets';
+
+const statusOption = [
+  { label: 'All', value: '' },
   { label: 'Active', value: 'active' },
   { label: 'Near Expiry', value: 'Near Expiry' },
   { label: 'Expired', value: 'Expired' },
 ];
 
-const options2 = [
+const autoRenewOptions = [
+  { label: 'All', value: '' },
   { label: 'On', value: 'on' },
   { label: 'Off', value: 'off' },
 ];
 
-const TTLFilter = () => {
-  const [selectedStatusValue, setSelectedStatusValue] = useState('');
-  const [selectedAutoRenewValue, setSelectedAutoRenewValue] = useState('');
+interface TTLFilterProps {
+  search: string;
+  setSearch: (value: string) => void;
+  selectedStatus: string;
+  setSelectedStatus: (value: string) => void;
+  selectedAutoRenew: string;
+  setSelectedAutoRenew: (value: string) => void;
+}
 
-  const handleSelectValue = (value: string) => {
-    setSelectedStatusValue(value);
-  };
-
-  const handleSelectedAutoRenewValue = (value: string) => {
-    setSelectedAutoRenewValue(value);
-  };
-
+const TTLFilter = ({
+  setSearch,
+  selectedStatus,
+  setSelectedStatus,
+  selectedAutoRenew,
+  setSelectedAutoRenew,
+}: TTLFilterProps) => {
   return (
-    <div className="bg-bgblack p-5 rounded-xl items-center gap-4 w-full grid grid-cols-[1fr_1fr_1fr]">
-      <div>
-        <CLabel label="Status" />
-        <AnimatedSelect
-          options={options1}
-          onChange={handleSelectValue}
-          network={false}
-          placeholder="All"
-          value={selectedStatusValue}
-          className="desktopMax:h-[35px] desktopMax:text-[13px] border-none"
+    <div className="flex items-center justify-between gap-2 w-full">
+      <div className="w-full">
+        <CInput
+          type="text"
+          placeholder="Search Contracts ..."
+          inputClassName="!border-none !bg-bgblack2 !rounded-lg desktopMax:h-[35px] desktopMax:text-[13px] font-jetbrains text-txtgray "
+          icon={<Search fill="#9CA3AF" />}
+          onChange={(e) => setSearch(e.target.value)}
         />
       </div>
 
-      <div>
-        <CLabel label="Status" />
-        <AnimatedSelect
-          options={options2}
-          onChange={handleSelectedAutoRenewValue}
-          network={false}
-          placeholder="All"
-          value={selectedAutoRenewValue}
-          className="desktopMax:h-[35px] desktopMax:text-[13px] border-none"
-        />
-      </div>
+      <div className="grid grid-cols-[170px_170px] gap-2 w-full justify-end">
+        <div>
+          <AnimatedSelect
+            options={statusOption}
+            onChange={setSelectedStatus}
+            network={false}
+            placeholder="All"
+            value={selectedStatus}
+            className="desktopMax:h-[35px] desktopMax:text-[13px] border-none "
+          />
+        </div>
 
-      <div className="mt-6 ml-auto">
-        <Button
-          color="blue"
-          content="Apply Filter"
-          rounded="sm"
-          className="!h-12 desktopMax:!h-[35px] desktopMax:text-sm"
-        />
+        <div>
+          <AnimatedSelect
+            options={autoRenewOptions}
+            network={false}
+            onChange={setSelectedAutoRenew}
+            placeholder="All"
+            value={selectedAutoRenew}
+            className="desktopMax:h-[35px] desktopMax:text-[13px] border-none"
+          />
+        </div>
       </div>
     </div>
   );

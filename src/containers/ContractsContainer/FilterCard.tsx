@@ -1,7 +1,8 @@
-import { Add, Search } from '@/assets';
 import Button from '@/components/Button';
 import Card from '@/components/Card';
 import CInput from '@/components/Input';
+
+import { Add, Search } from '@/assets';
 
 interface FilterCardProps {
   search: string;
@@ -9,7 +10,7 @@ interface FilterCardProps {
   onAddContract?: () => void;
 }
 
-const FilterCard = ({ search, setSearch, onAddContract }: FilterCardProps) => {
+const FilterCard = ({ setSearch, onAddContract }: FilterCardProps) => {
   return (
     <Card
       bgColor="#121319"
