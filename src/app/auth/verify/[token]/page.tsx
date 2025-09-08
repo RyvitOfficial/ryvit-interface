@@ -1,10 +1,15 @@
 'use client';
-import Image from 'next/image';
 
 import { useEffect, useState, use } from 'react';
+import Image from 'next/image';
+import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
-import { verifyEmail } from '@/api/verifyEmail';
+
 import { Pages } from '@/constants/Pages';
+import AuthCard from '@/components/AuthCard';
+import AuthLayout from '@/containers/AuthLayout';
+
+import { verifyEmail } from '@/api/verifyEmail';
 
 const VerifyEmailPage = ({
   params,
@@ -13,7 +18,6 @@ const VerifyEmailPage = ({
 }) => {
   const router = useRouter();
   const { token } = use(params);
-
   const [status, setStatus] = useState<'loading' | 'success' | 'error'>(
     'loading',
   );
@@ -26,10 +30,8 @@ const VerifyEmailPage = ({
 
         if (response.status === 200) {
           setStatus('success');
-          setTimeout(() => {
-            router.push(Pages.SIGNIN);
-          }, 3000);
-        } else if (response.status === 400) {
+          setTimeout(() => router.push(Pages.SIGNIN), 3000);
+        } else {
           setStatus('error');
           setErrorMessage(
             data.error?.message ||
@@ -47,48 +49,84 @@ const VerifyEmailPage = ({
     verify();
   }, [router, token]);
 
-  const renderIcon = () => {
-    if (status === 'loading') {
-      return (
-        <div className="w-12 h-12 border-4 border-[#1B59F8] border-t-transparent rounded-full animate-spin mb-4 mx-auto" />
-      );
-    } else if (status === 'success') {
-      return <div className="text-5xl text-green-500 mb-4">✅</div>;
-    } else if (status === 'error') {
-      return <div className="text-5xl text-red-500 mb-4">❌</div>;
-    }
-  };
-
-  const renderMessage = () => {
-    if (status === 'loading') {
-      return 'Verifying your email...';
-    } else if (status === 'success') {
-      return 'Your email has been successfully verified! Redirecting to sign in...';
-    } else {
-      return errorMessage;
-    }
+  const states = {
+    loading: {
+      icon: (
+        <div className="w-14 h-14 border-4 border-primary border-t-transparent rounded-full animate-spin mb-6" />
+      ),
+      title: 'Verifying your email...',
+      subtitle: 'Please wait a moment while we confirm your account.',
+      color: 'text-white',
+    },
+    success: {
+      icon: (
+        <motion.div
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 0.4 }}
+          className="flex items-center justify-center w-16 h-16 rounded-full bg-green-100 text-green-600 text-3xl mb-6"
+        >
+          ✓
+        </motion.div>
+      ),
+      title: 'Email Verified 🎉',
+      subtitle: 'Redirecting you to sign in...',
+      color: 'text-green-600',
+    },
+    error: {
+      icon: (
+        <motion.div
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 0.4 }}
+          className="flex items-center justify-center w-16 h-16 rounded-full bg-red-100 text-red-600 text-3xl mb-6"
+        >
+          ✕
+        </motion.div>
+      ),
+      title: 'Verification Failed',
+      subtitle: errorMessage,
+      color: 'text-red-600',
+    },
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#F5F7FA] px-4">
-      <div className="bg-white p-10 rounded-2xl shadow-xl max-w-md w-full text-center border border-[#E9EAEB]">
-        <div className="w-full text-center flex justify-center mb-12">
+    <AuthLayout>
+      <AuthCard>
+        <div className="py-10 text-center flex flex-col items-center">
           <Image
             src="/images/logoType.png"
             alt="logoType"
-            width={130}
-            height={130}
+            width={140}
+            height={140}
+            className="mb-10"
           />
-        </div>
-        {renderIcon()}
-        <p className="text-gray-700 text-base font-medium">{renderMessage()}</p>
-        {status === 'error' && (
-          <p className="text-sm text-gray-500 mt-2">
-            Please try again or request a new verification link.
+
+          {states[status].icon}
+
+          <h2 className={`text-xl font-semibold ${states[status].color}`}>
+            {states[status].title}
+          </h2>
+          <p className="text-gray-600 text-sm mt-2 max-w-xs">
+            {states[status].subtitle}
           </p>
-        )}
-      </div>
-    </div>
+
+          {status === 'error' && (
+            <div className="mt-6 flex flex-col items-center gap-3">
+              <p className="text-xs text-gray-500">
+                Please try again or request a new verification link.
+              </p>
+              <button
+                onClick={() => router.push(Pages.SIGNUP)}
+                className="px-5 py-2 text-sm font-medium rounded-xl bg-primary text-white hover:bg-primary/90 shadow-sm transition"
+              >
+                Request New Link
+              </button>
+            </div>
+          )}
+        </div>
+      </AuthCard>
+    </AuthLayout>
   );
 };
 

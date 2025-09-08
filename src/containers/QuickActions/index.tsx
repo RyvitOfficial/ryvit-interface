@@ -11,6 +11,7 @@ const QuickActions = () => {
         iconBg="#23385C"
         bg="#1D2536"
         borderColor="#3B82F6"
+        href="/contracts"
       />
       <ActionCard
         icon={<Time fill="#C084FC" />}
@@ -19,6 +20,7 @@ const QuickActions = () => {
         bg="#282136"
         iconBg="#422B5D"
         borderColor="#A855F7"
+        href="/ttl"
       />
       <ActionCard
         icon={<Event fill="#4ADE80" />}
@@ -27,6 +29,7 @@ const QuickActions = () => {
         bg="#1B2C27"
         iconBg="#1C4B32"
         borderColor="#22C55E"
+        href="/event"
       />
       <ActionCard
         icon={<Charge fill="#FACC15" />}
@@ -35,6 +38,7 @@ const QuickActions = () => {
         iconBg="#EAB30833"
         bg="#2F2A1E"
         borderColor="#EAB308"
+        href="#"
       />
     </div>
   );

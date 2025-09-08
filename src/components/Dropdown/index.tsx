@@ -42,7 +42,7 @@ const Dropdown = ({
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
-            className={`absolute mt-2 z-50 bg-white border border-border rounded-lg shadow-md min-w-[150px] ${
+            className={`absolute mt-2 z-50 bg-bgblack2 border border-border3/50 rounded-xl shadow-md min-w-[150px] ${
               position === 'right' ? 'right-0' : 'left-0'
             } ${className}`}
           >

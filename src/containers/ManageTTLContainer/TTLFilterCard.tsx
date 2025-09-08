@@ -1,7 +1,5 @@
 import { AnimatedSelect } from '@/components/Select';
-import CInput from '@/components/Input';
-
-import { Search } from '@/assets';
+import SearchInput from '@/components/SearchInput';
 
 const statusOption = [
   { label: 'All', value: '' },
@@ -35,37 +33,34 @@ const TTLFilter = ({
   return (
     <div className="flex items-center justify-between gap-2 w-full">
       <div className="w-full">
-        <CInput
-          type="text"
-          placeholder="Search Contracts ..."
-          inputClassName="!border-none !bg-bgblack2 !rounded-lg desktopMax:h-[35px] desktopMax:text-[13px] font-jetbrains text-txtgray "
-          icon={<Search fill="#9CA3AF" />}
+        <SearchInput
+          placeholder="Search by contract name or address ..."
           onChange={(e) => setSearch(e.target.value)}
         />
       </div>
 
-      <div className="grid grid-cols-[170px_170px] gap-2 w-full justify-end">
-        <div>
-          <AnimatedSelect
-            options={statusOption}
-            onChange={setSelectedStatus}
-            network={false}
-            placeholder="All"
-            value={selectedStatus}
-            className="desktopMax:h-[35px] desktopMax:text-[13px] border-none "
-          />
-        </div>
+      <div className="grid grid-cols-[170px_200px] gap-2 w-full justify-end">
+        <AnimatedSelect
+          options={statusOption}
+          onChange={setSelectedStatus}
+          placeholder="Filter by status"
+          value={selectedStatus === '' ? 'Filter by status' : selectedStatus}
+          className="desktopMax:h-[35px] desktopMax:text-[13px]"
+          height="h-10"
+        />
 
-        <div>
-          <AnimatedSelect
-            options={autoRenewOptions}
-            network={false}
-            onChange={setSelectedAutoRenew}
-            placeholder="All"
-            value={selectedAutoRenew}
-            className="desktopMax:h-[35px] desktopMax:text-[13px] border-none"
-          />
-        </div>
+        <AnimatedSelect
+          options={autoRenewOptions}
+          onChange={setSelectedAutoRenew}
+          placeholder="Filter by auto-renew"
+          value={
+            selectedAutoRenew === ''
+              ? 'Filter by auto-renew'
+              : selectedAutoRenew
+          }
+          className="desktopMax:h-[35px] desktopMax:text-[13px]"
+          height="h-10"
+        />
       </div>
     </div>
   );
