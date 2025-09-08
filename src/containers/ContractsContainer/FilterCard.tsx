@@ -1,8 +1,8 @@
-import Button from '@/components/Button';
 import Card from '@/components/Card';
-import CInput from '@/components/Input';
+import Button from '@/components/Button';
+import SearchInput from '@/components/SearchInput';
 
-import { Add, Search } from '@/assets';
+import { Add } from '@/assets';
 
 interface FilterCardProps {
   search: string;
@@ -18,13 +18,10 @@ const FilterCard = ({ setSearch, onAddContract }: FilterCardProps) => {
       className="w-full text-white p-4 flex justify-between items-center"
     >
       <div className="w-2/6">
-        <CInput
-          type="text"
-          placeholder="Search Contracts ..."
-          inputClassName="!border-border2 font-jetbrains text-txtgray desktopMax:rounded-lg desktopMax:h-[35px] desktopMax:text-[13px]"
-          border
-          icon={<Search fill="#9CA3AF" />}
+        <SearchInput
+          placeholder="Search by contract name or address ..."
           onChange={(e) => setSearch(e.target.value)}
+          border
         />
       </div>
 

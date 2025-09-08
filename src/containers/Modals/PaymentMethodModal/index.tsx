@@ -1,8 +1,9 @@
 import { useEffect } from 'react';
-import cn from 'classnames';
 
 import Modal from '@/components/Modal';
 import Button from '@/components/Button';
+import PaymentOption from '@/components/PaymentOption';
+import { useAppSelector } from '@/hooks/useRedux';
 
 interface ExtendModalContainer {
   isOpen: boolean;
@@ -25,6 +26,8 @@ const ExtendModalContainer = ({
     if (isOpen) setIsOpen(true);
   }, [isOpen, setIsOpen]);
 
+  const balance = useAppSelector((state) => state.user.details?.balanceTest);
+
   const handleIconClick = () => {
     onClose();
   };
@@ -38,40 +41,24 @@ const ExtendModalContainer = ({
     >
       <div className="flex flex-col gap-3">
         {/* Ryvit Balance */}
-        <button
-          onClick={() => setMethod('ryvit')}
-          className={cn(
-            'w-full border rounded-2xl p-5 text-left transition-colors duration-50 bg-transparent',
-            method === 'ryvit'
-              ? 'border-primary/40 bg-primaryLight'
-              : ' border-border4 hover:border-primary/60',
-          )}
-        >
-          <p className="font-medium text-white text-base">
-            Pay with Ryvit Balance
-          </p>
-          <p className="text-sm text-txtgray mt-1">
-            Use the balance available in your Ryvit account
-          </p>
-        </button>
+
+        <PaymentOption
+          value="ryvit"
+          method={method}
+          setMethod={setMethod}
+          label="Pay with Ryvit Balance"
+          description="Use the balance available in your Ryvit account"
+          balance={(balance! / 10 ** 7).toString() + ' XLM'}
+        />
 
         {/* External Wallet */}
-        <button
-          onClick={() => setMethod('wallet')}
-          className={cn(
-            'w-full border rounded-2xl p-5 text-left transition-colors duration-50 ease-in-out bg-transparent',
-            method === 'wallet'
-              ? 'border-primary/40 bg-primaryLight'
-              : ' border-border4 hover:border-primary/60',
-          )}
-        >
-          <p className="font-medium text-white text-base">
-            Pay with External Wallet
-          </p>
-          <p className="text-sm text-txtgray2 mt-1">
-            Connect and pay directly via your wallet
-          </p>
-        </button>
+        <PaymentOption
+          value="wallet"
+          method={method}
+          setMethod={setMethod}
+          label="Pay with External Wallet"
+          description="Connect and pay directly via your wallet"
+        />
       </div>
 
       <p className="text-sm text-txtgray2 px-2 ">

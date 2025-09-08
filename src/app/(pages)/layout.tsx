@@ -1,18 +1,20 @@
 'use client';
 
+import { usePathname } from 'next/navigation';
+
 import AuthGuard from '@/app/AuthGuard';
 import Aside from '@/components/Aside';
 import Header from '@/components/Header';
 import LoadingProgressBar from '@/components/Loading';
 import NotFoundContainer from '@/containers/NotFound';
+
 import { useContractValidation } from '@/hooks/useContractValidation';
 import { useGetContracts } from '@/hooks/useGetContracts';
 import useLedgerUpdater from '@/hooks/useLedgerUpdater';
 import resolveTitle from '@/utils/resolveTitle';
-import { usePathname } from 'next/navigation';
 
 const titleMap: Record<string, string> = {
-  '/dashboard': 'Dashboard',
+  '/home': 'Dashboard',
   '/contracts': 'Contracts',
   '/event/*': 'Event Monitoring',
   '/ttl/*': 'TTL Manager',

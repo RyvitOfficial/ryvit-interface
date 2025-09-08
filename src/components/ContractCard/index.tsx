@@ -9,7 +9,7 @@ import shortenAddress from '@/utils/shortenAddress';
 import { TTLStatusBadge, TTLStatusType } from '../StatusBadge';
 
 import { NetworkType } from '@/types';
-import { Delete, Event, EventList, TTL } from '@/assets';
+import { Delete, Event, EventList, Function, TTL } from '@/assets';
 
 interface ContractCardProps {
   name: string;
@@ -75,31 +75,31 @@ const ContractCard = ({
           <p className="text-xs text-gray-400">TTL</p>
           <p className="font-medium text-white">{ttl}</p>
         </div>
-        <div className="space-y-1">
+        {/* <div className="space-y-1">
           <p className="text-xs text-gray-400">Added</p>
           <p className="font-medium text-white">{addedDate}</p>
-        </div>
+        </div> */}
       </div>
 
-      <div className="flex gap-2 mt-2 font-jetbrains">
+      <div className="flex gap-2 mt-2">
         <Button
           color="black"
           rounded="sm"
-          content="View Functions"
-          logo={<Event />}
+          content="Call Functions"
+          logo={<Function />}
           onClick={() => handleNavigate('function')}
         />
         <Button
           color="black"
           rounded="sm"
-          content="Manage TTL"
+          content="Extend TTL"
           logo={<TTL />}
           onClick={() => handleNavigate('ttl')}
         />
         <Button
           color="black"
           rounded="sm"
-          content="Events"
+          content="Watch Events"
           logo={<EventList />}
           onClick={() => handleNavigate('event')}
         />
@@ -107,7 +107,7 @@ const ContractCard = ({
           color="secondRed"
           rounded="sm"
           content="Remove"
-          className="ml-auto !h-8"
+          className="ml-auto !h-8 text-xs"
           logo={<Delete fill="#F87171" />}
         />
       </div>
