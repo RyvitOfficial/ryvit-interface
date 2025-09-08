@@ -37,8 +37,7 @@ const ContractSelect = ({ currentId }: ContractSelectProps) => {
       options={enhancedOptions}
       onChange={handleChange}
       value={currentId}
-      network={false}
-      className="desktopMax:text-[13px] border-none font-jetbrains !h-14 !text-sm"
+      className="desktopMax:text-[13px] border-none font-jetbrains !h-14 !text-sm rounded-xl"
       placeholder="Choose Contract"
       address
     />
