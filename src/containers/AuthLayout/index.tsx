@@ -47,7 +47,7 @@ const AuthLayout = ({ children }: IAuthLayout) => {
   if (isLogin) return null;
 
   return (
-    <div className="w-full h-dvh flex justify-between items-center overflow-hidden bg-bgblack [background-image:linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] [background-size:40px_40px]">
+    <div className="w-full h-dvh flex justify-between items-center overflow-hidden bg-bgblack [background-image:linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] [background-size:40px_40px]">
       <div className="flex items-center justify-center w-full h-full !z-[9999] flex-col">
         {children}
       </div>
