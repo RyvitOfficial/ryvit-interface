@@ -1,7 +1,6 @@
-// AnimatedSelect.tsx
 'use client';
 
-import { useState, useEffect, ReactNode } from 'react';
+import { useState, useEffect, ReactNode, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import cn from 'classnames';
 
@@ -45,6 +44,8 @@ export const AnimatedSelect = <T extends string>({
     defaultValue,
   );
   const [search, setSearch] = useState('');
+  const containerRef = useRef<HTMLDivElement>(null);
+
   const isControlled = value !== undefined;
 
   const selectedOption =
@@ -57,12 +58,28 @@ export const AnimatedSelect = <T extends string>({
     }
   }, [value, isControlled]);
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(event.target as Node)
+      ) {
+        setOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
   const filteredOptions = options.filter((opt) =>
     opt.label.toLowerCase().includes(search.toLowerCase()),
   );
 
   return (
-    <div className="relative w-full">
+    <div ref={containerRef} className="relative w-full">
       {/* Trigger */}
       <button
         onClick={() => setOpen((prev) => !prev)}
