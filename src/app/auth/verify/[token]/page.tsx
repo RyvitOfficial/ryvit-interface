@@ -100,6 +100,8 @@ const VerifyEmailPage = ({
             width={140}
             height={140}
             className="mb-10"
+            draggable={false}
+            style={{ height: 'auto', width: 'auto' }}
           />
 
           {states[status].icon}

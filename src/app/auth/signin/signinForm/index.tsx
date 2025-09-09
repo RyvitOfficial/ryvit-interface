@@ -103,6 +103,7 @@ const SignInForm = () => {
             alt="logoType"
             width={110}
             height={110}
+            draggable={false}
           />
         </div>
         <div className="flex flex-col justify-center items-center mb-8">

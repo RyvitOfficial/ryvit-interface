@@ -19,7 +19,7 @@ export default function ContractList({ search, data }: ContractListProps) {
   );
 
   return (
-    <div className="grid grid-cols-2 gap-4">
+    <div className="grid grid-cols-2 desktopMax:grid-cols-1 gap-4">
       {filtered.length > 0 ? (
         filtered.map((c, i) => (
           <ContractCard
@@ -31,7 +31,6 @@ export default function ContractList({ search, data }: ContractListProps) {
             ttl={c.datakeys.length.toString()}
             status={calculateStatusContract(c.liveLedger)}
             network={c.network}
-            // addedDate={c.addedDate}
             icon={<AccountIdenticon address={c.address} size={18} />}
             processing={c.isProcessing}
           />

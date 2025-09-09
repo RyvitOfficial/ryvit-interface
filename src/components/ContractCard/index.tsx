@@ -9,7 +9,7 @@ import shortenAddress from '@/utils/shortenAddress';
 import { TTLStatusBadge, TTLStatusType } from '../StatusBadge';
 
 import { NetworkType } from '@/types';
-import { Delete, Event, EventList, Function, TTL } from '@/assets';
+import { Delete, EventList, Function, TTL } from '@/assets';
 
 interface ContractCardProps {
   name: string;
@@ -19,7 +19,6 @@ interface ContractCardProps {
   ttl: string;
   status: TTLStatusType;
   network: NetworkType;
-  addedDate?: string;
   icon?: React.ReactNode;
   processing?: boolean;
 }
@@ -32,7 +31,6 @@ const ContractCard = ({
   ttl,
   status,
   network,
-  addedDate,
   icon,
   processing,
 }: ContractCardProps) => {
@@ -62,7 +60,7 @@ const ContractCard = ({
         </div>
       </div>
 
-      <div className="flex justify-start items-center gap-12 text-sm mt-2">
+      <div className="flex justify-start items-center gap-12 text-sm mt-2 px-2">
         <div className="space-y-1">
           <p className="text-xs text-gray-400">Functions</p>
           <p className="font-medium text-white">{functions}</p>
@@ -75,13 +73,9 @@ const ContractCard = ({
           <p className="text-xs text-gray-400">TTL</p>
           <p className="font-medium text-white">{ttl}</p>
         </div>
-        {/* <div className="space-y-1">
-          <p className="text-xs text-gray-400">Added</p>
-          <p className="font-medium text-white">{addedDate}</p>
-        </div> */}
       </div>
 
-      <div className="flex gap-2 mt-2">
+      <div className="flex items-center gap-2 mt-2">
         <Button
           color="black"
           rounded="sm"
@@ -103,13 +97,17 @@ const ContractCard = ({
           logo={<EventList />}
           onClick={() => handleNavigate('event')}
         />
-        <Button
+        {/* <Button
           color="secondRed"
           rounded="sm"
           content="Remove"
           className="ml-auto !h-8 text-xs"
           logo={<Delete fill="#F87171" />}
-        />
+        /> */}
+
+        <div className="bg-[#EF4444]/20 hover:bg-[#EF4444]/30 flex items-center px-4 rounded-xl ml-auto cursor-pointer h-8">
+          <Delete fill="#F87171" />
+        </div>
       </div>
 
       {processing && (

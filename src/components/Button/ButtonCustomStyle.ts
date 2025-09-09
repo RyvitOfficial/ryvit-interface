@@ -22,7 +22,7 @@ const buttonCustomStyles = (
     gray: 'bg-bgblack2 text-white hover:brightness-110',
     dark: 'bg-input hover:brightness-110',
     black:
-      'bg-bgblack2 text-white border border-border5/80 hover:bg-bgblack !text-xs h-8',
+      'bg-border4/40 text-white border border-border2/20 hover:bg-bgblack2/50 !text-xs h-9',
     custom: '',
   };
 

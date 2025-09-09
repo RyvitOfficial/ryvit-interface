@@ -41,6 +41,7 @@ const ForgetPassword = () => {
             alt="logoType"
             width={130}
             height={130}
+            draggable={false}
           />
         </div>
         <div className="flex flex-col justify-center items-center mb-8">

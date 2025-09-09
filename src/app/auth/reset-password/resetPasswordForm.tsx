@@ -80,6 +80,8 @@ const ResetPasswordForm = ({ token }: IResetPasswordProps) => {
                 alt="logoType"
                 width={130}
                 height={130}
+                draggable={false}
+                style={{ height: 'auto', width: 'auto' }}
               />
             </div>
             <div className="flex flex-col justify-center items-center mb-8">

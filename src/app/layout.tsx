@@ -13,6 +13,7 @@ const inter = Inter({
   subsets: ['latin'],
   weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
   variable: '--font-inter',
+  display: 'swap',
 });
 
 const jetbrains = JetBrains_Mono({
@@ -25,6 +26,7 @@ const grotesk = Space_Grotesk({
   subsets: ['latin'],
   weight: ['400', '700'],
   variable: '--font-grotesk',
+  display: 'swap',
 });
 
 const Providers = dynamic(
