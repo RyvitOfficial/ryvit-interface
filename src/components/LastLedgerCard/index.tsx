@@ -12,7 +12,7 @@ const LastLedgerCard = () => {
         </span>
       </div>
       <div className="flex justify-center items-center h-full min-w-[80px]">
-        <span className="text-base text-blue-500 font-jetbrains font-bold">
+        <span className="text-base text-blue-500 font-jetbrains font-bold min-w-[6ch] truncate">
           {lastLedger}
         </span>
       </div>
