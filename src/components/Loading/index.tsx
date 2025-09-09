@@ -34,6 +34,8 @@ const LoadingProgressBar = () => {
           alt="logoType"
           width={150}
           height={150}
+          priority
+          draggable={false}
         />
       </motion.div>
 

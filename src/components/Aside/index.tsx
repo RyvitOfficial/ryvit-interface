@@ -50,7 +50,9 @@ const Aside = () => {
             alt="logoType"
             width={45}
             height={45}
-            className="bg-[#]"
+            priority
+            draggable={false}
+            style={{ height: 'auto', width: 'auto' }}
           />
           <h2 className="text-white text-2xl font-grotesk font-light">Ryvit</h2>
         </div>
