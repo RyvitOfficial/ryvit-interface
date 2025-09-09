@@ -11,7 +11,10 @@ const NotFoundContainer = () => {
             alt="logoType"
             width={200}
             height={200}
+            priority
+            draggable={false}
             className="mt-8"
+            style={{ height: 'auto', width: 'auto' }}
           />
           <div
             className="absolute top-0 left-1/2 -translate-x-1/2 
