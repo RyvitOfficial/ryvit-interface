@@ -10,6 +10,8 @@ import { TTLStatusBadge, TTLStatusType } from '../StatusBadge';
 
 import { NetworkType } from '@/types';
 import { Delete, EventList, Function, TTL } from '@/assets';
+import { DeleteContract } from '@/api/DeleteContract';
+import { useAppSelector } from '@/hooks/useRedux';
 
 interface ContractCardProps {
   name: string;
@@ -21,6 +23,7 @@ interface ContractCardProps {
   network: NetworkType;
   icon?: React.ReactNode;
   processing?: boolean;
+  id: string;
 }
 
 const ContractCard = ({
@@ -33,11 +36,17 @@ const ContractCard = ({
   network,
   icon,
   processing,
+  id,
 }: ContractCardProps) => {
+  const token = useAppSelector((state) => state.user.token);
   const router = useRouter();
 
   const handleNavigate = (path: string) => {
     router.push(`/${path}/${address}`);
+  };
+
+  const handleDeleteContract = () => {
+    DeleteContract(token!, id);
   };
 
   return (
@@ -105,7 +114,10 @@ const ContractCard = ({
           logo={<Delete fill="#F87171" />}
         /> */}
 
-        <div className="bg-[#EF4444]/20 hover:bg-[#EF4444]/30 flex items-center px-4 rounded-xl ml-auto cursor-pointer h-8">
+        <div
+          className="bg-[#EF4444]/20 hover:bg-[#EF4444]/30 flex items-center px-4 rounded-xl ml-auto cursor-pointer h-8"
+          onClick={handleDeleteContract}
+        >
           <Delete fill="#F87171" />
         </div>
       </div>

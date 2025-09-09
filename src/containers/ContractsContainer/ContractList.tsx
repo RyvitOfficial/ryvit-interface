@@ -33,6 +33,7 @@ export default function ContractList({ search, data }: ContractListProps) {
             network={c.network}
             icon={<AccountIdenticon address={c.address} size={18} />}
             processing={c.isProcessing}
+            id={c._id}
           />
         ))
       ) : (
