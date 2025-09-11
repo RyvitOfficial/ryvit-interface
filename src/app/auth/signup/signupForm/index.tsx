@@ -75,7 +75,7 @@ const SignUpForm = () => {
              border border-[#2C3440] text-gray-200 
              placeholder-gray-500 focus:outline-none 
              focus:border-primary focus:ring-1 focus:ring-primary"
-            errorMsg={errors.name && errors.name.message}
+            errorMsg={errors.email?.message}
             {...register('name', { required: 'Full Name is required' })}
           />
 
@@ -88,11 +88,11 @@ const SignUpForm = () => {
              border border-[#2C3440] text-gray-200 
              placeholder-gray-500 focus:outline-none 
              focus:border-primary focus:ring-1 focus:ring-primary"
-            errorMsg={errors.email && errors.email.message}
+            errorMsg={errors.email?.message}
             {...register('email', {
               required: 'Email is required',
               pattern: {
-                value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/,
+                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
                 message: 'Please enter a valid email address',
               },
             })}
