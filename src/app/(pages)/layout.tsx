@@ -19,6 +19,7 @@ const titleMap: Record<string, string> = {
   '/event/*': 'Event Monitoring',
   '/ttl/*': 'TTL Manager',
   '/function/*': 'Call Function',
+  '/wallet': 'Wallet',
 };
 
 export default function RootLayout({
