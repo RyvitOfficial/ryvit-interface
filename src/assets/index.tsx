@@ -30,4 +30,5 @@ export { default as EyeSlash } from './EyeSlash';
 export { default as Activity } from './Activity';
 export { default as TTL } from './TTL';
 export { default as Search } from './Search';
+export { default as StellarAsset } from './Stellar';
 export { default as SmartContract } from './SmartContract';

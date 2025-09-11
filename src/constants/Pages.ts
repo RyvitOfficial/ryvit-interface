@@ -16,4 +16,5 @@ export const subContractsPage = [
   'ttl',
   'event',
   'function',
+  'wallet',
 ];
