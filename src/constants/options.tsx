@@ -1,9 +1,7 @@
 import {
-  Activity,
   EventList,
   Function,
   Home,
-  Setting,
   SmartContract,
   TTL,
   Wallet,
@@ -28,9 +26,9 @@ export const navItems = [
     href: '/function',
     icon: <Function />,
   },
-  { name: 'Activities', href: '/dashboard/activities', icon: <Activity /> },
-  { name: 'Wallet', href: '/dashboard/wallet', icon: <Wallet /> },
-  { name: 'Settings', href: '/dashboard/settings', icon: <Setting /> },
+  { name: 'Wallet', href: '/wallet', icon: <Wallet /> },
+  // { name: 'Activities', href: '/dashboard/activities', icon: <Activity /> },
+  // { name: 'Settings', href: '/dashboard/settings', icon: <Setting /> },
 ];
 
 export const contractsOptions = [
