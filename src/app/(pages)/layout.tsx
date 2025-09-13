@@ -1,6 +1,9 @@
 'use client';
 
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/store';
 
 import AuthGuard from '@/app/AuthGuard';
 import Aside from '@/components/Aside';
@@ -27,17 +30,31 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const [isMounted, setIsMounted] = useState(false);
+  const router = useRouter();
   const pathname = usePathname();
+  const isLogin = useSelector((state: RootState) => state.user.isLogin);
 
-  const title = resolveTitle(pathname, titleMap);
+  useEffect(() => {
+    setIsMounted(true);
+    if (!isLogin) {
+      router.push('/auth/signin');
+    }
+  }, [isLogin, router]);
+
   useLedgerUpdater();
   useGetContracts();
+  const title = resolveTitle(pathname, titleMap);
 
   const pathParts = pathname.split('/');
   const lastPath = pathParts[pathParts.length - 1];
 
   const { isNotFound, isLoading, isShowContractSelect } =
     useContractValidation(lastPath);
+
+  if (!isMounted) return null;
+
+  if (!isLogin) return null;
 
   if (isLoading) {
     return <LoadingProgressBar />;

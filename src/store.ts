@@ -30,32 +30,15 @@ if (typeof window !== 'undefined') {
   const rememberMe = getCookie('rememberMe');
   const token = getCookie('token');
 
-  if (token) {
-    store.dispatch(login(token));
-
+  if (token && rememberMe === 'true') {
     GetTokenIsValid(token).then((res) => {
-      if (res) {
-        store.dispatch(setUserInfo(res.result as IUser));
+      if (res.result) {
         store.dispatch(login(token));
+        store.dispatch(setUserInfo(res.result as IUser));
       } else {
         store.dispatch(logout());
       }
     });
-  }
-
-  if (rememberMe === 'true') {
-    if (token) {
-      store.dispatch(login(token));
-
-      GetTokenIsValid(token).then((res) => {
-        if (res) {
-          store.dispatch(setUserInfo(res.result as IUser));
-          store.dispatch(login(token));
-        } else {
-          store.dispatch(logout());
-        }
-      });
-    }
   } else {
     document.cookie = 'rememberMe=; path=/; max-age=0';
   }
