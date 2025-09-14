@@ -5,7 +5,6 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store';
 
-import AuthGuard from '@/app/AuthGuard';
 import Aside from '@/components/Aside';
 import Header from '@/components/Header';
 import LoadingProgressBar from '@/components/Loading';
@@ -33,12 +32,13 @@ export default function RootLayout({
   const [isMounted, setIsMounted] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
+
   const isLogin = useSelector((state: RootState) => state.user.isLogin);
 
   useEffect(() => {
     setIsMounted(true);
     if (!isLogin) {
-      router.push('/auth/signin');
+      router.replace('/auth/signin');
     }
   }, [isLogin, router]);
 
@@ -66,25 +66,23 @@ export default function RootLayout({
 
   const currentContractId = lastPath;
   return (
-    <AuthGuard>
-      <div className="bg-background w-full h-screen flex justify-center items-center">
-        <div className="flex justify-center items-start h-full w-full !m-auto">
-          <div className="h-full w-1/5">
-            <Aside />
-          </div>
-
-          <section className="w-full h-full flex flex-col overflow-auto">
-            <div className="w-full shrink-0">
-              <Header
-                title={title}
-                currentContractId={currentContractId}
-                isShowContractSelect={isShowContractSelect}
-              />
-            </div>
-            <article className="w-full flex-1">{children}</article>
-          </section>
+    <div className="bg-background w-full h-screen flex justify-center items-center">
+      <div className="flex justify-center items-start h-full w-full !m-auto">
+        <div className="h-full w-1/5">
+          <Aside />
         </div>
+
+        <section className="w-full h-full flex flex-col overflow-auto">
+          <div className="w-full shrink-0">
+            <Header
+              title={title}
+              currentContractId={currentContractId}
+              isShowContractSelect={isShowContractSelect}
+            />
+          </div>
+          <article className="w-full flex-1">{children}</article>
+        </section>
       </div>
-    </AuthGuard>
+    </div>
   );
 }
