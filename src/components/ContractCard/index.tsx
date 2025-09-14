@@ -12,6 +12,8 @@ import { NetworkType } from '@/types';
 import { Delete, EventList, Function, TTL } from '@/assets';
 import { DeleteContract } from '@/api/DeleteContract';
 import { useAppSelector } from '@/hooks/useRedux';
+import DeleteContractModal from '@/containers/Modals/DeleteContractModal';
+import { useState } from 'react';
 
 interface ContractCardProps {
   name: string;
@@ -38,6 +40,8 @@ const ContractCard = ({
   processing,
   id,
 }: ContractCardProps) => {
+  const [DeleteContractModalIsOpen, setDeleteContractModalIsOpen] =
+    useState(false);
   const token = useAppSelector((state) => state.user.token);
   const router = useRouter();
 
@@ -45,8 +49,17 @@ const ContractCard = ({
     router.push(`/${path}/${address}`);
   };
 
-  const handleDeleteContract = () => {
-    DeleteContract(token!, id);
+  const handleOpenModal = () => {
+    setDeleteContractModalIsOpen(true);
+  };
+
+  const handleDeleteContract = async () => {
+    await DeleteContract(token!, id);
+    setDeleteContractModalIsOpen(false);
+  };
+
+  const handleOnClose = () => {
+    setDeleteContractModalIsOpen(false);
   };
 
   return (
@@ -106,17 +119,10 @@ const ContractCard = ({
           logo={<EventList />}
           onClick={() => handleNavigate('event')}
         />
-        {/* <Button
-          color="secondRed"
-          rounded="sm"
-          content="Remove"
-          className="ml-auto !h-8 text-xs"
-          logo={<Delete fill="#F87171" />}
-        /> */}
 
         <div
           className="bg-[#EF4444]/20 hover:bg-[#EF4444]/30 flex items-center px-4 rounded-xl ml-auto cursor-pointer h-8"
-          onClick={handleDeleteContract}
+          onClick={handleOpenModal}
         >
           <Delete fill="#F87171" />
         </div>
@@ -163,6 +169,12 @@ const ContractCard = ({
           </motion.p>
         </motion.div>
       )}
+
+      <DeleteContractModal
+        isOpen={DeleteContractModalIsOpen}
+        onClose={handleOnClose}
+        DeleteOnClick={handleDeleteContract}
+      />
     </div>
   );
 };

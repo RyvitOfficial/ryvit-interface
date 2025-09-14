@@ -21,9 +21,9 @@ export default function ContractList({ search, data }: ContractListProps) {
   return (
     <div className="grid grid-cols-2 desktopMax:grid-cols-1 gap-4">
       {filtered.length > 0 ? (
-        filtered.map((c, i) => (
+        filtered.map((c) => (
           <ContractCard
-            key={i}
+            key={c._id}
             name={c.name}
             address={c.address}
             functions={c.functions.length}
