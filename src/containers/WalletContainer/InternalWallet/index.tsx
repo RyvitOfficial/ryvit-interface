@@ -1,18 +1,26 @@
 'use client';
 
 import { StellarAsset, Wallet } from '@/assets';
+import WalletDepositModal from '@/containers/Modals/WalletDepositModal';
 import { useAppSelector } from '@/hooks/useRedux';
+import { useState } from 'react';
 
 interface InternalWalletCardProps {
-  onDeposit: () => void;
   onWithdraw: () => void;
 }
 
-const InternalWalletCard = ({
-  onDeposit,
-  onWithdraw,
-}: InternalWalletCardProps) => {
+const InternalWalletCard = ({ onWithdraw }: InternalWalletCardProps) => {
+  const [walletDepositIsOpen, setWalletDepositIsOpen] = useState(false);
   const balance = useAppSelector((state) => state.user.details?.balanceTest);
+
+  const handleDepositClick = () => {
+    setWalletDepositIsOpen(true);
+  };
+
+  const handleCloseDepositModal = () => {
+    setWalletDepositIsOpen(false);
+  };
+
   return (
     <div className="flex flex-col bg-bgblack border border-border2/70 rounded-2xl p-4 w-full">
       <div className="flex items-center gap-2 mb-3">
@@ -39,7 +47,7 @@ const InternalWalletCard = ({
 
       <div className="flex gap-2 mt-auto">
         <button
-          onClick={onDeposit}
+          onClick={handleDepositClick}
           className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg"
         >
           Deposit
@@ -51,6 +59,11 @@ const InternalWalletCard = ({
           Withdraw
         </button>
       </div>
+
+      <WalletDepositModal
+        isOpen={walletDepositIsOpen}
+        onClose={handleCloseDepositModal}
+      />
     </div>
   );
 };
