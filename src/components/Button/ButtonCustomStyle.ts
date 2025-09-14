@@ -14,7 +14,7 @@ const buttonCustomStyles = (
       'border border-[#D5D7DA] text-[#414651] hover:bg-[#e5e5e5]/50',
     darkBlue: 'text-white bg-secondary !rounded hover:bg-secondary/80',
     discard: 'text-red-600 !bg-red-100 !rounded-[8px] hover:!bg-red-200/80',
-    red: 'bg-red-500 text-white',
+    red: 'bg-[#EF4444] hover:bg-[#EF4444]/90 text-white',
     secondRed:
       'bg-[#EF4444]/20 text-[#F87171] hover:bg-[#EF4444]/30 h-9 text-sm',
     yellow: 'bg-[#E7FB05] text-primary hover:bg-[#E7FB05]/90 ',

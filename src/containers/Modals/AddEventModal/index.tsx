@@ -2,13 +2,13 @@ import Button from '@/components/Button';
 import CInput from '@/components/Input';
 import Modal from '@/components/Modal';
 
-interface CAddEventModalProps {
+interface AddEventModalProps {
   isOpen: boolean;
   onClose: () => void;
   className?: string;
 }
 
-const AddEventModal = ({ isOpen, onClose, className }: CAddEventModalProps) => {
+const AddEventModal = ({ isOpen, onClose, className }: AddEventModalProps) => {
   return (
     <Modal
       isOpen={isOpen}

@@ -40,7 +40,7 @@ const CSwitch = ({
       } ${className}`}
     >
       <motion.div
-        layout
+        layout={false}
         className="w-5 h-5 bg-white rounded-full shadow"
         transition={{ type: 'spring', stiffness: 700, damping: 30 }}
       />
