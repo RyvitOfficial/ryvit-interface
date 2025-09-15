@@ -47,6 +47,51 @@ export interface ISettings {
   limit: number;
 }
 
+export interface IEventStraucture {
+  _id: string;
+  name: string;
+  selected: boolean;
+  interfaceType: string;
+  paramsType: string[];
+  valueType: string;
+  config: string;
+}
+
+export interface IContractEventConfig {
+  active: boolean;
+  endpoint: string;
+  privateKey: string;
+  publickKey: string;
+  user: string;
+  endpointTest: string;
+  lastSentLedger: number;
+  contract: string;
+  statusText?: string;
+  network: 'testnet' | 'mainnet';
+}
+
+export interface IContractEventResponse {
+  name: string;
+  hash: string;
+  ledger: number;
+  isSend: boolean;
+  endpoint: string;
+  privateKey: string;
+  value: any;
+  params: any[];
+  event: rpc.Api.EventResponse;
+  realEvent: string;
+  contractEventConfig: string;
+  createdAt: string;
+  _id: string;
+}
+
+interface IContractEvents {
+  events: IEventStraucture[];
+  eventConfig: IContractEventConfig;
+  contractEvents: IContractEventResponse[];
+}
+
 export interface IGetContractResponse {
   _id: string;
   name: string;
@@ -54,7 +99,7 @@ export interface IGetContractResponse {
   datakeys: IDataKey[];
   liveLedger: number;
   network: 'testnet' | 'mainnet';
-  events: [];
+  event: IContractEvents;
   functions: [];
   settings: ISettings;
   isProcessing: boolean;
@@ -111,6 +156,15 @@ export interface IGeneratedToken {
   address: string;
 }
 
+interface IWalletTransaction {
+  hash?: string;
+  amount: number;
+  user: string;
+  network: NetworkType;
+  type: 'deposit' | 'withdraw' | 'extend' | 'plan';
+  createdAt: string;
+}
+
 export interface IUser {
   name: string;
   logo: string | undefined;
@@ -124,6 +178,8 @@ export interface IUser {
   contractsCount: number;
   detaKeysCount: number;
   dataKeysExpireSoonCount: number;
+  memo: string;
+  walletTransactions: IWalletTransaction[];
 }
 
 export interface ISendTransactionOptions {
