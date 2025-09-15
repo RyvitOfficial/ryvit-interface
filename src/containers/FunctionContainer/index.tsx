@@ -4,15 +4,15 @@ import ContractFunction from './Functions';
 import FunctionSDK from './FunctionSDK';
 import ResponseOutput from './ResponseOutput';
 
-interface FunctionContainerProps {
-  currentContractId: string;
-}
+// interface FunctionContainerProps {
+//   currentContractId: string;
+// }
 
-const FunctionContainer = ({ currentContractId }: FunctionContainerProps) => {
+const FunctionContainer = () => {
   return (
     <div className="grid grid-cols-2 gap-4">
       <div className="col-span-1">
-        <ContractFunction contractId={currentContractId} />
+        <ContractFunction />
         <div className="mt-4">
           <ResponseOutput />
         </div>
