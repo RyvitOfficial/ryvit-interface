@@ -6,14 +6,14 @@ export const metadata: Metadata = {
   title: 'Ryvit - Event',
 };
 
-const Event = async ({}: // params,
-{
+const Event = async ({
+  params,
+}: {
   params: Promise<{ contractId: string }>;
 }) => {
-  // const { contractId } = await params;
+  const { contractId } = await params;
 
-  // return <EventContainer currentContractId={contractId} />;
-  return <EventContainer />;
+  return <EventContainer currentContractId={contractId} />;
 };
 
 export default Event;

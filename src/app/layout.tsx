@@ -53,7 +53,7 @@ export default function RootLayout({
         <Provider store={store}>
           <Providers>
             {children}
-            <Toaster position="bottom-center" />
+            <Toaster position="bottom-center" richColors />
           </Providers>
         </Provider>
       </body>
