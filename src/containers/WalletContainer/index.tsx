@@ -21,7 +21,7 @@ const WalletContainer = () => {
         </h2>
         <div className="grid grid-cols-2 small:grid-cols-1 gap-4">
           <ExternalWalletCard />
-          <InternalWalletCard onWithdraw={() => alert('Withdraw clicked')} />
+          <InternalWalletCard />
         </div>
       </Card>
 
