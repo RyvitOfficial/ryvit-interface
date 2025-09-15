@@ -30,7 +30,7 @@ export const useGetContracts = () => {
 
     data();
 
-    const intervalId = setInterval(data, 5000);
+    const intervalId = setInterval(data, 1000);
 
     return () => clearInterval(intervalId);
   }, [token, network, dispatch]);
