@@ -27,7 +27,7 @@ export default function ContractList({ search, data }: ContractListProps) {
             name={c.name}
             address={c.address}
             functions={c.functions.length}
-            events={c.events.length}
+            events={c.event.events.length}
             ttl={c.datakeys.length.toString()}
             status={calculateStatusContract(c.liveLedger)}
             network={c.network}
