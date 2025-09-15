@@ -11,7 +11,7 @@ const TransactionItem = ({
   date,
   amount,
 }: TransactionItemProps) => {
-  const isPositive = amount > 0;
+  const isPositive = type === 'deposit' ? true : false;
 
   return (
     <div className="flex items-center justify-between bg-bgblack2/50 border border-border3/50 rounded-xl p-4 shadow-sm">
@@ -36,7 +36,7 @@ const TransactionItem = ({
           isPositive ? 'text-green-500' : 'text-red-500'
         }`}
       >
-        {isPositive ? `+${amount.toFixed(2)} XLM` : `${amount.toFixed(2)} XLM`}
+        {`${type === 'deposit' ? '+' : '-'}${amount.toFixed(2)} XLM`}
       </div>
     </div>
   );

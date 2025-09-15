@@ -58,6 +58,7 @@ export interface IEventStraucture {
 }
 
 export interface IContractEventConfig {
+  _id: string;
   active: boolean;
   endpoint: string;
   privateKey: string;

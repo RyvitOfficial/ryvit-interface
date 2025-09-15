@@ -8,6 +8,28 @@ import { useAppSelector } from '@/hooks/useRedux';
 
 const DashboardStats = () => {
   const userDetails = useAppSelector((state) => state.user.details);
+  const contracts = useAppSelector((state) => state.user.contracts);
+
+  const events = contracts.map((c) => c.event.events);
+  const eventConfigs = contracts.map((c) => c.event.eventConfig);
+  const eventConfigIds = eventConfigs
+    .filter((e) => e.active === true)
+    .map((e) => e._id);
+
+  let eventMonitors = 0;
+  let autoRenewals = 0;
+
+  events.map((e) => {
+    eventMonitors += e.filter(
+      (f) => eventConfigIds.includes(f.config) && f.selected === true,
+    ).length;
+  });
+
+  const datakeys = contracts.map((c) => c.datakeys);
+
+  datakeys.map((d) => {
+    autoRenewals += d.filter((f) => f.autoExtend === true).length;
+  });
 
   return (
     <div className="grid grid-cols-4 gap-5 mt-6">
@@ -31,7 +53,7 @@ const DashboardStats = () => {
         icon={<Renew />}
         label="Auto Renewals"
         description="Active TTL renewals"
-        value={2}
+        value={autoRenewals}
         color="text-green-400"
         iconBgColor="#10B981"
       />
@@ -39,7 +61,7 @@ const DashboardStats = () => {
         icon={<Event fill="#FB923C" />}
         label="Event Monitors"
         description="Events being watched"
-        value={23}
+        value={eventMonitors}
         color="text-orange-400"
         iconBgColor="#F59E0B"
       />

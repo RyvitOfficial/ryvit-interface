@@ -4,7 +4,6 @@ import {
   Networks,
   Operation,
   TransactionBuilder,
-  SorobanDataBuilder,
   Memo,
 } from '@stellar/stellar-sdk';
 
@@ -18,8 +17,7 @@ const baseTransaction = async (
     | xdr.Operation<Operation.RestoreFootprint>
     | xdr.Operation<Operation.Payment>,
   network: NetworkType,
-  keys?: xdr.LedgerKey[],
-  type?: 'extend' | 'restore',
+  memo?: string,
 ) => {
   const { fee } = await getConfig(network);
 
@@ -28,21 +26,11 @@ const baseTransaction = async (
     networkPassphrase: Networks.TESTNET,
   });
 
-  if (keys) {
-    if (type === 'extend') {
-      transaction = transaction.setSorobanData(
-        new SorobanDataBuilder().setFootprint(keys).build(),
-      );
-    } else {
-      transaction = transaction.setSorobanData(
-        new SorobanDataBuilder().setReadWrite(keys).build(),
-      );
-    }
-  }
-
   transaction = transaction.addOperation(call);
 
-  transaction = transaction.addMemo(Memo.text('Manage TTL https://ryvit.app'));
+  transaction = transaction.addMemo(
+    Memo.text(memo ? memo : 'Manage TTL https://ryvit.app'),
+  );
 
   transaction = transaction.setTimeout(0);
 

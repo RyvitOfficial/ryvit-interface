@@ -19,7 +19,7 @@ const UserMenu = ({ children }: IUserMenu) => {
         <p className="font-medium text-white truncate">{user?.name}</p>
         <p className="text-txtgray truncate">{user?.email}</p>
         <p className="text-txtgray truncate">
-          Balance : {`${user && user.balanceTest / 10 ** 7} XLM`}
+          Balance : {`${user && (user.balanceTest / 10 ** 7).toFixed(3)} XLM`}
         </p>
       </div>
 
