@@ -1,9 +1,11 @@
+import { useEffect, useState } from 'react';
+import Image from 'next/image';
+
 import Modal from '@/components/Modal';
 import Button from '@/components/Button';
 import CopyButton from '@/components/CopyButton';
-import { useEffect, useState } from 'react';
 import generateQrCode from '@/utils/generateQrCode';
-import Image from 'next/image';
+import { useAppSelector } from '@/hooks/useRedux';
 
 interface WalletDepositModalProps {
   isOpen: boolean;
@@ -14,14 +16,14 @@ interface WalletDepositModalProps {
 const WalletDepositModal = ({ isOpen, onClose }: WalletDepositModalProps) => {
   const [qrCode, setQrCode] = useState<string | null>(null);
 
-  const depositAddress =
-    'GA2THSPK55NUHJJDXJAV5VBMEXLAC3RZYARLLZZMEE7PS6TRI6EDJSLZ';
-  const depositMemo = '123456';
+  const memo = useAppSelector((state) => state.user.details?.memo) as string;
+
+  const depositAddress = process.env.NEXT_PUBLIC_RYVIT_WALLET as string;
 
   useEffect(() => {
     const generateQr = async () => {
       try {
-        const qr = await generateQrCode(depositAddress, depositMemo);
+        const qr = await generateQrCode(depositAddress, memo);
         setQrCode(qr);
       } catch (error) {
         console.error('Error generating QR code:', error);
@@ -29,7 +31,7 @@ const WalletDepositModal = ({ isOpen, onClose }: WalletDepositModalProps) => {
     };
 
     generateQr();
-  }, []);
+  }, [memo, depositAddress]);
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} width="700px">
@@ -58,10 +60,8 @@ const WalletDepositModal = ({ isOpen, onClose }: WalletDepositModalProps) => {
         <div className="w-full px-4">
           <label className="block text-xs text-gray-400 mb-1">Memo</label>
           <div className="flex items-center justify-between bg-[#1E242C] px-4 py-3 rounded-xl">
-            <span className="truncate text-gray-200 text-sm">
-              {depositMemo}
-            </span>
-            <CopyButton text={depositMemo} />
+            <span className="truncate text-gray-200 text-sm">{memo}</span>
+            <CopyButton text={memo} />
           </div>
         </div>
 

@@ -20,24 +20,24 @@ type IToast<T = any> = IToastBase | IToastProcess<T>;
 
 const Toast = <T,>(props: IToast<T>) => {
   if (props.type === 'process') {
-    toast.promise(props.promise, {
-      loading: props.text,
-      success: (data: any) => {
-        // data = { message, result? }
-        if (data.result && props.setValues) {
+    toast.promise(
+      props.promise.then((data) => {
+        if (data.result === undefined) {
+          return Promise.reject(data.message);
+        }
+
+        if (props.setValues) {
           props.setValues(data.result);
         }
 
-        if (data.result) {
-          return data.message;
-        }
-
-        return `Error: ${data.message}`;
+        return data.message;
+      }),
+      {
+        loading: props.text,
+        success: (message: string) => message,
+        error: (message: string) => message || 'Something went wrong',
       },
-      error: (err: any) => {
-        return err?.message || 'Something went wrong';
-      },
-    });
+    );
   } else {
     if (props.type === 'success') toast.success(props.text);
     else if (props.type === 'loading') toast.loading(props.text);

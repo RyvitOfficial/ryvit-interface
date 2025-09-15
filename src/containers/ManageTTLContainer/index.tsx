@@ -40,10 +40,6 @@ const ManageTTLContainer = ({ currentContractId }: ManageTTLContainerProps) => {
     (e) => e.address === currentContractId,
   );
 
-  const contractId = contracts.filter(
-    (contract) => contract.address === currentContractId,
-  );
-
   const dataKeys = selectedContract[0].datakeys;
 
   useEffect(() => {
@@ -78,7 +74,7 @@ const ManageTTLContainer = ({ currentContractId }: ManageTTLContainerProps) => {
     ExtendTransactions(
       method,
       selectedKeys,
-      contractId[0]._id,
+      selectedContract[0]._id,
       setClearTrigger,
       setIsOpen,
       setLoadingIsOpen,

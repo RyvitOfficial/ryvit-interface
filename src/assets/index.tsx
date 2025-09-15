@@ -29,6 +29,8 @@ export { default as Setting } from './Setting';
 export { default as EyeSlash } from './EyeSlash';
 export { default as Activity } from './Activity';
 export { default as TTL } from './TTL';
+export { default as Start } from './Start';
+export { default as Stop } from './Stop';
 export { default as Search } from './Search';
 export { default as StellarAsset } from './Stellar';
 export { default as SmartContract } from './SmartContract';

@@ -1,35 +1,26 @@
 'use client';
 
-import { Copy } from '@/assets';
-import Button from '@/components/Button';
-import Card from '@/components/Card';
-import CInput from '@/components/Input';
-import { useState } from 'react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { oneDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 
-const codeString = `interface MyDataType {
-  id: string
+import Card from '@/components/Card';
+import CopyButton from '@/components/CopyButton';
+
+import generateEventSDK from '@/utils/generateEventSDK';
+
+import { IGetContractResponse } from '@/types';
+
+interface SDKConfigProps {
+  currentContract: IGetContractResponse;
 }
 
-createdLockupEventRoute<MyDataType>(app, {
-  path: "/custom-events",
-  publicKey: 'your public key',
-  handler: (data) => {
-    console.log("Received secure data:", data);
-  },
-});`;
+const SDKConfig = ({ currentContract }: SDKConfigProps) => {
+  const publicKey = currentContract.event.eventConfig.publickKey
+    .replace(/-----BEGIN PUBLIC KEY-----/, '')
+    .replace(/-----END PUBLIC KEY-----/, '')
+    .trim();
 
-const SDKConfig = () => {
-  const [publicKey, setPublicKey] = useState(
-    'asklfjhlksdjfhkasjdhdfsssssssssssdsdfewfkadjshf',
-  );
-
-  const handlePublicKey = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPublicKey(e.target.value);
-  };
-
-  const handleCopyClick = () => {};
+  const sdk = generateEventSDK(currentContract);
 
   return (
     <Card
@@ -37,53 +28,49 @@ const SDKConfig = () => {
       borderColor="transparent"
       className="w-full text-white py-5 px-6 h-full flex flex-col"
     >
-      <h2 className="text-lg font-medium font-jetbrains desktopMax:text-base text-white mb-2 shrink-0">
+      <h2 className="text-xl font-medium text-white flex items-center gap-2">
         SDK Configuration
       </h2>
 
-      <div className="flex-1 overflow-y-auto">
+      <div className="flex-1 relative">
         <div className="w-full flex justify-between items-center mb-1">
           <p className="text-sm text-txtgray">usage</p>
-          <Button
-            color="darkBlue"
-            content="Copy"
-            rounded="sm"
-            className="h-6 text-xs !px-3"
-            logo={<Copy />}
-            onClick={handleCopyClick}
-          />
+
+          <div className="mb-2">
+            <CopyButton
+              text={sdk}
+              content="Copy"
+              className="text-white bg-secondary hover:bg-secondary/80 text-[9px] rounded-md py-1 flex items-center gap-1 px-3"
+            />
+          </div>
         </div>
 
-        <Card
-          bgColor="#2A2A2F"
-          borderColor="transparent"
-          className="rounded-md overflow-hidden"
-        >
+        <div className="rounded-md overflow-hidden">
           <SyntaxHighlighter
-            language="typescript"
+            language="javascript"
             style={oneDark}
-            showLineNumbers
             customStyle={{
               margin: 0,
-              padding: '1rem',
-              background: '#2A2A2F',
+              borderRadius: '12px',
+              padding: '0.5rem 1rem',
               border: '1px solid transparent',
               fontSize: '12px',
+              height: 'auto',
             }}
           >
-            {codeString}
+            {sdk}
           </SyntaxHighlighter>
-        </Card>
+        </div>
 
-        <div className="mt-8">
+        <div className="mt-8 z-50 pb-8">
           <p className="text-sm text-txtgray mb-1">Public Key</p>
-          <CInput
-            value={publicKey}
-            onChange={handlePublicKey}
-            inputClassName="!bg-input border-borderblack text-white"
-            hideCharacter
-            border
-          />
+
+          <div className="flex items-center justify-between bg-input px-4 py-3 rounded-xl z-50">
+            <span className="truncate text-gray-200 text-xs">{publicKey}</span>
+            <div className="relative z-50">
+              <CopyButton text={publicKey} />
+            </div>
+          </div>
         </div>
       </div>
     </Card>

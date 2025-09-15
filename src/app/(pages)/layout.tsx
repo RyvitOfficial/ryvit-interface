@@ -14,6 +14,7 @@ import { useContractValidation } from '@/hooks/useContractValidation';
 import { useGetContracts } from '@/hooks/useGetContracts';
 import useLedgerUpdater from '@/hooks/useLedgerUpdater';
 import resolveTitle from '@/utils/resolveTitle';
+import { useGetUser } from '@/hooks/useGetUser';
 
 const titleMap: Record<string, string> = {
   '/home': 'Dashboard',
@@ -44,6 +45,8 @@ export default function RootLayout({
 
   useLedgerUpdater();
   useGetContracts();
+  useGetUser();
+
   const title = resolveTitle(pathname, titleMap);
 
   const pathParts = pathname.split('/');

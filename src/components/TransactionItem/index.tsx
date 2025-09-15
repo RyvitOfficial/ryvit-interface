@@ -1,5 +1,5 @@
 interface TransactionItemProps {
-  type: 'deposit' | 'fee' | 'ttl';
+  type: 'deposit' | 'withdraw' | 'extend' | 'plan';
   title: string;
   date: string;
   amount: number;

@@ -1,36 +1,30 @@
 'use client';
 
 import Card from '@/components/Card';
+import DateFormat from '@/utils/DateFormat';
+import { useAppSelector } from '@/hooks/useRedux';
 import TransactionItem from '@/components/TransactionItem';
 
 const RecentTransactions = () => {
-  const transactions = [
-    {
-      type: 'fee' as const,
-      title: 'Event Listener Fee',
-      date: 'Jan 15, 2024 14:30',
-      amount: -0.15,
-    },
-    {
-      type: 'deposit' as const,
-      title: 'Wallet Deposit',
-      date: 'Jan 15, 2024 12:15',
-      amount: 6.0,
-    },
-    {
-      type: 'ttl' as const,
-      title: 'Extend TTL',
-      date: 'Jan 15, 2024 14:30',
-      amount: -0.78,
-    },
-    {
-      type: 'deposit' as const,
-      title: 'Wallet Deposit',
-      date: 'Jan 15, 2024 12:15',
-      amount: 9.0,
-    },
-  ];
+  const transactions = useAppSelector(
+    (state) => state.user.details?.walletTransactions,
+  );
 
+  const transactionsWithTitle = transactions?.map((e) => {
+    return {
+      ...e,
+      title:
+        e.type == 'deposit'
+          ? 'Wallet Deposit'
+          : e.type == 'extend'
+          ? 'Extend TTL'
+          : e.type == 'withdraw'
+          ? 'Wallet Withdraw'
+          : e.type == 'plan'
+          ? 'Buy Plan'
+          : '',
+    };
+  });
   return (
     <Card
       bgColor="#121319"
@@ -41,15 +35,16 @@ const RecentTransactions = () => {
         Recent Transactions
       </h2>
       <div className="flex flex-col gap-3">
-        {transactions.map((tx, index) => (
-          <TransactionItem
-            key={index}
-            type={tx.type}
-            title={tx.title}
-            date={tx.date}
-            amount={tx.amount}
-          />
-        ))}
+        {transactionsWithTitle &&
+          transactionsWithTitle.map((tx, index) => (
+            <TransactionItem
+              key={index}
+              type={tx.type}
+              title={tx.title}
+              date={DateFormat(tx.createdAt)}
+              amount={tx.amount / 10 ** 7}
+            />
+          ))}
       </div>
     </Card>
   );

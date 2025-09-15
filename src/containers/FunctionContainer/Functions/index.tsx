@@ -9,12 +9,11 @@ import FunctionsList from './FunctionsList';
 import { ContractFunction } from '@/types';
 import { MOCK_CONTRACTS } from '@/constants/options';
 
-interface ContractFunctionProps {
-  contractId: string;
-}
-
-const ContractFunctionContainer = ({ contractId }: ContractFunctionProps) => {
-  const contract = MOCK_CONTRACTS.find((c) => c.label === contractId);
+const ContractFunctionContainer = () => {
+  const contract = MOCK_CONTRACTS.find(
+    (c) =>
+      c.label === 'GAXPZRKDJY4X4VHN3GC2YPRBAM7CRGB3H64R3TMVFUUYIVUF2UTBOY4B',
+  );
 
   const [activeFn, setActiveFn] = useState<ContractFunction | null>(null);
 

@@ -46,11 +46,6 @@ const ExtendTransactions = async (
 
     setLoadingIsOpen(false);
 
-    Toast({
-      type: 'loading',
-      text: 'Extending your DataKeys...',
-    });
-
     setClearTrigger((prev) => prev + 1);
   } else if (method === 'wallet') {
     if (walletAddress) {
