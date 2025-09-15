@@ -32,10 +32,10 @@ interface IEvent {
 const handleEvents = (app: Application) => {
   eventSetup<IEvent>(app, {
       route: '/example',
+      publicKey: "Replace publickey"
       handlers: {
           ${handlersString}
       },
-      publicKey: "Replace publickey"
   });
 }
 
