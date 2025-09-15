@@ -1,17 +1,20 @@
 'use client';
 
-import { Copy } from '@/assets';
 import { AnimatePresence, motion } from 'framer-motion';
 import React, { useState } from 'react';
+import cn from 'classnames';
+
+import { Copy } from '@/assets';
 
 interface CopyButtonProps {
   text: string;
   size?: number;
   color?: string;
   className?: string;
+  content?: string;
 }
 
-const CopyButton = ({ text }: CopyButtonProps) => {
+const CopyButton = ({ text, content, className }: CopyButtonProps) => {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = async () => {
@@ -38,18 +41,25 @@ const CopyButton = ({ text }: CopyButtonProps) => {
   };
 
   return (
-    <div className="relative inline-flex items-center">
-      <div className="ml-2 scale-125 cursor-pointer" onClick={handleCopy}>
+    <div className="relative inline-flex items-center z-50">
+      <div
+        className={cn('ml-2 scale-125 cursor-pointer', className)}
+        onClick={handleCopy}
+      >
+        {content}
         <Copy />
       </div>
       {/* Tooltip */}
       <AnimatePresence>
         {copied && (
           <motion.div
-            initial={{ opacity: 0, y: -5 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -5 }}
-            className="absolute -top-7 left-1/2 -translate-x-1/2 bg-black text-white text-center text-xs rounded px-2 py-1 shadow-lg z-50"
+            initial={{ opacity: 0, x: -5, y: -5 }}
+            animate={{ opacity: 1, x: 0, y: 0 }}
+            exit={{ opacity: 0, x: -5, y: -5 }}
+            className={cn(
+              'absolute  bg-black  text-white text-xs rounded px-2 py-1 shadow-lg z-50',
+              content ? '-top-9 -left-0' : '-top-7 -left-8',
+            )}
           >
             Copied!
           </motion.div>
