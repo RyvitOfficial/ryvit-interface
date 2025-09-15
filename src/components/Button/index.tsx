@@ -21,9 +21,9 @@ export type CButtonColorType =
   | 'custom';
 
 interface ButtonProps {
-  color: CButtonColorType;
+  color?: CButtonColorType;
   content?: string | React.ReactNode;
-  rounded: ButtonRoundedType;
+  rounded?: ButtonRoundedType;
   disabled?: boolean;
   type?: 'button' | 'submit';
   className?: string;
@@ -65,7 +65,11 @@ const Button = ({
   return (
     <button
       type={type}
-      className={`${buttonCustomStyles(rounded, color, disabled)} ${className}`}
+      className={`${buttonCustomStyles(
+        rounded ?? 'sm',
+        color ?? 'custom',
+        disabled,
+      )} ${className}`}
       disabled={disabled}
       {...props}
       onClick={onClick}
