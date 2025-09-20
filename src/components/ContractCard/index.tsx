@@ -92,7 +92,7 @@ const ContractCard = ({
           <p className="font-medium text-white">{events}</p>
         </div>
         <div className="space-y-1">
-          <p className="text-xs text-gray-400">TTL</p>
+          <p className="text-xs text-gray-400">Entries</p>
           <p className="font-medium text-white">{ttl}</p>
         </div>
       </div>
