@@ -43,7 +43,7 @@ const FunctionSDK = () => {
       borderColor="transparent"
       className="w-full text-white py-5 px-6 flex flex-col"
     >
-      <h2 className="text-lg font-medium font-jetbrains desktopMax:text-base text-white mb-2 shrink-0">
+      <h2 className="text-lg font-medium desktopMax:text-base text-white mb-2 shrink-0">
         TypeScript SDK
       </h2>
 

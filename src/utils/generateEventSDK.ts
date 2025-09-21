@@ -6,13 +6,13 @@ const generateEventSDK = (currentContract: IGetContractResponse) => {
   const handlersString = currentContract.event.events
     .filter((e) => e.selected)
     .map((e) => `${e.name}: (data) => { console.log(data) }`)
-    .join(',\n        ');
+    .join(',\n          ');
 
   const IEventString =
     events.length != 0
       ? ` ${'\n'}interface IEvent {
 ${events.map((e) => `    ${e.name}: I${capitalize(e.name)}Payload`).join('\n')}
-} ${'\n'}`
+} ${'\n'} `
       : '';
 
   const IBase =
@@ -28,8 +28,8 @@ ${events.map((e) => `    ${e.name}: I${capitalize(e.name)}Payload`).join('\n')}
 
   return `
 import { eventSetup } from 'ryvit';
-import { Application } from 'express';
 import { rpc } from '@stellar/stellar-sdk';
+import express, { Application } from 'express';
 
 interface IPayloadBase {
     event: rpc.Api.EventResponse,
@@ -39,7 +39,7 @@ interface IPayloadBase {
 const handleEvents = (app: Application) => {
   eventSetup<IEvent>(app, {
       route: '/example',
-      publicKey: "Replace publickey"
+      publicKey: "Replace publickey",
       handlers: {
           ${handlersString}
       },

@@ -4,17 +4,17 @@ const Metadata = () => {
       {/* SEO Meta Tags */}
       <meta
         name="description"
-        content="Ryvit is an advanced dashboard for managing smart contracts and TTL data keys on Stellar and Soroban. Automate, monitor, and extend TTLs effortlessly with built-in wallets and developer-friendly tools."
+        content="Ryvit is a developer-first toolkit and dashboard for Stellar & Soroban. Manage contract TTLs, stream contract events, call functions, and simplify payments with built-in and external wallets."
       />
       <meta
         name="keywords"
-        content="Ryvit, Stellar, Soroban, TTL Management, Smart Contracts, Blockchain Dashboard, Payment Automation, XLM, Crypto Wallet, Blockchain Monitoring, Web3"
+        content="Ryvit, Stellar, Soroban, TTL Management, Smart Contracts, Event Streaming, Contract Functions, Blockchain Dashboard, Payment Automation, XLM, Crypto Wallet, Web3 Developer Tools"
       />
-      <meta name="author" content="Ryvit Team, Ryvit.app" />
+      <meta name="author" content="Ryvit Team" />
       <meta name="copyright" content="Ryvit" />
       <meta
         name="category"
-        content="Finance, Cryptocurrency, Blockchain, Payment gateway"
+        content="Finance, Cryptocurrency, Blockchain, Developer Tools"
       />
       <meta name="rating" content="General" />
       <link rel="canonical" href="https://ryvit.app" />
@@ -25,7 +25,7 @@ const Metadata = () => {
         content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, viewport-fit=cover"
       />
       <meta name="mobile-web-app-capable" content="yes" />
-      <meta name="theme-color" content="#ffffff" />
+      <meta name="theme-color" content="#0F172A" />
 
       {/* Icons */}
       <link rel="icon" href="/favicon.ico" />
@@ -33,27 +33,27 @@ const Metadata = () => {
       {/* Open Graph / Facebook */}
       <meta
         property="og:title"
-        content="Ryvit – Smart TTL Dashboard for Stellar & Soroban"
+        content="Ryvit – Stellar & Soroban Developer Toolkit"
       />
       <meta
         property="og:description"
-        content="Manage and automate your Stellar and Soroban smart contracts with ease. Ryvit helps you extend TTLs, monitor data, and handle payments with XLM."
+        content="Automate TTL renewals, stream contract events, and call functions easily on Stellar & Soroban. Ryvit reduces developer overhead and saves time."
       />
-      <meta
-        property="og:image"
-        content="https://ryvit.app/images/logoType.png"
-      />
+      <meta property="og:image" content="https://asset.ryvit.app/og.png" />
       <meta property="og:url" content="https://ryvit.app" />
       <meta property="og:type" content="website" />
 
       {/* Twitter Card */}
       <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:title" content="Ryvit – TTL Management for Stellar" />
+      <meta
+        name="twitter:title"
+        content="Ryvit – Smart Contract Toolkit for Stellar & Soroban"
+      />
       <meta
         name="twitter:description"
-        content="Ryvit helps developers and businesses manage smart contract TTLs on Stellar and Soroban easily with automation and alerts."
+        content="Manage TTLs, stream events, and call smart contract functions with automation. Built for Stellar & Soroban developers."
       />
-      <meta name="twitter:image" content="https://ryvit.app/og-image.png" />
+      <meta name="twitter:image" content="https://asset.ryvit.app/og.png" />
       <meta name="twitter:site" content="@RyvitApp" />
 
       {/* Branding Info */}
@@ -64,13 +64,13 @@ const Metadata = () => {
       <meta name="identifier-URL" content="https://ryvit.app" />
       <meta
         name="topic"
-        content="Smart Contract Automation, Stellar, Soroban"
+        content="Smart Contract Automation, Stellar, Soroban, Developer Tools"
       />
       <meta
         name="summary"
-        content="Ryvit: TTL Automation for Stellar & Soroban Smart Contracts."
+        content="Ryvit: Automate TTLs, stream events, and call smart contracts on Stellar & Soroban."
       />
-      <meta name="Classification" content="Business" />
+      <meta name="Classification" content="Developer Tools" />
       <meta name="coverage" content="Worldwide" />
       <meta name="distribution" content="Global" />
     </>
